@@ -23,12 +23,15 @@ import org.springframework.stereotype.Controller;
 public class BusAction extends BaseAction<BusBean> {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * 
      */
     private static final long serialVersionUID = 7621332210140934833L;
     @Autowired
 =======
+=======
+>>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
 	
 	private List<BusBean> busList;
     public List<BusBean> getBusList() {
@@ -40,6 +43,9 @@ public class BusAction extends BaseAction<BusBean> {
 	}
 
 	@Autowired
+<<<<<<< HEAD
+>>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
+=======
 >>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
     private BusService busService;
 
