@@ -149,8 +149,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class StationServiceImpl implements StationService {
 
-	@Autowired
-	private StationBeanExtMapper stationBeanExtMapper;
+    @Autowired
+    private StationBeanExtMapper stationBeanExtMapper;
     @Autowired
     private StationBeanMapper stationBeanMapper;
 
@@ -222,8 +222,10 @@ public class StationServiceImpl implements StationService {
      */
     @Override
     public List<StationBean> findByName(String stationName) {
-	
-	return this.stationBeanExtMapper.findByName(stationName);
+	StationBeanExample stationBeanExample = new StationBeanExample();
+	stationBeanExample.clear();
+	stationBeanExample.createCriteria().andStationnameLike(stationName);
+	return this.stationBeanMapper.selectByExample(stationBeanExample);
     }
 
     /*
