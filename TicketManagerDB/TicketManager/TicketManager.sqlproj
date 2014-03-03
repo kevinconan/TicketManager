@@ -126,7 +126,7 @@
     <Build Include="dbo\Tables\Admin.sql" />
     <Build Include="dbo\Tables\Ticket.sql" />
     <Build Include="dbo\Tables\RouteSchedule.sql">
-      <AnsiNulls>Off</AnsiNulls>
+      <AnsiNulls>On</AnsiNulls>
     </Build>
     <Build Include="dbo\Stored Procedures\up_CalcTowStationDistance.sql" />
     <Build Include="dbo\Functions\fn_CoordinateToDistance.sql" />

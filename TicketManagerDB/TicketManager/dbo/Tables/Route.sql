@@ -1,12 +1,14 @@
 ﻿CREATE TABLE [dbo].[Route] (
-    [RouteId]        INT           IDENTITY (1, 1) NOT NULL,
-    [StartStationId] INT           NULL,
-    [EndStationId]   INT           NULL,
-    [RouteName]      NVARCHAR (50) NULL,
+    [RouteId]        INT          IDENTITY (1, 1) NOT NULL,
+    [StartStationId] INT          NULL,
+    [EndStationId]   INT          NULL,
+    [RouteName]      VARCHAR (50) NULL,
     CONSTRAINT [PK_Route] PRIMARY KEY CLUSTERED ([RouteId] ASC),
     CONSTRAINT [FK_Route_Station] FOREIGN KEY ([StartStationId]) REFERENCES [dbo].[Station] ([StationId]),
     CONSTRAINT [FK_Route_Station1] FOREIGN KEY ([EndStationId]) REFERENCES [dbo].[Station] ([StationId])
 );
+
+
 
 
 GO

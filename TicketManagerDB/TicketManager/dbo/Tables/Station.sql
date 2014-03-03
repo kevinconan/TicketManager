@@ -1,10 +1,12 @@
 ﻿CREATE TABLE [dbo].[Station] (
-    [StationId]   INT           IDENTITY (1, 1) NOT NULL,
-    [StationName] NVARCHAR (50) NULL,
-    [LocationX] FLOAT NULL, 
-    [LocationY] FLOAT NULL, 
+    [StationId]   INT          IDENTITY (1, 1) NOT NULL,
+    [StationName] VARCHAR (50) NULL,
+    [LocationX]   FLOAT (53)   NULL,
+    [LocationY]   FLOAT (53)   NULL,
     CONSTRAINT [PK_Station] PRIMARY KEY CLUSTERED ([StationId] ASC)
 );
+
+
 
 
 GO

@@ -1,16 +1,19 @@
-﻿CREATE TABLE [dbo].[Ticket]
-(
-	[TicketId] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [TicketTitle] NVARCHAR(50) NULL, 
-    [TicketScheduleId] INT NULL, 
-    [SeatNo] VARCHAR(50) NULL, 
-    [CustomerName] NVARCHAR(50) NULL, 
-    [TicketNo] VARCHAR(50) NULL UNIQUE([TicketNo]), 
-    [EntryTime] DATETIME NULL DEFAULT getdate(), 
-    [DeadLine] DATETIME NULL, 
-    [Checked] BIT NULL, 
-    CONSTRAINT [FK_Ticket_Schedule] FOREIGN KEY ([TicketScheduleId]) REFERENCES [RouteSchedule]([ScheduleId]) 
-)
+﻿CREATE TABLE [dbo].[Ticket] (
+    [TicketId]         INT          IDENTITY (1, 1) NOT NULL,
+    [TicketTitle]      VARCHAR (50) NULL,
+    [TicketScheduleId] INT          NULL,
+    [SeatNo]           VARCHAR (50) NULL,
+    [CustomerName]     VARCHAR (50) NULL,
+    [TicketNo]         VARCHAR (50) NULL,
+    [EntryTime]        DATETIME     CONSTRAINT [DF__Ticket__EntryTim__35BCFE0A] DEFAULT (getdate()) NULL,
+    [DeadLine]         DATETIME     NULL,
+    [Checked]          BIT          NULL,
+    CONSTRAINT [PK__Ticket__712CC607EB882E3E] PRIMARY KEY CLUSTERED ([TicketId] ASC),
+    CONSTRAINT [FK_Ticket_Schedule] FOREIGN KEY ([TicketScheduleId]) REFERENCES [dbo].[RouteSchedule] ([ScheduleId]),
+    CONSTRAINT [UQ__Ticket__712CCE6569EDA9F2] UNIQUE NONCLUSTERED ([TicketNo] ASC)
+);
+
+
 
 GO
 EXEC sp_addextendedproperty @name = N'MS_Description',
