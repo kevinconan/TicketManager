@@ -22,10 +22,16 @@ import org.springframework.stereotype.Controller;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 7621332210140934833L;
+    @Autowired
+    private BusService busService;
+
+    public BusService getBusService() {
+	return this.busService;
+    }
+
+    public void setBusService(BusService busService) {
+	this.busService = busService;
+    }
 
     @Autowired
     private List<BusBean> busList;
@@ -36,17 +42,6 @@ public class BusAction extends BaseAction<BusBean> {
 
     public void setBusList(List<BusBean> busList) {
 	this.busList = busList;
-    }
-
-    @Autowired
-    private BusService busService;
-
-    public BusService getBusService() {
-	return this.busService;
-    }
-
-    public void setBusService(BusService busService) {
-	this.busService = busService;
     }
 
     /**
