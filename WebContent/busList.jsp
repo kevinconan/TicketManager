@@ -96,15 +96,33 @@ request.setAttribute("username", userName); */
 			items : [{
 				xtype:'textfield',
 				allowBlank : false,
-				blankText : '用户编号不能为空',
-				name : 'userid',
-				fieldLabel:'用户编号'
+				blankText : '车牌号不能为空',
+				name : 'vehicleno',
+				fieldLabel:'车牌号'
 			},{
 				xtype:'textfield',
 				allowBlank : false,
-				blankText : '用户名不能为空',
-				name : 'username',
-				fieldLabel:'用户名'
+				blankText : '线路不能为空',
+				name : 'busrouteid',
+				fieldLabel:'线路'
+			},{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '车辆状态不能为空',
+				name : 'busstate',
+				fieldLabel:'车辆状态'
+			},{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '所属车站不能为空',
+				name : 'busstationid',
+				fieldLabel:'所属车站'
+			},{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '司机名能为空',
+				name : 'drivername',
+				fieldLabel:'司机'
 			},/* {
 				xtype:'combo',
 				autoShow : true,
@@ -134,14 +152,10 @@ request.setAttribute("username", userName); */
 				fieldLabel:'类型'
 			}, */{
 				xtype:'textfield',
-				inputType:'password',
-				name : 'userpassword',
-				fieldLabel:'密码'
-			},{
-				xtype:'textfield',
-				name : 'userstate',
-				fieldLabel:'用户状态'
-			}/* ,{
+				//inputType:'password',
+				name : 'seatcount',
+				fieldLabel:'座位数'
+			},/* ,{
 				xtype:'hidden',
 				name : 'id'
 			} */],
@@ -160,18 +174,18 @@ request.setAttribute("username", userName); */
 			layout:'fit',
 		    width:380,
 		    closeAction:'hide',
-		    height:200,
+		    height:280,
 			resizable : false,
 			shadow : true,
 			modal :true,
 		    closable:true,
-			items:userForm
+			items:busForm
 		});
 		//显示新建书籍窗口
 		function showAddUser(){
-			userForm.form.reset();
-			userForm.isAdd = true;
-			win.setTitle("新增用户");
+			busForm.form.reset();
+			busForm.isAdd = true;
+			win.setTitle("新增汽车");
 			win.show();
 		}
 		//显示修改书籍窗口
