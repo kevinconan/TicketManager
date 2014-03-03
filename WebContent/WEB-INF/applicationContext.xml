@@ -49,7 +49,6 @@
     <!-- 自动扫描 mapper,允许自动注入(根据类型匹配),不需要逐个配置mapper -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="kevin.tm.dao" />
-       
 </bean>
 
 

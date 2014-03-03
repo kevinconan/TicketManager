@@ -18,6 +18,7 @@ import kevin.tm.service.BusService;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
+	@Autowired
 	private BusService busService;
 
 	public BusService getBusService() {

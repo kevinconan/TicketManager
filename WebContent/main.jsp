@@ -27,6 +27,6 @@ String ctxpath = request.getContextPath();
 	
 </script>
 <body>
-<iframe id='contentIframe' name='contentIframe' style='height:100%;width:100%' frameborder="no"></iframe>
+<iframe id='contentIframe' name='contentIframe' style='height:100%;width:100%;border-width:0px'></iframe>
 </body>
 </html>
