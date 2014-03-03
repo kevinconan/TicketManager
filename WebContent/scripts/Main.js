@@ -50,9 +50,9 @@ Ext.onReady(function(){
 	    			leaf: true,
 	    			url : ctxpath+'/userList.jsp'
 	    		},{
-	    			text : '待定',
+	    			text : '汽车管理',
 	    			leaf: true,
-	    			url : ''
+	    			url : ctxpath+'/busList.jsp'
 	    		}]
 	        },
 	        root: {

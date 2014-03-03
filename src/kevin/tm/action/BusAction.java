@@ -3,6 +3,8 @@
  */
 package kevin.tm.action;
 
+import java.util.List;
+
 import kevin.tm.model.BusBean;
 import kevin.tm.service.BusService;
 
@@ -20,11 +22,25 @@ import org.springframework.stereotype.Controller;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
+<<<<<<< HEAD
     /**
      * 
      */
     private static final long serialVersionUID = 7621332210140934833L;
     @Autowired
+=======
+	
+	private List<BusBean> busList;
+    public List<BusBean> getBusList() {
+		return busList;
+	}
+
+	public void setBusList(List<BusBean> busList) {
+		this.busList = busList;
+	}
+
+	@Autowired
+>>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
     private BusService busService;
 
     public BusService getBusService() {
@@ -34,5 +50,49 @@ public class BusAction extends BaseAction<BusBean> {
     public void setBusService(BusService busService) {
 	this.busService = busService;
     }
+    /**
+     * 
+     * 添加BUS信息
+     * @author Kevin
+     * 
+     * */
+    public String Add(BusBean busBean){
+    	if(busService.save(busBean)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String delete(String vehicleNo){
+    	if(busService.deleteByVehicleNo(vehicleNo)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String update(BusBean busBean){
+    	if(busService.update(busBean)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String list(){
+    	setBusList(busService.findAll());
+    	return LIST;
+    }
+    
 
 }

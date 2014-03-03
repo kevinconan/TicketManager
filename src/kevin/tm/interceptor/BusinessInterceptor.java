@@ -38,11 +38,10 @@ public class BusinessInterceptor extends AbstractInterceptor {
 	}
 	this.before(invocation);
 	// 处理非法请求
-	AdminBean adminBean = (AdminBean) invocation.getInvocationContext()
-		.getSession().get("User");
+	/*AdminBean adminBean = (AdminBean) invocation.getInvocationContext().getSession().get("User");
 	if (adminBean == null) {
 	    return "noLogin";
-	}
+	}*/
 	String result = "";
 
 	try {
