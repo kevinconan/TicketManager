@@ -6,6 +6,7 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.StationBeanMapper;
+import kevin.tm.dao.ext.StationBeanExtMapper;
 import kevin.tm.model.StationBean;
 import kevin.tm.model.StationBeanExample;
 import kevin.tm.service.StationService;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class StationServiceImpl implements StationService {
 
+	@Autowired
+	private StationBeanExtMapper stationBeanExtMapper;
     @Autowired
     private StationBeanMapper stationBeanMapper;
 
@@ -89,8 +92,8 @@ public class StationServiceImpl implements StationService {
      */
     @Override
     public List<StationBean> findByName(String stationName) {
-	// TODO Auto-generated method stub
-	return null;
+	
+	return this.stationBeanExtMapper.findByName(stationName);
     }
 
     /*
