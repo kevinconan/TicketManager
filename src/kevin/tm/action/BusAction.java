@@ -22,72 +22,10 @@ import org.springframework.stereotype.Controller;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
-	
-	private List<BusBean> busList;
-    public List<BusBean> getBusList() {
-		return busList;
-	}
-
-	public void setBusList(List<BusBean> busList) {
-		this.busList = busList;
-	}
-
-	@Autowired
-    private BusService busService;
-
-    public BusService getBusService() {
-	return this.busService;
-    }
-
-    public void setBusService(BusService busService) {
-	this.busService = busService;
-    }
     /**
      * 
-     * 添加BUS信息
-     * @author Kevin
-     * 
-     * */
-    public String Add(BusBean busBean){
-    	if(busService.save(busBean)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
-    }
-    
-    public String delete(String vehicleNo){
-    	if(busService.deleteByVehicleNo(vehicleNo)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
-    }
-    
-    public String update(BusBean busBean){
-    	if(busService.update(busBean)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
-    }
-    
-    public String list(){
-    	setBusList(busService.findAll());
-    	return LIST;
-    }
-    
-
-    @Autowired
+     */
+    private static final long serialVersionUID = 7467813069003588100L;
     private List<BusBean> busList;
 
     public List<BusBean> getBusList() {
@@ -96,6 +34,17 @@ public class BusAction extends BaseAction<BusBean> {
 
     public void setBusList(List<BusBean> busList) {
 	this.busList = busList;
+    }
+
+    @Autowired
+    private BusService busService;
+
+    public BusService getBusService() {
+	return this.busService;
+    }
+
+    public void setBusService(BusService busService) {
+	this.busService = busService;
     }
 
     /**
@@ -108,6 +57,7 @@ public class BusAction extends BaseAction<BusBean> {
     public String Add(BusBean busBean) {
 	if (this.busService.save(busBean) != 0) {
 	    this.message = "0";
+
 	} else {
 	    this.message = "1";
 	}
@@ -118,6 +68,7 @@ public class BusAction extends BaseAction<BusBean> {
     public String delete(String vehicleNo) {
 	if (this.busService.deleteByVehicleNo(vehicleNo) != 0) {
 	    this.message = "0";
+
 	} else {
 	    this.message = "1";
 	}
@@ -128,6 +79,7 @@ public class BusAction extends BaseAction<BusBean> {
     public String update(BusBean busBean) {
 	if (this.busService.update(busBean) != 0) {
 	    this.message = "0";
+
 	} else {
 	    this.message = "1";
 	}

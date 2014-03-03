@@ -1,7 +1,5 @@
 package kevin.tm.interceptor;
 
-import kevin.tm.model.AdminBean;
-
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionInvocation;
@@ -38,10 +36,11 @@ public class BusinessInterceptor extends AbstractInterceptor {
 	}
 	this.before(invocation);
 	// 处理非法请求
-	/*AdminBean adminBean = (AdminBean) invocation.getInvocationContext().getSession().get("User");
-	if (adminBean == null) {
-	    return "noLogin";
-	}*/
+	/*
+	 * AdminBean adminBean = (AdminBean)
+	 * invocation.getInvocationContext().getSession().get("User"); if
+	 * (adminBean == null) { return "noLogin"; }
+	 */
 	String result = "";
 
 	try {
