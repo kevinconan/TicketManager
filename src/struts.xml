@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="tmpkg" namespace="/" extends="json-default">
+
+		<!--注册拦截器-->
+		<interceptors>
+			<interceptor name="businessInterceptor" class="kevin.tm.interceptor.BusinessInterceptor">
+			<!--不需要拦截的方法-->
+			<param name="excludeActions">login_checkLogin</param>
+			
+			</interceptor>
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="defaultStack"/>			
+				<interceptor-ref name="businessInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 设置默认拦截器栈 -->
+		<default-interceptor-ref name="mystack"/>
+
+		<!-- 全局跳转页面 -->
+		<global-results>
+			
+			<result name="noLogin">/Login.jsp</result>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+		<!-- 全局异常 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+
+		<action name="login_*" class="loginAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			
+		</action>
+		
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">userList</param>
+			</result>
+			
+		</action>
+		<action name="main" class="kevin.ssme.action.Main">
+		<result name="success">/main.jsp</result>
+		</action>
+		
+		
+		<action name="testAction" class="kevin.ssme.action.TestAction">
+			<result name="success">/main.jsp</result>
+			<result name="failure">/login.jsp</result>
+		</action>
+	</package>
+</struts>
