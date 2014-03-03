@@ -1,14 +1,16 @@
 ﻿CREATE TABLE [dbo].[Bus] (
-    [VehicleNo]    NCHAR (7)     NOT NULL,
-    [DriverName]   NVARCHAR (50) NULL,
-    [SeatCount]    INT           NULL,
-    [BusState]     INT           NULL,
-    [BusStationId] INT           NULL,
-    [BusRouteId]   INT           NULL,
+    [VehicleNo]    CHAR (10)    NOT NULL,
+    [DriverName]   VARCHAR (50) NULL,
+    [SeatCount]    INT          NULL,
+    [BusState]     INT          NULL,
+    [BusStationId] INT          NULL,
+    [BusRouteId]   INT          NULL,
     CONSTRAINT [PK_Bus] PRIMARY KEY CLUSTERED ([VehicleNo] ASC),
     CONSTRAINT [FK_Bus_Route] FOREIGN KEY ([BusRouteId]) REFERENCES [dbo].[Route] ([RouteId]),
     CONSTRAINT [FK_Bus_Station] FOREIGN KEY ([BusStationId]) REFERENCES [dbo].[Station] ([StationId])
 );
+
+
 
 
 GO

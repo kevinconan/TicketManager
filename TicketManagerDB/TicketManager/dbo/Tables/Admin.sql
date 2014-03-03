@@ -1,9 +1,11 @@
-﻿CREATE TABLE [dbo].[Admin]
-(
-	[LoginId] VARCHAR(50) NOT NULL PRIMARY KEY, 
-    [LoginPwd] CHAR(32) NOT NULL, 
-    [AdminName] NVARCHAR(50) NULL
-)
+﻿CREATE TABLE [dbo].[Admin] (
+    [LoginId]   VARCHAR (50) NOT NULL,
+    [LoginPwd]  CHAR (32)    NOT NULL,
+    [AdminName] VARCHAR (50) NULL,
+    CONSTRAINT [PK__Admin__4DDA28188AE07B5B] PRIMARY KEY CLUSTERED ([LoginId] ASC)
+);
+
+
 
 GO
 EXEC sp_addextendedproperty @name = N'MS_Description',

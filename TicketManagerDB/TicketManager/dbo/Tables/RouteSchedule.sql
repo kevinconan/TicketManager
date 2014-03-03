@@ -1,14 +1,16 @@
 ﻿CREATE TABLE [dbo].[RouteSchedule] (
-    [ScheduleId]        INT           NOT NULL,
-    [ScheduleRouteId]   INT           NULL,
-    [StartTime]         DATETIME      NULL,
-    [EndTime]           DATETIME      NULL,
-    [ScheduleName]      NVARCHAR (50) NULL,
-    [ScheduleVehicleNo] NCHAR (7)     NULL,
-    PRIMARY KEY CLUSTERED ([ScheduleId] ASC),
+    [ScheduleId]        INT          NOT NULL,
+    [ScheduleRouteId]   INT          NULL,
+    [StartTime]         DATETIME     NULL,
+    [EndTime]           DATETIME     NULL,
+    [ScheduleName]      VARCHAR (50) NULL,
+    [ScheduleVehicleNo] CHAR (10)    NULL,
+    CONSTRAINT [PK__RouteSch__9C8A5B4980B9B9A7] PRIMARY KEY CLUSTERED ([ScheduleId] ASC),
     CONSTRAINT [FK_RouteSchedule_Bus] FOREIGN KEY ([ScheduleVehicleNo]) REFERENCES [dbo].[Bus] ([VehicleNo]),
     CONSTRAINT [FK_RouteSchedule_Route] FOREIGN KEY ([ScheduleRouteId]) REFERENCES [dbo].[Route] ([RouteId])
 );
+
+
 
 
 
