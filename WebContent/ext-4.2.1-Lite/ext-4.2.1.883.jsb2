@@ -1,0 +1,1376 @@
+{
+  "projectName": "Ext JS",
+  "deployDir": "ext-4",
+  "pkgs": [{
+    "name": "Ext Base",
+    "file": "pkgs/all.js",
+    "fileIncludes": [
+{
+	"text": "Ext.js",
+	"path": "src/"
+},{
+	"text": "Version.js",
+	"path": "src/version/"
+},{
+	"text": "String.js",
+	"path": "src/lang/"
+},{
+	"text": "Number.js",
+	"path": "src/lang/"
+},{
+	"text": "Array.js",
+	"path": "src/lang/"
+},{
+	"text": "Function.js",
+	"path": "src/lang/"
+},{
+	"text": "Object.js",
+	"path": "src/lang/"
+},{
+	"text": "Date.js",
+	"path": "src/lang/"
+},{
+	"text": "Base.js",
+	"path": "src/class/"
+},{
+	"text": "Class.js",
+	"path": "src/class/"
+},{
+	"text": "ClassManager.js",
+	"path": "src/class/"
+},{
+	"text": "Loader.js",
+	"path": "src/class/"
+},{
+	"text": "Error.js",
+	"path": "src/lang/"
+},{
+	"text": "JSON.js",
+	"path": "src/misc/"
+},{
+	"text": "Ext-more.js",
+	"path": "src/"
+},{
+	"text": "Format.js",
+	"path": "src/util/"
+},{
+	"text": "TaskRunner.js",
+	"path": "src/util/"
+},{
+	"text": "TaskManager.js",
+	"path": "src/util/"
+},{
+	"text": "Accumulator.js",
+	"path": "src/perf/"
+},{
+	"text": "Monitor.js",
+	"path": "src/perf/"
+},{
+	"text": "Support.js",
+	"path": "src/"
+},{
+	"text": "DelayedTask.js",
+	"path": "src/util/"
+},{
+	"text": "Event.js",
+	"path": "src/util/"
+},{
+	"text": "EventManager.js",
+	"path": "src/"
+},{
+	"text": "Observable.js",
+	"path": "src/util/"
+},{
+	"text": "EventObject.js",
+	"path": "src/"
+},{
+	"text": "AbstractQuery.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractHelper.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractElement_static.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractElement_insertion.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractElement_style.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractElement_traversal.js",
+	"path": "src/dom/"
+},{
+	"text": "AbstractElement.js",
+	"path": "src/dom/"
+},{
+	"text": "Helper.js",
+	"path": "src/dom/"
+},{
+	"text": "Template.js",
+	"path": "src/"
+},{
+	"text": "XTemplateParser.js",
+	"path": "src/"
+},{
+	"text": "XTemplateCompiler.js",
+	"path": "src/"
+},{
+	"text": "XTemplate.js",
+	"path": "src/"
+},{
+	"text": "Query.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_anim.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_dd.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_fx.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_position.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_scroll.js",
+	"path": "src/dom/"
+},{
+	"text": "Element_style.js",
+	"path": "src/dom/"
+},{
+	"text": "Positionable.js",
+	"path": "src/util/"
+},{
+	"text": "Element.js",
+	"path": "src/dom/"
+},{
+	"text": "CompositeElementLite.js",
+	"path": "src/dom/"
+},{
+	"text": "CompositeElement.js",
+	"path": "src/dom/"
+},{
+	"text": "HashMap.js",
+	"path": "src/util/"
+},{
+	"text": "AbstractManager.js",
+	"path": "src/"
+},{
+	"text": "ComponentManager.js",
+	"path": "src/"
+},{
+	"text": "ComponentQuery.js",
+	"path": "src/"
+},{
+	"text": "ProtoElement.js",
+	"path": "src/util/"
+},{
+	"text": "PluginManager.js",
+	"path": "src/"
+},{
+	"text": "Filter.js",
+	"path": "src/util/"
+},{
+	"text": "AbstractMixedCollection.js",
+	"path": "src/util/"
+},{
+	"text": "Sorter.js",
+	"path": "src/util/"
+},{
+	"text": "Sortable.js",
+	"path": "src/util/"
+},{
+	"text": "MixedCollection.js",
+	"path": "src/util/"
+},{
+	"text": "Target.js",
+	"path": "src/fx/target/"
+},{
+	"text": "Element.js",
+	"path": "src/fx/target/"
+},{
+	"text": "ElementCSS.js",
+	"path": "src/fx/target/"
+},{
+	"text": "CompositeElement.js",
+	"path": "src/fx/target/"
+},{
+	"text": "CompositeElementCSS.js",
+	"path": "src/fx/target/"
+},{
+	"text": "Sprite.js",
+	"path": "src/fx/target/"
+},{
+	"text": "CompositeSprite.js",
+	"path": "src/fx/target/"
+},{
+	"text": "Component.js",
+	"path": "src/fx/target/"
+},{
+	"text": "Queue.js",
+	"path": "src/fx/"
+},{
+	"text": "Manager.js",
+	"path": "src/fx/"
+},{
+	"text": "Animator.js",
+	"path": "src/fx/"
+},{
+	"text": "CubicBezier.js",
+	"path": "src/fx/"
+},{
+	"text": "Easing.js",
+	"path": "src/fx/"
+},{
+	"text": "Color.js",
+	"path": "src/draw/"
+},{
+	"text": "Draw.js",
+	"path": "src/draw/"
+},{
+	"text": "PropertyHandler.js",
+	"path": "src/fx/"
+},{
+	"text": "Anim.js",
+	"path": "src/fx/"
+},{
+	"text": "Animate.js",
+	"path": "src/util/"
+},{
+	"text": "ElementContainer.js",
+	"path": "src/util/"
+},{
+	"text": "Renderable.js",
+	"path": "src/util/"
+},{
+	"text": "Provider.js",
+	"path": "src/state/"
+},{
+	"text": "Manager.js",
+	"path": "src/state/"
+},{
+	"text": "Stateful.js",
+	"path": "src/state/"
+},{
+	"text": "AbstractComponent.js",
+	"path": "src/"
+},{
+	"text": "AbstractPlugin.js",
+	"path": "src/"
+},{
+	"text": "Action.js",
+	"path": "src/"
+},{
+	"text": "BinaryXhr.js",
+	"path": "src/data/flash/"
+},{
+	"text": "Connection.js",
+	"path": "src/data/"
+},{
+	"text": "Ajax.js",
+	"path": "src/"
+},{
+	"text": "Floating.js",
+	"path": "src/util/"
+},{
+	"text": "Component.js",
+	"path": "src/"
+},{
+	"text": "Region.js",
+	"path": "src/layout/container/border/"
+},{
+	"text": "ElementLoader.js",
+	"path": "src/"
+},{
+	"text": "ComponentLoader.js",
+	"path": "src/"
+},{
+	"text": "SizeModel.js",
+	"path": "src/layout/"
+},{
+	"text": "Layout.js",
+	"path": "src/layout/"
+},{
+	"text": "Container.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Auto.js",
+	"path": "src/layout/container/"
+},{
+	"text": "ZIndexManager.js",
+	"path": "src/"
+},{
+	"text": "Queryable.js",
+	"path": "src/"
+},{
+	"text": "Component.js",
+	"path": "src/layout/component/"
+},{
+	"text": "Auto.js",
+	"path": "src/layout/component/"
+},{
+	"text": "AbstractContainer.js",
+	"path": "src/container/"
+},{
+	"text": "Container.js",
+	"path": "src/container/"
+},{
+	"text": "Editor.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Editor.js",
+	"path": "src/"
+},{
+	"text": "KeyMap.js",
+	"path": "src/util/"
+},{
+	"text": "KeyNav.js",
+	"path": "src/util/"
+},{
+	"text": "FocusManager.js",
+	"path": "src/"
+},{
+	"text": "Img.js",
+	"path": "src/"
+},{
+	"text": "Bindable.js",
+	"path": "src/util/"
+},{
+	"text": "LoadMask.js",
+	"path": "src/"
+},{
+	"text": "Association.js",
+	"path": "src/data/association/"
+},{
+	"text": "ModelManager.js",
+	"path": "src/"
+},{
+	"text": "ProgressBar.js",
+	"path": "src/layout/component/"
+},{
+	"text": "ProgressBar.js",
+	"path": "src/"
+},{
+	"text": "ShadowPool.js",
+	"path": "src/"
+},{
+	"text": "Shadow.js",
+	"path": "src/"
+},{
+	"text": "EventDomain.js",
+	"path": "src/app/"
+},{
+	"text": "Component.js",
+	"path": "src/app/domain/"
+},{
+	"text": "EventBus.js",
+	"path": "src/app/"
+},{
+	"text": "StoreManager.js",
+	"path": "src/data/"
+},{
+	"text": "Global.js",
+	"path": "src/app/domain/"
+},{
+	"text": "ResultSet.js",
+	"path": "src/data/"
+},{
+	"text": "Reader.js",
+	"path": "src/data/reader/"
+},{
+	"text": "Json.js",
+	"path": "src/data/reader/"
+},{
+	"text": "Writer.js",
+	"path": "src/data/writer/"
+},{
+	"text": "Json.js",
+	"path": "src/data/writer/"
+},{
+	"text": "Proxy.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "Operation.js",
+	"path": "src/data/"
+},{
+	"text": "AbstractStore.js",
+	"path": "src/data/"
+},{
+	"text": "Store.js",
+	"path": "src/app/domain/"
+},{
+	"text": "Controller.js",
+	"path": "src/app/"
+},{
+	"text": "DockingContainer.js",
+	"path": "src/container/"
+},{
+	"text": "Fill.js",
+	"path": "src/toolbar/"
+},{
+	"text": "None.js",
+	"path": "src/layout/container/boxOverflow/"
+},{
+	"text": "Item.js",
+	"path": "src/toolbar/"
+},{
+	"text": "Separator.js",
+	"path": "src/toolbar/"
+},{
+	"text": "Manager.js",
+	"path": "src/button/"
+},{
+	"text": "Manager.js",
+	"path": "src/menu/"
+},{
+	"text": "ClickRepeater.js",
+	"path": "src/util/"
+},{
+	"text": "Button.js",
+	"path": "src/layout/component/"
+},{
+	"text": "TextMetrics.js",
+	"path": "src/util/"
+},{
+	"text": "Button.js",
+	"path": "src/button/"
+},{
+	"text": "Menu.js",
+	"path": "src/layout/container/boxOverflow/"
+},{
+	"text": "Scroller.js",
+	"path": "src/layout/container/boxOverflow/"
+},{
+	"text": "Offset.js",
+	"path": "src/util/"
+},{
+	"text": "Region.js",
+	"path": "src/util/"
+},{
+	"text": "DragDropManager.js",
+	"path": "src/dd/"
+},{
+	"text": "Box.js",
+	"path": "src/layout/container/"
+},{
+	"text": "HBox.js",
+	"path": "src/layout/container/"
+},{
+	"text": "VBox.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Toolbar.js",
+	"path": "src/toolbar/"
+},{
+	"text": "Dock.js",
+	"path": "src/layout/component/"
+},{
+	"text": "AbstractPanel.js",
+	"path": "src/panel/"
+},{
+	"text": "Header.js",
+	"path": "src/panel/"
+},{
+	"text": "DragDrop.js",
+	"path": "src/dd/"
+},{
+	"text": "DD.js",
+	"path": "src/dd/"
+},{
+	"text": "DDProxy.js",
+	"path": "src/dd/"
+},{
+	"text": "StatusProxy.js",
+	"path": "src/dd/"
+},{
+	"text": "DragSource.js",
+	"path": "src/dd/"
+},{
+	"text": "Proxy.js",
+	"path": "src/panel/"
+},{
+	"text": "DD.js",
+	"path": "src/panel/"
+},{
+	"text": "Memento.js",
+	"path": "src/util/"
+},{
+	"text": "Panel.js",
+	"path": "src/panel/"
+},{
+	"text": "Tip.js",
+	"path": "src/tip/"
+},{
+	"text": "ToolTip.js",
+	"path": "src/tip/"
+},{
+	"text": "QuickTip.js",
+	"path": "src/tip/"
+},{
+	"text": "QuickTipManager.js",
+	"path": "src/tip/"
+},{
+	"text": "Application.js",
+	"path": "src/app/"
+},{
+	"text": "Controller.js",
+	"path": "src/app/domain/"
+},{
+	"text": "Provider.js",
+	"path": "src/direct/"
+},{
+	"text": "Direct.js",
+	"path": "src/app/domain/"
+},{
+	"text": "Split.js",
+	"path": "src/button/"
+},{
+	"text": "Cycle.js",
+	"path": "src/button/"
+},{
+	"text": "Callout.js",
+	"path": "src/chart/"
+},{
+	"text": "CompositeSprite.js",
+	"path": "src/draw/"
+},{
+	"text": "Surface.js",
+	"path": "src/draw/"
+},{
+	"text": "Draw.js",
+	"path": "src/layout/component/"
+},{
+	"text": "Component.js",
+	"path": "src/draw/"
+},{
+	"text": "Theme.js",
+	"path": "src/chart/theme/"
+},{
+	"text": "MaskLayer.js",
+	"path": "src/chart/"
+},{
+	"text": "Mask.js",
+	"path": "src/chart/"
+},{
+	"text": "Navigation.js",
+	"path": "src/chart/"
+},{
+	"text": "Shape.js",
+	"path": "src/chart/"
+},{
+	"text": "LegendItem.js",
+	"path": "src/chart/"
+},{
+	"text": "Legend.js",
+	"path": "src/chart/"
+},{
+	"text": "Base.js",
+	"path": "src/chart/theme/"
+},{
+	"text": "Chart.js",
+	"path": "src/chart/"
+},{
+	"text": "Highlight.js",
+	"path": "src/chart/"
+},{
+	"text": "Label.js",
+	"path": "src/chart/"
+},{
+	"text": "TipSurface.js",
+	"path": "src/chart/"
+},{
+	"text": "Tip.js",
+	"path": "src/chart/"
+},{
+	"text": "Abstract.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Axis.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Category.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Gauge.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Numeric.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Radial.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Time.js",
+	"path": "src/chart/axis/"
+},{
+	"text": "Series.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Cartesian.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Area.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Bar.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Column.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Gauge.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Line.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Pie.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Radar.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Scatter.js",
+	"path": "src/chart/series/"
+},{
+	"text": "Table.js",
+	"path": "src/layout/container/"
+},{
+	"text": "ButtonGroup.js",
+	"path": "src/container/"
+},{
+	"text": "Monitor.js",
+	"path": "src/container/"
+},{
+	"text": "Viewport.js",
+	"path": "src/container/"
+},{
+	"text": "IdGenerator.js",
+	"path": "src/data/"
+},{
+	"text": "SortTypes.js",
+	"path": "src/data/"
+},{
+	"text": "Types.js",
+	"path": "src/data/"
+},{
+	"text": "Field.js",
+	"path": "src/data/"
+},{
+	"text": "Errors.js",
+	"path": "src/data/"
+},{
+	"text": "validations.js",
+	"path": "src/data/"
+},{
+	"text": "Model.js",
+	"path": "src/data/"
+},{
+	"text": "Server.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "Ajax.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "Client.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "Memory.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "LruCache.js",
+	"path": "src/util/"
+},{
+	"text": "PageMap.js",
+	"path": "src/data/"
+},{
+	"text": "Group.js",
+	"path": "src/data/"
+},{
+	"text": "Store.js",
+	"path": "src/data/"
+},{
+	"text": "Array.js",
+	"path": "src/data/reader/"
+},{
+	"text": "ArrayStore.js",
+	"path": "src/data/"
+},{
+	"text": "Batch.js",
+	"path": "src/data/"
+},{
+	"text": "BufferStore.js",
+	"path": "src/data/"
+},{
+	"text": "Manager.js",
+	"path": "src/direct/"
+},{
+	"text": "Direct.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "DirectStore.js",
+	"path": "src/data/"
+},{
+	"text": "JsonP.js",
+	"path": "src/data/"
+},{
+	"text": "JsonP.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "JsonPStore.js",
+	"path": "src/data/"
+},{
+	"text": "JsonStore.js",
+	"path": "src/data/"
+},{
+	"text": "NodeInterface.js",
+	"path": "src/data/"
+},{
+	"text": "NodeStore.js",
+	"path": "src/data/"
+},{
+	"text": "Request.js",
+	"path": "src/data/"
+},{
+	"text": "SequentialIdGenerator.js",
+	"path": "src/data/"
+},{
+	"text": "Tree.js",
+	"path": "src/data/"
+},{
+	"text": "TreeModel.js",
+	"path": "src/data/"
+},{
+	"text": "TreeStore.js",
+	"path": "src/data/"
+},{
+	"text": "UuidGenerator.js",
+	"path": "src/data/"
+},{
+	"text": "Xml.js",
+	"path": "src/data/reader/"
+},{
+	"text": "Xml.js",
+	"path": "src/data/writer/"
+},{
+	"text": "XmlStore.js",
+	"path": "src/data/"
+},{
+	"text": "BelongsTo.js",
+	"path": "src/data/association/"
+},{
+	"text": "Inflector.js",
+	"path": "src/util/"
+},{
+	"text": "HasMany.js",
+	"path": "src/data/association/"
+},{
+	"text": "HasOne.js",
+	"path": "src/data/association/"
+},{
+	"text": "WebStorage.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "LocalStorage.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "Rest.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "SessionStorage.js",
+	"path": "src/data/proxy/"
+},{
+	"text": "DDTarget.js",
+	"path": "src/dd/"
+},{
+	"text": "DragTracker.js",
+	"path": "src/dd/"
+},{
+	"text": "DragZone.js",
+	"path": "src/dd/"
+},{
+	"text": "ScrollManager.js",
+	"path": "src/dd/"
+},{
+	"text": "DropTarget.js",
+	"path": "src/dd/"
+},{
+	"text": "Registry.js",
+	"path": "src/dd/"
+},{
+	"text": "DropZone.js",
+	"path": "src/dd/"
+},{
+	"text": "Event.js",
+	"path": "src/direct/"
+},{
+	"text": "RemotingEvent.js",
+	"path": "src/direct/"
+},{
+	"text": "ExceptionEvent.js",
+	"path": "src/direct/"
+},{
+	"text": "JsonProvider.js",
+	"path": "src/direct/"
+},{
+	"text": "PollingProvider.js",
+	"path": "src/direct/"
+},{
+	"text": "RemotingMethod.js",
+	"path": "src/direct/"
+},{
+	"text": "Transaction.js",
+	"path": "src/direct/"
+},{
+	"text": "RemotingProvider.js",
+	"path": "src/direct/"
+},{
+	"text": "Layer.js",
+	"path": "src/dom/"
+},{
+	"text": "Matrix.js",
+	"path": "src/draw/"
+},{
+	"text": "SpriteDD.js",
+	"path": "src/draw/"
+},{
+	"text": "Sprite.js",
+	"path": "src/draw/"
+},{
+	"text": "Text.js",
+	"path": "src/draw/"
+},{
+	"text": "ImageExporter.js",
+	"path": "src/draw/engine/"
+},{
+	"text": "Svg.js",
+	"path": "src/draw/engine/"
+},{
+	"text": "SvgExporter.js",
+	"path": "src/draw/engine/"
+},{
+	"text": "Vml.js",
+	"path": "src/draw/engine/"
+},{
+	"text": "enums.js",
+	"path": "src/"
+},{
+	"text": "Component.js",
+	"path": "src/flash/"
+},{
+	"text": "Action.js",
+	"path": "src/form/action/"
+},{
+	"text": "Load.js",
+	"path": "src/form/action/"
+},{
+	"text": "Submit.js",
+	"path": "src/form/action/"
+},{
+	"text": "ComponentDragger.js",
+	"path": "src/util/"
+},{
+	"text": "Window.js",
+	"path": "src/window/"
+},{
+	"text": "Labelable.js",
+	"path": "src/form/"
+},{
+	"text": "Field.js",
+	"path": "src/form/field/"
+},{
+	"text": "Field.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "Base.js",
+	"path": "src/form/field/"
+},{
+	"text": "VTypes.js",
+	"path": "src/form/field/"
+},{
+	"text": "Text.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "Text.js",
+	"path": "src/form/field/"
+},{
+	"text": "TextArea.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "TextArea.js",
+	"path": "src/form/field/"
+},{
+	"text": "Display.js",
+	"path": "src/form/field/"
+},{
+	"text": "Anchor.js",
+	"path": "src/layout/container/"
+},{
+	"text": "MessageBox.js",
+	"path": "src/window/"
+},{
+	"text": "Basic.js",
+	"path": "src/form/"
+},{
+	"text": "FieldAncestor.js",
+	"path": "src/form/"
+},{
+	"text": "FieldContainer.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "FieldContainer.js",
+	"path": "src/form/"
+},{
+	"text": "CheckboxGroup.js",
+	"path": "src/layout/container/"
+},{
+	"text": "CheckboxManager.js",
+	"path": "src/form/"
+},{
+	"text": "Checkbox.js",
+	"path": "src/form/field/"
+},{
+	"text": "CheckboxGroup.js",
+	"path": "src/form/"
+},{
+	"text": "FieldSet.js",
+	"path": "src/form/"
+},{
+	"text": "Label.js",
+	"path": "src/form/"
+},{
+	"text": "Panel.js",
+	"path": "src/form/"
+},{
+	"text": "RadioManager.js",
+	"path": "src/form/"
+},{
+	"text": "Radio.js",
+	"path": "src/form/field/"
+},{
+	"text": "RadioGroup.js",
+	"path": "src/form/"
+},{
+	"text": "DirectLoad.js",
+	"path": "src/form/action/"
+},{
+	"text": "DirectSubmit.js",
+	"path": "src/form/action/"
+},{
+	"text": "StandardSubmit.js",
+	"path": "src/form/action/"
+},{
+	"text": "Trigger.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "Trigger.js",
+	"path": "src/form/field/"
+},{
+	"text": "Picker.js",
+	"path": "src/form/field/"
+},{
+	"text": "Model.js",
+	"path": "src/selection/"
+},{
+	"text": "DataViewModel.js",
+	"path": "src/selection/"
+},{
+	"text": "AbstractView.js",
+	"path": "src/view/"
+},{
+	"text": "View.js",
+	"path": "src/view/"
+},{
+	"text": "BoundList.js",
+	"path": "src/layout/component/"
+},{
+	"text": "TextItem.js",
+	"path": "src/toolbar/"
+},{
+	"text": "Spinner.js",
+	"path": "src/form/field/"
+},{
+	"text": "Number.js",
+	"path": "src/form/field/"
+},{
+	"text": "Paging.js",
+	"path": "src/toolbar/"
+},{
+	"text": "BoundList.js",
+	"path": "src/view/"
+},{
+	"text": "BoundListKeyNav.js",
+	"path": "src/view/"
+},{
+	"text": "ComboBox.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "ComboBox.js",
+	"path": "src/form/field/"
+},{
+	"text": "Month.js",
+	"path": "src/picker/"
+},{
+	"text": "Date.js",
+	"path": "src/picker/"
+},{
+	"text": "Date.js",
+	"path": "src/form/field/"
+},{
+	"text": "FileButton.js",
+	"path": "src/form/field/"
+},{
+	"text": "File.js",
+	"path": "src/form/field/"
+},{
+	"text": "Hidden.js",
+	"path": "src/form/field/"
+},{
+	"text": "Color.js",
+	"path": "src/picker/"
+},{
+	"text": "HtmlEditor.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "HtmlEditor.js",
+	"path": "src/form/field/"
+},{
+	"text": "Time.js",
+	"path": "src/picker/"
+},{
+	"text": "Time.js",
+	"path": "src/form/field/"
+},{
+	"text": "CellContext.js",
+	"path": "src/grid/"
+},{
+	"text": "CellEditor.js",
+	"path": "src/grid/"
+},{
+	"text": "ColumnComponentLayout.js",
+	"path": "src/grid/"
+},{
+	"text": "ColumnLayout.js",
+	"path": "src/grid/"
+},{
+	"text": "ColumnManager.js",
+	"path": "src/grid/"
+},{
+	"text": "Fit.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Table.js",
+	"path": "src/panel/"
+},{
+	"text": "CSS.js",
+	"path": "src/util/"
+},{
+	"text": "TableLayout.js",
+	"path": "src/view/"
+},{
+	"text": "NodeCache.js",
+	"path": "src/view/"
+},{
+	"text": "Table.js",
+	"path": "src/view/"
+},{
+	"text": "View.js",
+	"path": "src/grid/"
+},{
+	"text": "Panel.js",
+	"path": "src/grid/"
+},{
+	"text": "BufferedRendererTableView.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "RowEditorButtons.js",
+	"path": "src/grid/"
+},{
+	"text": "RowEditor.js",
+	"path": "src/grid/"
+},{
+	"text": "Scroller.js",
+	"path": "src/grid/"
+},{
+	"text": "DropZone.js",
+	"path": "src/view/"
+},{
+	"text": "ViewDropZone.js",
+	"path": "src/grid/"
+},{
+	"text": "HeaderResizer.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "DragZone.js",
+	"path": "src/grid/header/"
+},{
+	"text": "DropZone.js",
+	"path": "src/grid/header/"
+},{
+	"text": "HeaderReorderer.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "Container.js",
+	"path": "src/grid/header/"
+},{
+	"text": "Column.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Action.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Boolean.js",
+	"path": "src/grid/column/"
+},{
+	"text": "CheckColumn.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Date.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Number.js",
+	"path": "src/grid/column/"
+},{
+	"text": "RowNumberer.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Template.js",
+	"path": "src/grid/column/"
+},{
+	"text": "Feature.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "AbstractSummary.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "GroupStore.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "Grouping.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "GroupingSummary.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "RowBody.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "RowWrap.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "Summary.js",
+	"path": "src/grid/feature/"
+},{
+	"text": "HeaderContainer.js",
+	"path": "src/grid/locking/"
+},{
+	"text": "View.js",
+	"path": "src/grid/locking/"
+},{
+	"text": "Lockable.js",
+	"path": "src/grid/locking/"
+},{
+	"text": "View.js",
+	"path": "src/tree/"
+},{
+	"text": "BufferedRendererTreeView.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "BufferedRenderer.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "Editing.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "CellEditing.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "DivRenderer.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "DragDrop.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "RowEditing.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "RowExpander.js",
+	"path": "src/grid/plugin/"
+},{
+	"text": "Grid.js",
+	"path": "src/grid/property/"
+},{
+	"text": "HeaderContainer.js",
+	"path": "src/grid/property/"
+},{
+	"text": "Property.js",
+	"path": "src/grid/property/"
+},{
+	"text": "Store.js",
+	"path": "src/grid/property/"
+},{
+	"text": "ClassList.js",
+	"path": "src/layout/"
+},{
+	"text": "Queue.js",
+	"path": "src/util/"
+},{
+	"text": "ContextItem.js",
+	"path": "src/layout/"
+},{
+	"text": "Context.js",
+	"path": "src/layout/"
+},{
+	"text": "SizePolicy.js",
+	"path": "src/layout/"
+},{
+	"text": "Body.js",
+	"path": "src/layout/component/"
+},{
+	"text": "FieldSet.js",
+	"path": "src/layout/component/"
+},{
+	"text": "Slider.js",
+	"path": "src/layout/component/field/"
+},{
+	"text": "Absolute.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Accordion.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Splitter.js",
+	"path": "src/resizer/"
+},{
+	"text": "BorderSplitter.js",
+	"path": "src/resizer/"
+},{
+	"text": "Border.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Card.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Column.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Form.js",
+	"path": "src/layout/container/"
+},{
+	"text": "Item.js",
+	"path": "src/menu/"
+},{
+	"text": "CheckItem.js",
+	"path": "src/menu/"
+},{
+	"text": "KeyNav.js",
+	"path": "src/menu/"
+},{
+	"text": "Separator.js",
+	"path": "src/menu/"
+},{
+	"text": "Menu.js",
+	"path": "src/menu/"
+},{
+	"text": "ColorPicker.js",
+	"path": "src/menu/"
+},{
+	"text": "DatePicker.js",
+	"path": "src/menu/"
+},{
+	"text": "Tool.js",
+	"path": "src/panel/"
+},{
+	"text": "SplitterTracker.js",
+	"path": "src/resizer/"
+},{
+	"text": "BorderSplitterTracker.js",
+	"path": "src/resizer/"
+},{
+	"text": "Handle.js",
+	"path": "src/resizer/"
+},{
+	"text": "ResizeTracker.js",
+	"path": "src/resizer/"
+},{
+	"text": "Resizer.js",
+	"path": "src/resizer/"
+},{
+	"text": "CellModel.js",
+	"path": "src/selection/"
+},{
+	"text": "RowModel.js",
+	"path": "src/selection/"
+},{
+	"text": "TreeModel.js",
+	"path": "src/selection/"
+},{
+	"text": "Thumb.js",
+	"path": "src/slider/"
+},{
+	"text": "Tip.js",
+	"path": "src/slider/"
+},{
+	"text": "Multi.js",
+	"path": "src/slider/"
+},{
+	"text": "Tab.js",
+	"path": "src/tab/"
+},{
+	"text": "Point.js",
+	"path": "src/util/"
+},{
+	"text": "Bar.js",
+	"path": "src/tab/"
+},{
+	"text": "Column.js",
+	"path": "src/tree/"
+},{
+	"text": "CheckboxModel.js",
+	"path": "src/selection/"
+},{
+	"text": "Single.js",
+	"path": "src/slider/"
+},{
+	"text": "CookieProvider.js",
+	"path": "src/state/"
+},{
+	"text": "LocalStorageProvider.js",
+	"path": "src/state/"
+},{
+	"text": "Panel.js",
+	"path": "src/tab/"
+},{
+	"text": "Spacer.js",
+	"path": "src/toolbar/"
+},{
+	"text": "Panel.js",
+	"path": "src/tree/"
+},{
+	"text": "DragZone.js",
+	"path": "src/view/"
+},{
+	"text": "ViewDragZone.js",
+	"path": "src/tree/"
+},{
+	"text": "ViewDropZone.js",
+	"path": "src/tree/"
+},{
+	"text": "TreeViewDragDrop.js",
+	"path": "src/tree/plugin/"
+},{
+	"text": "Cookies.js",
+	"path": "src/util/"
+},{
+	"text": "Grouper.js",
+	"path": "src/util/"
+},{
+	"text": "History.js",
+	"path": "src/util/"
+}
+    ]
+  }]
+}
