@@ -5,7 +5,7 @@ package kevin.tm.service.impl;
 
 import java.util.List;
 
-import kevin.tm.dao.RouteScheduleMapper;
+import kevin.tm.dao.RouteScheduleBeanMapper;
 import kevin.tm.model.RouteScheduleBean;
 import kevin.tm.model.RouteScheduleBeanExample;
 import kevin.tm.service.RouteScheduleService;
@@ -16,14 +16,15 @@ import kevin.tm.service.RouteScheduleService;
  */
 public class RouteScheduleServiceImpl implements RouteScheduleService {
 
-    private RouteScheduleMapper routeScheduleMapper;
+    private RouteScheduleBeanMapper routeScheduleBeanMapper;
 
-    public RouteScheduleMapper getRouteScheduleMapper() {
-	return this.routeScheduleMapper;
+    public RouteScheduleBeanMapper getRouteScheduleBeanMapper() {
+	return this.routeScheduleBeanMapper;
     }
 
-    public void setRouteScheduleMapper(RouteScheduleMapper routeScheduleMapper) {
-	this.routeScheduleMapper = routeScheduleMapper;
+    public void setRouteScheduleBeanMapper(
+	    RouteScheduleBeanMapper routeScheduleBeanMapper) {
+	this.routeScheduleBeanMapper = routeScheduleBeanMapper;
     }
 
     /*
@@ -35,7 +36,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      */
     @Override
     public int save(RouteScheduleBean routeScheduleBean) {
-	return this.routeScheduleMapper.insert(routeScheduleBean);
+	return this.routeScheduleBeanMapper.insert(routeScheduleBean);
     }
 
     /*
@@ -45,7 +46,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      */
     @Override
     public int deleteById(Integer scheduleId) {
-	return this.routeScheduleMapper.deleteByPrimaryKey(scheduleId);
+	return this.routeScheduleBeanMapper.deleteByPrimaryKey(scheduleId);
     }
 
     /*
@@ -57,7 +58,8 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      */
     @Override
     public int update(RouteScheduleBean routeScheduleBean) {
-	return this.routeScheduleMapper.updateByPrimaryKey(routeScheduleBean);
+	return this.routeScheduleBeanMapper
+		.updateByPrimaryKey(routeScheduleBean);
     }
 
     /*
@@ -67,7 +69,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      */
     @Override
     public RouteScheduleBean findById(Integer scheduleId) {
-	return this.routeScheduleMapper.selectByPrimaryKey(scheduleId);
+	return this.routeScheduleBeanMapper.selectByPrimaryKey(scheduleId);
     }
 
     /*
@@ -80,7 +82,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 	RouteScheduleBeanExample routeScheduleBeanExample = new RouteScheduleBeanExample();
 	routeScheduleBeanExample.clear();
 	routeScheduleBeanExample.createCriteria().getAllCriteria();
-	return this.routeScheduleMapper
+	return this.routeScheduleBeanMapper
 		.selectByExample(routeScheduleBeanExample);
     }
 

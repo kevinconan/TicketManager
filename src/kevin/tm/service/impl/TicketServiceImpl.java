@@ -5,7 +5,7 @@ package kevin.tm.service.impl;
 
 import java.util.List;
 
-import kevin.tm.dao.TicketMapper;
+import kevin.tm.dao.TicketBeanMapper;
 import kevin.tm.model.TicketBean;
 import kevin.tm.model.TicketBeanExample;
 import kevin.tm.service.TicketService;
@@ -16,14 +16,14 @@ import kevin.tm.service.TicketService;
  */
 public class TicketServiceImpl implements TicketService {
 
-    private TicketMapper ticketMapper;
+    private TicketBeanMapper ticketBeanMapper;
 
-    public TicketMapper getTicketMapper() {
-	return this.ticketMapper;
+    public TicketBeanMapper getTicketBeanMapper() {
+	return this.ticketBeanMapper;
     }
 
-    public void setTicketMapper(TicketMapper ticketMapper) {
-	this.ticketMapper = ticketMapper;
+    public void setTicketBeanMapper(TicketBeanMapper ticketBeanMapper) {
+	this.ticketBeanMapper = ticketBeanMapper;
     }
 
     /*
@@ -33,7 +33,7 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public int save(TicketBean ticketBean) {
-	return this.ticketMapper.insert(ticketBean);
+	return this.ticketBeanMapper.insert(ticketBean);
     }
 
     /*
@@ -43,7 +43,7 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public int deleteById(Integer ticketId) {
-	return this.ticketMapper.deleteByPrimaryKey(ticketId);
+	return this.ticketBeanMapper.deleteByPrimaryKey(ticketId);
     }
 
     /*
@@ -53,7 +53,7 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public int update(TicketBean ticketBean) {
-	return this.ticketMapper.updateByPrimaryKey(ticketBean);
+	return this.ticketBeanMapper.updateByPrimaryKey(ticketBean);
     }
 
     /*
@@ -63,7 +63,7 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public TicketBean findById(Integer ticketId) {
-	return this.ticketMapper.selectByPrimaryKey(ticketId);
+	return this.ticketBeanMapper.selectByPrimaryKey(ticketId);
     }
 
     /*
@@ -76,7 +76,7 @@ public class TicketServiceImpl implements TicketService {
 	TicketBeanExample ticketBeanExample = new TicketBeanExample();
 	ticketBeanExample.clear();
 	ticketBeanExample.createCriteria().getAllCriteria();
-	return this.ticketMapper.selectByExample(ticketBeanExample);
+	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
     }
 
     /*
@@ -89,7 +89,7 @@ public class TicketServiceImpl implements TicketService {
 	TicketBeanExample ticketBeanExample = new TicketBeanExample();
 	ticketBeanExample.clear();
 	ticketBeanExample.createCriteria().andCustomernameEqualTo(customerName);
-	return this.ticketMapper.selectByExample(ticketBeanExample);
+	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
     }
 
     /*
@@ -102,7 +102,7 @@ public class TicketServiceImpl implements TicketService {
 	TicketBeanExample ticketBeanExample = new TicketBeanExample();
 	ticketBeanExample.clear();
 	ticketBeanExample.createCriteria().andTicketnoEqualTo(ticketNo);
-	List<TicketBean> list = this.ticketMapper
+	List<TicketBean> list = this.ticketBeanMapper
 		.selectByExample(ticketBeanExample);
 	return list.size() > 0 ? list.get(0) : null;
     }
@@ -118,7 +118,7 @@ public class TicketServiceImpl implements TicketService {
 	ticketBeanExample.clear();
 	ticketBeanExample.createCriteria().andTicketscheduleidEqualTo(
 		scheduleId);
-	return this.ticketMapper.selectByExample(ticketBeanExample);
+	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
     }
 
 }
