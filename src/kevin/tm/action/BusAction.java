@@ -26,6 +26,7 @@ public class BusAction extends BaseAction<BusBean> {
      * 
      */
     private static final long serialVersionUID = 7621332210140934833L;
+
     @Autowired
     private List<BusBean> busList;
 
