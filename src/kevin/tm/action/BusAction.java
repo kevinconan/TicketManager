@@ -22,37 +22,22 @@ import org.springframework.stereotype.Controller;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * 
      */
     private static final long serialVersionUID = 7621332210140934833L;
     @Autowired
-=======
-=======
->>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
-=======
->>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
-	
-	private List<BusBean> busList;
+    private List<BusBean> busList;
+
     public List<BusBean> getBusList() {
-		return busList;
-	}
+	return this.busList;
+    }
 
-	public void setBusList(List<BusBean> busList) {
-		this.busList = busList;
-	}
+    public void setBusList(List<BusBean> busList) {
+	this.busList = busList;
+    }
 
-	@Autowired
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
-=======
->>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
-=======
->>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
+    @Autowired
     private BusService busService;
 
     public BusService getBusService() {
@@ -62,49 +47,47 @@ public class BusAction extends BaseAction<BusBean> {
     public void setBusService(BusService busService) {
 	this.busService = busService;
     }
+
     /**
      * 
      * 添加BUS信息
+     * 
      * @author Kevin
      * 
      * */
-    public String Add(BusBean busBean){
-    	if(busService.save(busBean)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
+    public String Add(BusBean busBean) {
+	if (this.busService.save(busBean) != 0) {
+	    this.message = "0";
+	} else {
+	    this.message = "1";
+	}
+
+	return MESSAGE;
     }
-    
-    public String delete(String vehicleNo){
-    	if(busService.deleteByVehicleNo(vehicleNo)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
+
+    public String delete(String vehicleNo) {
+	if (this.busService.deleteByVehicleNo(vehicleNo) != 0) {
+	    this.message = "0";
+	} else {
+	    this.message = "1";
+	}
+
+	return MESSAGE;
     }
-    
-    public String update(BusBean busBean){
-    	if(busService.update(busBean)!=0){
-    		message="0";
-    		
-    	}else{
-    		message="1";
-    	}
-    	
-    	return MESSAGE;
+
+    public String update(BusBean busBean) {
+	if (this.busService.update(busBean) != 0) {
+	    this.message = "0";
+	} else {
+	    this.message = "1";
+	}
+
+	return MESSAGE;
     }
-    
-    public String list(){
-    	setBusList(busService.findAll());
-    	return LIST;
+
+    public String list() {
+	this.setBusList(this.busService.findAll());
+	return LIST;
     }
-    
 
 }
