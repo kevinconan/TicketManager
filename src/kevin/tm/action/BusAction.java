@@ -3,6 +3,8 @@
  */
 package kevin.tm.action;
 
+import java.util.List;
+
 import kevin.tm.model.BusBean;
 import kevin.tm.service.BusService;
 
@@ -20,7 +22,17 @@ import org.springframework.stereotype.Controller;
 @Controller("busAction")
 public class BusAction extends BaseAction<BusBean> {
 
-    @Autowired
+	
+	private List<BusBean> busList;
+    public List<BusBean> getBusList() {
+		return busList;
+	}
+
+	public void setBusList(List<BusBean> busList) {
+		this.busList = busList;
+	}
+
+	@Autowired
     private BusService busService;
 
     public BusService getBusService() {
@@ -30,5 +42,49 @@ public class BusAction extends BaseAction<BusBean> {
     public void setBusService(BusService busService) {
 	this.busService = busService;
     }
+    /**
+     * 
+     * 添加BUS信息
+     * @author Kevin
+     * 
+     * */
+    public String Add(BusBean busBean){
+    	if(busService.save(busBean)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String delete(String vehicleNo){
+    	if(busService.deleteByVehicleNo(vehicleNo)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String update(BusBean busBean){
+    	if(busService.update(busBean)!=0){
+    		message="0";
+    		
+    	}else{
+    		message="1";
+    	}
+    	
+    	return MESSAGE;
+    }
+    
+    public String list(){
+    	setBusList(busService.findAll());
+    	return LIST;
+    }
+    
 
 }
