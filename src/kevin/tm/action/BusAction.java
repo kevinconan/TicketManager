@@ -24,12 +24,15 @@ public class BusAction extends BaseAction<BusBean> {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * 
      */
     private static final long serialVersionUID = 7621332210140934833L;
     @Autowired
 =======
+=======
+>>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
 =======
 >>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
 	
@@ -44,6 +47,9 @@ public class BusAction extends BaseAction<BusBean> {
 
 	@Autowired
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
+=======
 >>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
 =======
 >>>>>>> 1f37ac83c63ca5b88d9214b61a28f92a4f9578c4
