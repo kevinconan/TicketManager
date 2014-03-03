@@ -12,11 +12,15 @@ import kevin.tm.model.StationBeanExample;
 import kevin.tm.service.StationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("stationServiceImpl")
 public class StationServiceImpl implements StationService {
 
 	@Autowired

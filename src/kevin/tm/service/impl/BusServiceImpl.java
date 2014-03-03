@@ -19,7 +19,8 @@ import kevin.tm.service.BusService;
  * @author Kevin
  *
  */
-@Service
+@Scope("prototype")
+@Service("busServiceImpl")
 public class BusServiceImpl implements BusService{
 
 	@Autowired
