@@ -10,33 +10,24 @@ import org.springframework.stereotype.Controller;
 @Controller("testAction")
 public class TestAction extends BaseAction<Object> {
 
-	private RouteMapper routeMapper;
-	public RouteMapper getRouteMapper() {
-		return routeMapper;
-	}
+    private RouteMapper routeMapper;
 
-	public void setRouteMapper(RouteMapper routeMapper) {
-		this.routeMapper = routeMapper;
-	}
+    public RouteMapper getRouteMapper() {
+	return this.routeMapper;
+    }
 
-	private Route route;
+    public void setRouteMapper(RouteMapper routeMapper) {
+	this.routeMapper = routeMapper;
+    }
 
-	public Route getRoute() {
-		return route;
+    public String route() {
+	// System.out.println(routeMapper.getById(1).getEndStation().getStationname());
+	try {
+	    Route route = this.routeMapper.getById(1);
+	    System.out.println(route);
+	} catch (Exception e) {
+	    e.printStackTrace();
 	}
-
-	public void setRoute(Route route) {
-		this.route = route;
-	}
-	
-	public String route(){
-	//	System.out.println(routeMapper.getById(1).getEndStation().getStationname());
-		try{
-		setRoute(routeMapper.getById(1));
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return MESSAGE;
-	}
+	return MESSAGE;
+    }
 }
-
