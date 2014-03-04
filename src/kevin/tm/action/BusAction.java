@@ -5,6 +5,7 @@ package kevin.tm.action;
 
 import java.util.List;
 
+import kevin.tm.dao.model.BusBean;
 import kevin.tm.model.BusBeanExt;
 import kevin.tm.service.BusService;
 
@@ -27,6 +28,16 @@ public class BusAction extends BaseAction<BusBeanExt> {
      */
     private static final long serialVersionUID = 7467813069003588100L;
     private List<BusBeanExt> busList;
+    
+    public BusBean getBusBean() {
+		return busBean;
+	}
+
+	public void setBusBean(BusBean busBean) {
+		this.busBean = busBean;
+	}
+
+	private BusBean busBean;
 
     public List<BusBeanExt> getBusList() {
 	return this.busList;
@@ -54,7 +65,13 @@ public class BusAction extends BaseAction<BusBeanExt> {
      * @author Kevin
      * 
      * */
-    public String Add(BusBeanExt busBean) {
+    public String add() {
+    	System.out.println(busBean.getVehicleno());
+    	if(busBean == null){
+    		this.message = "1";
+    		return MESSAGE;
+    	}
+    		
 	if (this.busService.save(busBean) != 0) {
 	    this.message = "0";
 

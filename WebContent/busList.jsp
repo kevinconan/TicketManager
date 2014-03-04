@@ -116,14 +116,14 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '车牌号不能为空',
-				name : 'vehicleno',
+				name : 'busBean.vehicleno',
 				fieldLabel:'车牌号'
 			},{
 				xtype:'combo',
 				autoShow : true,
 				allowBlank : false,
 				blankText : '必须选择线路',
-				name : 'routeid',
+				name : 'busBean.busrouteid',
 				store : new Ext.data.JsonStore({
 				//	autoLoad :true,
 					model : 'Route',
@@ -150,14 +150,14 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '车辆状态不能为空',
-				name : 'busstate',
+				name : 'busBean.busstate',
 				fieldLabel:'车辆状态'
 			},{
 				xtype:'combo',
 				autoShow : true,
 				allowBlank : false,
 				blankText : '必须选择所属车站',
-				name : 'stationid',
+				name : 'busBean.busstationid',
 				store : new Ext.data.JsonStore({
 				//	autoLoad :true,
 					model : 'Station',
@@ -184,7 +184,7 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '司机名能为空',
-				name : 'drivername',
+				name : 'busBean.drivername',
 				fieldLabel:'司机'
 			},/* {
 				xtype:'combo',
@@ -216,7 +216,7 @@ request.setAttribute("username", userName); */
 			}, */{
 				xtype:'textfield',
 				//inputType:'password',
-				name : 'seatcount',
+				name : 'busBean.seatcount',
 				fieldLabel:'座位数'
 			},/* ,{
 				xtype:'hidden',
@@ -330,9 +330,33 @@ request.setAttribute("username", userName); */
 		//提交表单数据
 		function submitForm(){
 			//判断当前执行的提交操作，isAdd为true表示执行书籍新增操作，false表示执行书籍修改操作
-			if(userForm.isAdd){
+			if(busForm.isAdd){
 				//新增书籍信息
-				alert(Ext.JSON.encode(userForm.form.getValues()));
+			//	alert(Ext.JSON.encode(busForm.form.getValues()));
+				 Ext.Ajax.request({
+                     url : 'bus_add',// 文件路径
+                     method : 'post',// 提交方法post或get
+                     params : busForm.form.getValues(),
+                     // 提交成功的回调函数
+                     success : function(data,response) {                                               
+                     	var dat = Ext.JSON.decode(data.responseText);
+                     //	alert(dat);
+                         switch(dat){
+                         case "0" : 
+                        	 Ext.Msg.alert('操作成功！');break;
+                         case "1" :	
+                         	Ext.Msg.alert('操作失败！');break;
+                         default :
+                         	Ext.Msg.alert('操作失败！');break;
+                         
+                         }   
+                     },
+                     // 提交失败的回调函数
+                     failure : function() {
+                             Ext.Msg.alert('错误',
+                             '服务器出现错误请稍后再试！');
+                     }
+             });
 				/* userForm.form.submit({
 					clientValidation:true,//进行客户端验证
 					waitMsg : '正在提交数据请稍后',//提示信息
@@ -367,7 +391,7 @@ request.setAttribute("username", userName); */
 				});
 			}
 		}
-		//明细数据修改后，同步更新书籍列表信息
+		//明细数据修改后，同步更新汽车列表信息
 		function updateBookGrid(bookId){
 			var values = bookForm.form.getValues();
 			var index = bookStore.find('id',values['id']);

@@ -27,7 +27,7 @@ public class BusinessInterceptor extends AbstractInterceptor {
     public String intercept(ActionInvocation invocation) throws Exception {
 
 	System.out.println("BusinessInterceptor intercept() invoked! ");
-	System.out.println(this.excludeActions);
+	//System.out.println(this.excludeActions);
 	String actionName = invocation.getProxy().getActionName();
 
 	if (this.doExcludeActions(actionName)) {
