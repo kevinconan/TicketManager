@@ -38,13 +38,14 @@ request.setAttribute("username", userName); */
 				{name: 'seatcount'},
 		    ]
 		});
-		//定义书籍数据源对象
+		
+		//定义汽车数据源对象
 		var busStore = Ext.create('Ext.data.JsonStore',{
 			autoLoad :true,
 			model : 'Bus',
 			proxy: {
 		        type: 'ajax',
-		        url : ctxpath+'/bus_list',
+		        url : 'bus_list',
 		        reader: {
 		            type: 'json',
 		            totalRecords: 'results',
@@ -52,6 +53,24 @@ request.setAttribute("username", userName); */
 		         //   record: 'Book'
 		        }
 		    }
+		});
+		//创建车站数据模型
+		Ext.regModel('Station', {
+		    fields: [
+				{name: 'stationid'},
+				{name: 'stationname'},
+				{name: 'locationx'},
+				{name: 'locationy'}
+		    ]
+		});
+		//创建线路数据模型
+		Ext.regModel('Route', {
+		    fields: [
+				{name: 'routeid'},
+				{name: 'routename'},
+				{name: 'startstationid'},
+				{name: 'endstationid'},
+		    ]
 		});
 		//创建工具栏组件
 		var toolbar = [
@@ -100,10 +119,32 @@ request.setAttribute("username", userName); */
 				name : 'vehicleno',
 				fieldLabel:'车牌号'
 			},{
-				xtype:'textfield',
+				xtype:'combo',
+				autoShow : true,
 				allowBlank : false,
-				blankText : '线路不能为空',
-				name : 'busrouteid',
+				blankText : '必须选择线路',
+				name : 'routeid',
+				store : new Ext.data.JsonStore({
+				//	autoLoad :true,
+					model : 'Route',
+					proxy: {
+				        type: 'ajax',
+				        url : 'route_list',
+				        reader: {
+				            type: 'json',
+				       //     record: 'results',
+				            idProperty : 'routeid'
+				        }
+				    }
+				}),//设置数据源
+		//		allQuery:'allbook',//查询全部信息的查询字符串
+				triggerAction: 'all',//单击触发按钮显示全部数据
+				editable : false,//禁止编辑
+				loadingText : '正在加载线路信息',//加载数据时显示的提示信息
+				displayField:'routename',//定义要显示的字段
+				valueField : 'routeid',
+				emptyText :'请选择线路',
+				queryMode: 'remote',//远程模式
 				fieldLabel:'线路'
 			},{
 				xtype:'textfield',
@@ -112,11 +153,33 @@ request.setAttribute("username", userName); */
 				name : 'busstate',
 				fieldLabel:'车辆状态'
 			},{
-				xtype:'textfield',
+				xtype:'combo',
+				autoShow : true,
 				allowBlank : false,
-				blankText : '所属车站不能为空',
-				name : 'busstationid',
-				fieldLabel:'所属车站'
+				blankText : '必须选择所属车站',
+				name : 'stationid',
+				store : new Ext.data.JsonStore({
+				//	autoLoad :true,
+					model : 'Station',
+					proxy: {
+				        type: 'ajax',
+				        url : 'station_list',
+				        reader: {
+				            type: 'json',
+				          //  record: 'results',
+				            idProperty : 'stationid'
+				        }
+				    }
+				}),//设置数据源
+		//		allQuery:'allbook',//查询全部信息的查询字符串
+				triggerAction: 'all',//单击触发按钮显示全部数据
+				editable : false,//禁止编辑
+				loadingText : '正在加载车站信息',//加载数据时显示的提示信息
+				displayField:'stationname',//定义要显示的字段
+				valueField : 'stationid',
+				emptyText :'请选择车站',
+				queryMode: 'remote',//远程模式
+				fieldLabel:'车站'
 			},{
 				xtype:'textfield',
 				allowBlank : false,

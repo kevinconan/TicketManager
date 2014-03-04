@@ -11,11 +11,15 @@ import kevin.tm.dao.model.RouteBeanExample;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("routeServiceImpl")
 public class RouteServiceImpl implements RouteService {
 
     @Autowired

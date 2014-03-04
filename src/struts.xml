@@ -72,8 +72,23 @@
 		
 		
 		<action name="station_*" class="stationAction" method="{1}">
-			<result name="success">/main.jsp</result>
-			<result name="failure">/login.jsp</result>
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">stationList</param>
+			</result>
+			
+		</action>
+		
+		<action name="route_*" class="routeAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">routeList</param>
+			</result>
+			
 		</action>
 	</package>
 </struts>

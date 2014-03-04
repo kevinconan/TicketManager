@@ -5,6 +5,8 @@ package kevin.tm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import kevin.tm.dao.model.StationBean;
 
 /**
@@ -13,6 +15,7 @@ import kevin.tm.dao.model.StationBean;
  * @author Diluka
  * 
  */
+@Service
 public interface StationService {
     /**
      * 保存

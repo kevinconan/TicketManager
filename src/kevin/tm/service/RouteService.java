@@ -5,6 +5,8 @@ package kevin.tm.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import kevin.tm.dao.model.RouteBean;
 
 /**
@@ -13,6 +15,7 @@ import kevin.tm.dao.model.RouteBean;
  * @author Diluka
  * 
  */
+@Service("routeService")
 public interface RouteService {
     /**
      * 保存
