@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kevin.tm.model.Route">
+	<select id="getById" parameterType="Integer" resultMap="routeResultMap">
+	SELECT R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+	SS.StationId AS S_StationId,
+	SS.StationName AS S_StationName, SS.LocationX AS S_LocationX, SS.LocationY AS
+	S_LocationY,
+	ES.StationId AS E_StationId, ES.StationName AS E_StationName, ES.LocationX AS
+	E_LocationX,
+	ES.LocationY AS E_LocationY
+	FROM Route AS R INNER JOIN
+	Station AS SS ON R.StartStationId = SS.StationId INNER JOIN
+	Station AS ES ON R.EndStationId = ES.StationId
+	WHERE (R.RouteId = #{RouteId})
+	</select>
+	<resultMap type="Route" id="routeResultMap">
+	<id property="RouteId" column="RouteId"/>
+	<result property="StartStationId" column="StartStationId"/>
+	<result property="EndStationId" column="EndStationId"/>
+	<result property="RouteName" column="RouteName"/>
+	<collection property="StartStation" resultMap="startStationResultMap"></collection>
+	<collection property="EndStation" resultMap="endStationResultMap"></collection>
+	</resultMap>
+</mapper>
