@@ -5,7 +5,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.RouteScheduleBean;
+import kevin.tm.dao.model.RouteScheduleBean;
 
 /**
  * 线路日程Service接口

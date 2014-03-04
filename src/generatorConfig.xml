@@ -7,7 +7,7 @@
   <context id="context1" >
     <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
     				connectionURL="jdbc:sqlserver://25.71.5.217:1433;databaseName=TicketManager;user=sa;password=root"/>
-    <javaModelGenerator targetPackage="kevin.tm.model" targetProject="TicketManager/src" >
+    <javaModelGenerator targetPackage="kevin.tm.dao.model" targetProject="TicketManager/src" >
     	<property name="enableSubPackages" value="false" /> 
 			<!--  当为true时，产生的代码文件将按照schema产生子文件夹 -->
 		<property name="trimStrings" value="true" />

@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.StationBean;
-import kevin.tm.model.StationBeanExample;
+
+import kevin.tm.dao.model.StationBean;
+import kevin.tm.dao.model.StationBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface StationBeanMapper {

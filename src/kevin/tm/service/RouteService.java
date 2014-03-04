@@ -5,7 +5,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.RouteBean;
+import kevin.tm.dao.model.RouteBean;
 
 /**
  * 路线Service接口

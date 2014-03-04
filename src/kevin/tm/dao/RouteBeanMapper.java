@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.RouteBean;
-import kevin.tm.model.RouteBeanExample;
+
+import kevin.tm.dao.model.RouteBean;
+import kevin.tm.dao.model.RouteBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RouteBeanMapper {

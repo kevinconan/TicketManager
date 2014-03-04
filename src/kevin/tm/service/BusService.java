@@ -4,7 +4,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.BusBean;
+import kevin.tm.dao.model.BusBean;
 
 import org.springframework.stereotype.Service;
 

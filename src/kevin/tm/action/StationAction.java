@@ -1,6 +1,6 @@
 package kevin.tm.action;
 
-import kevin.tm.model.StationBean;
+import kevin.tm.dao.model.StationBean;
 import kevin.tm.service.StationService;
 
 import org.springframework.beans.factory.annotation.Autowired;

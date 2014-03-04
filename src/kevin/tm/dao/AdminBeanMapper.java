@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.AdminBean;
-import kevin.tm.model.AdminBeanExample;
+
+import kevin.tm.dao.model.AdminBean;
+import kevin.tm.dao.model.AdminBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AdminBeanMapper {

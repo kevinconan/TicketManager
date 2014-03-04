@@ -5,7 +5,7 @@ package kevin.tm.action;
 
 import java.util.List;
 
-import kevin.tm.model.BusBean;
+import kevin.tm.dao.model.BusBean;
 import kevin.tm.service.BusService;
 
 import org.springframework.beans.factory.annotation.Autowired;

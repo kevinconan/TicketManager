@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.RouteScheduleBean;
-import kevin.tm.model.RouteScheduleBeanExample;
+
+import kevin.tm.dao.model.RouteScheduleBean;
+import kevin.tm.dao.model.RouteScheduleBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RouteScheduleBeanMapper {

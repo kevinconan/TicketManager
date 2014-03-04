@@ -6,8 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteScheduleBeanMapper;
-import kevin.tm.model.RouteScheduleBean;
-import kevin.tm.model.RouteScheduleBeanExample;
+import kevin.tm.dao.model.RouteScheduleBean;
+import kevin.tm.dao.model.RouteScheduleBeanExample;
 import kevin.tm.service.RouteScheduleService;
 
 /**
@@ -31,7 +31,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      * (non-Javadoc)
      * 
      * @see
-     * kevin.tm.service.RouteScheduleService#save(kevin.tm.model.RouteScheduleBean
+     * kevin.tm.service.RouteScheduleService#save(kevin.tm.dao.model.RouteScheduleBean
      * )
      */
     @Override
@@ -53,7 +53,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      * (non-Javadoc)
      * 
      * @see
-     * kevin.tm.service.RouteScheduleService#update(kevin.tm.model.RouteScheduleBean
+     * kevin.tm.service.RouteScheduleService#update(kevin.tm.dao.model.RouteScheduleBean
      * )
      */
     @Override

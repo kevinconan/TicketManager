@@ -5,7 +5,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.TicketBean;
+import kevin.tm.dao.model.TicketBean;
 
 /**
  * 车票Service接口

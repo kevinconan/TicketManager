@@ -5,7 +5,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.StationBean;
+import kevin.tm.dao.model.StationBean;
 
 /**
  * 车站Service接口

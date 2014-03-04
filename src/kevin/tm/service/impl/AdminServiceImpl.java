@@ -6,8 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.AdminBeanMapper;
-import kevin.tm.model.AdminBean;
-import kevin.tm.model.AdminBeanExample;
+import kevin.tm.dao.model.AdminBean;
+import kevin.tm.dao.model.AdminBeanExample;
 import kevin.tm.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.AdminService#save(kevin.tm.model.AdminBean)
+     * @see kevin.tm.service.AdminService#save(kevin.tm.dao.model.AdminBean)
      */
     @Override
     public int save(AdminBean adminBean) {
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.AdminService#update(kevin.tm.model.AdminBean)
+     * @see kevin.tm.service.AdminService#update(kevin.tm.dao.model.AdminBean)
      */
     @Override
     public int update(AdminBean adminBean) {

@@ -5,7 +5,7 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import kevin.tm.model.AdminBean;
+import kevin.tm.dao.model.AdminBean;
 
 /**
  * 管理员Service接口

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import kevin.tm.model.StationBean;
+import kevin.tm.dao.model.StationBean;
 
 public interface StationBeanExtMapper {
 	@Select("select stationname from station where stationname like '%#{stationName}%'")

@@ -1,4 +1,4 @@
-package kevin.tm.model;
+package kevin.tm.dao.model;
 
 public class RouteBean {
 

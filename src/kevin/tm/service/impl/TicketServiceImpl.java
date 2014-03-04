@@ -6,8 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.TicketBeanMapper;
-import kevin.tm.model.TicketBean;
-import kevin.tm.model.TicketBeanExample;
+import kevin.tm.dao.model.TicketBean;
+import kevin.tm.dao.model.TicketBeanExample;
 import kevin.tm.service.TicketService;
 
 /**
@@ -29,7 +29,7 @@ public class TicketServiceImpl implements TicketService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.TicketService#save(kevin.tm.model.TicketBean)
+     * @see kevin.tm.service.TicketService#save(kevin.tm.dao.model.TicketBean)
      */
     @Override
     public int save(TicketBean ticketBean) {
@@ -49,7 +49,7 @@ public class TicketServiceImpl implements TicketService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.TicketService#update(kevin.tm.model.TicketBean)
+     * @see kevin.tm.service.TicketService#update(kevin.tm.dao.model.TicketBean)
      */
     @Override
     public int update(TicketBean ticketBean) {

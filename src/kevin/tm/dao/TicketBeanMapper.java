@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.TicketBean;
-import kevin.tm.model.TicketBeanExample;
+
+import kevin.tm.dao.model.TicketBean;
+import kevin.tm.dao.model.TicketBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TicketBeanMapper {

@@ -6,8 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteBeanMapper;
-import kevin.tm.model.RouteBean;
-import kevin.tm.model.RouteBeanExample;
+import kevin.tm.dao.model.RouteBean;
+import kevin.tm.dao.model.RouteBeanExample;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class RouteServiceImpl implements RouteService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.RouteService#save(kevin.tm.model.RouteBean)
+     * @see kevin.tm.service.RouteService#save(kevin.tm.dao.model.RouteBean)
      */
     @Override
     public int save(RouteBean routeBean) {
@@ -52,7 +52,7 @@ public class RouteServiceImpl implements RouteService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.RouteService#update(kevin.tm.model.RouteBean)
+     * @see kevin.tm.service.RouteService#update(kevin.tm.dao.model.RouteBean)
      */
     @Override
     public int update(RouteBean routeBean) {

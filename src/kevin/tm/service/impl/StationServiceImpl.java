@@ -6,8 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.StationBeanMapper;
-import kevin.tm.model.StationBean;
-import kevin.tm.model.StationBeanExample;
+import kevin.tm.dao.model.StationBean;
+import kevin.tm.dao.model.StationBeanExample;
 import kevin.tm.service.StationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class StationServiceImpl implements StationService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.StationService#save(kevin.tm.model.StationBean)
+     * @see kevin.tm.service.StationService#save(kevin.tm.dao.model.StationBean)
      */
     @Override
     public int save(StationBean stationBean) {
@@ -52,7 +52,7 @@ public class StationServiceImpl implements StationService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.StationService#update(kevin.tm.model.StationBean)
+     * @see kevin.tm.service.StationService#update(kevin.tm.dao.model.StationBean)
      */
     @Override
     public int update(StationBean stationBean) {
@@ -110,8 +110,8 @@ public class StationServiceImpl implements StationService {
      * (non-Javadoc)
      * 
      * @see
-     * kevin.tm.service.StationService#calcTowStationDistance(kevin.tm.model
-     * .StationBean, kevin.tm.model.StationBean)
+     * kevin.tm.service.StationService#calcTowStationDistance(kevin.tm.dao.model
+     * .StationBean, kevin.tm.dao.model.StationBean)
      */
     @Override
     public Double calcTowStationDistance(StationBean stationA,

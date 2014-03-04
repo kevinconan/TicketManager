@@ -1,8 +1,10 @@
 package kevin.tm.dao;
 
 import java.util.List;
-import kevin.tm.model.BusBean;
-import kevin.tm.model.BusBeanExample;
+
+import kevin.tm.dao.model.BusBean;
+import kevin.tm.dao.model.BusBeanExample;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface BusBeanMapper {

@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import kevin.tm.dao.BusBeanMapper;
-import kevin.tm.model.BusBean;
-import kevin.tm.model.BusBeanExample;
+import kevin.tm.dao.model.BusBean;
+import kevin.tm.dao.model.BusBeanExample;
 import kevin.tm.service.BusService;
 
 /**
