@@ -12,7 +12,7 @@ request.setAttribute("username", userName); */
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>书籍列表</title>
+<title>汽车列表</title>
 	<link rel="stylesheet" type="text/css" href="./ext-4.2.1-Lite/resources/ext-theme-neptune/ext-theme-neptune-all.css" />
 	
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
@@ -31,15 +31,15 @@ request.setAttribute("username", userName); */
 		Ext.regModel('Bus', {
 		    fields: [
 				{name: 'vehicleno'},
-				{name: 'busrouteid'},
+				{name: 'routename'},
 				{name: 'busstate'},
-				{name: 'busstationid'},
+				{name: 'stationname'},
 				{name: 'drivername'},
 				{name: 'seatcount'},
 		    ]
 		});
 		//定义书籍数据源对象
-		var busStore = Ext.create('Ext.data.Store',{
+		var busStore = Ext.create('Ext.data.JsonStore',{
 			autoLoad :true,
 			model : 'Bus',
 			proxy: {
@@ -67,9 +67,9 @@ request.setAttribute("username", userName); */
 			selModel : new Ext.selection.CheckboxModel(),
 			columns: [//配置表格列
 				{text: "车牌号", width: 80, dataIndex: 'vehicleno', sortable: true},
-				{text: "线路ID", width: 80, dataIndex: 'busrouteid', sortable: true},
+				{text: "线路", width: 80, dataIndex: 'routename', sortable: true},
 				{text: "汽车状态", width: 80, dataIndex: 'busstate', sortable: true},
-				{text: "所属车站", width: 80, dataIndex: 'busstationid', sortable: true},
+				{text: "所属车站", width: 80, dataIndex: 'stationname', sortable: true},
 				{text: "司机名", width: 80, dataIndex: 'drivername', sortable: true},
 				{text: "座位数", width: 80, dataIndex: 'seatcount', sortable: true}
 
