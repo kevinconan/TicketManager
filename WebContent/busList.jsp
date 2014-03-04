@@ -171,7 +171,6 @@ request.setAttribute("username", userName); */
 				        }
 				    }
 				}),//设置数据源
-		//		allQuery:'allbook',//查询全部信息的查询字符串
 				triggerAction: 'all',//单击触发按钮显示全部数据
 				editable : false,//禁止编辑
 				loadingText : '正在加载车站信息',//加载数据时显示的提示信息
@@ -253,39 +252,39 @@ request.setAttribute("username", userName); */
 		}
 		//显示修改书籍窗口
 		function showModifyUser(){
-			var bookList = getBookIdList();
-			var num = bookList.length;
+			var busList = getBusIdList();
+			var num = busList.length;
 			if(num > 1){
-				Ext.MessageBox.alert("提示","每次只能修改一条书籍信息。");
+				Ext.MessageBox.alert("提示","每次只能修改一条车辆信息。");
 			}else if(num == 1){
-				bookForm.form.reset();
-				bookForm.isAdd = false;
+				busForm.form.reset();
+				busForm.isAdd = false;
 				win.setTitle("修改用户信息");
 				win.show();
-				var bookId = bookList[0];
-				loadForm(bookId);
+				var busId = busList[0];
+				loadForm(busId);
 			}
 		}
 		//显示删除书籍对话框
-		function showDeleteUsers(){
-			var bookList = getBookIdList();
-			var num = bookList.length;
+		function showDeleteBuses(){
+			var busList = getBusIdList();
+			var num = busList.length;
 			if(num == 0){
 				return;
 			}
-			Ext.MessageBox.confirm("提示","您确定要删除所选书籍吗？",function(btnId){
+			Ext.MessageBox.confirm("提示","您确定要删除所选车辆吗？",function(btnId){
 				if(btnId == 'yes'){
-					deleteBooks(bookList);
+					deleteBuses(busList);
 				}
 			});
 		}
 		//删除书籍
-		function deleteBooks(bookList){
-			var bookIds = bookList.join(',');
+		function deleteBuses(busList){
+			var busIds = busList.join(',');
 			var msgTip = Ext.MessageBox.show({
 				title:'提示',
 				width : 250,
-				msg:'正在删除书籍信息请稍后......'
+				msg:'正在删除车辆信息请稍后......'
 			});
 			Ext.Ajax.request({
 				url : ctxpath + '/bookext.do?method=deleteBooks',
@@ -315,7 +314,7 @@ request.setAttribute("username", userName); */
 			});
 		}
 		//加载表单数据
-		function loadForm(bookId){
+		function loadForm(busId){
 			bookForm.form.load({
 				waitMsg : '正在加载数据请稍后',//提示信息
 				waitTitle : '提示',//标题
@@ -416,16 +415,16 @@ request.setAttribute("username", userName); */
 				bookStore.add(rec);
 			}
 		}
-		//取得所选书籍id
-		function getBookIdList(){
-			var recs = bookGrid.getSelectionModel().getSelection();
+		//取得所选汽车id
+		function getBusIdList(){
+			var recs = busGrid.getSelectionModel().getSelection();
 			var list = [];
 			if(recs.length == 0){
 				Ext.MessageBox.alert('提示','请选择要进行操作的书籍！');
 			}else{
 				for(var i = 0 ; i < recs.length ; i++){
 					var rec = recs[i];
-					list.push(rec.get('id'));
+					list.push(rec.get('vehicleno'));
 				}
 			}
 			return list;
