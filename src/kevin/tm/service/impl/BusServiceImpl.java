@@ -8,10 +8,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
-
+import kevin.tm.model.BusBeanExt;
 import kevin.tm.dao.BusBeanMapper;
+import kevin.tm.dao.ext.BusBeanExtMapper;
 import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.BusBeanExample;
+
 import kevin.tm.service.BusService;
 
 /**
@@ -23,6 +25,8 @@ import kevin.tm.service.BusService;
 @Service("busServiceImpl")
 public class BusServiceImpl implements BusService{
 
+	@Autowired
+	private BusBeanExtMapper busBeanExtMapper;
 	@Autowired
 	private BusBeanMapper busBeanMapper;
 	
@@ -51,11 +55,9 @@ public class BusServiceImpl implements BusService{
 	}
 
 	@Override
-	public List<BusBean> findAll() {
-		BusBeanExample example = new BusBeanExample();
-		example.clear();
-		example.createCriteria().getAllCriteria();
-		return busBeanMapper.selectByExample(example);
+	public List<BusBeanExt> findAll() {
+		
+		return busBeanExtMapper.getAllBusBeanExts();
 	}
 
 	@Override

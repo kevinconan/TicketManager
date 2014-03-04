@@ -5,7 +5,7 @@ package kevin.tm.action;
 
 import java.util.List;
 
-import kevin.tm.dao.model.BusBean;
+import kevin.tm.model.BusBeanExt;
 import kevin.tm.service.BusService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +20,19 @@ import org.springframework.stereotype.Controller;
  */
 @Scope("request")
 @Controller("busAction")
-public class BusAction extends BaseAction<BusBean> {
+public class BusAction extends BaseAction<BusBeanExt> {
 
     /**
      * 
      */
     private static final long serialVersionUID = 7467813069003588100L;
-    private List<BusBean> busList;
+    private List<BusBeanExt> busList;
 
-    public List<BusBean> getBusList() {
+    public List<BusBeanExt> getBusList() {
 	return this.busList;
     }
 
-    public void setBusList(List<BusBean> busList) {
+    public void setBusList(List<BusBeanExt> busList) {
 	this.busList = busList;
     }
 
@@ -54,7 +54,7 @@ public class BusAction extends BaseAction<BusBean> {
      * @author Kevin
      * 
      * */
-    public String Add(BusBean busBean) {
+    public String Add(BusBeanExt busBean) {
 	if (this.busService.save(busBean) != 0) {
 	    this.message = "0";
 
@@ -76,7 +76,7 @@ public class BusAction extends BaseAction<BusBean> {
 	return MESSAGE;
     }
 
-    public String update(BusBean busBean) {
+    public String update(BusBeanExt busBean) {
 	if (this.busService.update(busBean) != 0) {
 	    this.message = "0";
 
