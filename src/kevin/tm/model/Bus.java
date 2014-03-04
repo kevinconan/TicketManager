@@ -12,15 +12,15 @@ import kevin.tm.dao.model.BusBean;
  * 
  */
 public class Bus extends BusBean {
-    private Station buStation;
+    private Station busStation;
     private Route busRoute;
 
-    public Station getBuStation() {
-	return this.buStation;
+    public Station getBusStation() {
+	return this.busStation;
     }
 
-    public void setBuStation(Station buStation) {
-	this.buStation = buStation;
+    public void setBusStation(Station buStation) {
+	this.busStation = buStation;
     }
 
     public Route getBusRoute() {
