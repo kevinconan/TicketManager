@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kevin.tm.model.Route">
+<mapper namespace="kevin.tm.dao.RouteMapper">
 	<select id="getById" parameterType="Integer" resultMap="routeResultMap">
 	SELECT R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
 	SS.StationId AS S_StationId,
@@ -14,7 +14,7 @@
 	Station AS ES ON R.EndStationId = ES.StationId
 	WHERE (R.RouteId = #{RouteId})
 	</select>
-	<resultMap type="Route" id="routeResultMap">
+	<resultMap type="kevin.tm.model.Route" id="routeResultMap">
 	<id property="RouteId" column="RouteId"/>
 	<result property="StartStationId" column="StartStationId"/>
 	<result property="EndStationId" column="EndStationId"/>
