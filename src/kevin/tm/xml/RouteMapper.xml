@@ -14,12 +14,24 @@
 	Station AS ES ON R.EndStationId = ES.StationId
 	WHERE (R.RouteId = #{RouteId})
 	</select>
+	<resultMap type="kevin.tm.model.Station" id="startStationResultMap">
+		<id property="stationid" column="S_StationId" />
+		<result property="stationname" column="S_StationName" />
+		<result property="locationx" column="S_LocationX" />
+		<result property="locationy" column="S_LocationY" />
+	</resultMap>
+	<resultMap type="kevin.tm.model.Station" id="endStationResultMap">
+		<id property="stationid" column="E_StationId" />
+		<result property="stationname" column="E_StationName" />
+		<result property="locationx" column="E_LocationX" />
+		<result property="locationy" column="E_LocationY" />
+	</resultMap>
 	<resultMap type="kevin.tm.model.Route" id="routeResultMap">
-	<id property="RouteId" column="RouteId"/>
-	<result property="StartStationId" column="StartStationId"/>
-	<result property="EndStationId" column="EndStationId"/>
-	<result property="RouteName" column="RouteName"/>
-	<collection property="StartStation" resultMap="startStationResultMap"></collection>
-	<collection property="EndStation" resultMap="endStationResultMap"></collection>
+	<id property="routeid" column="RouteId"/>
+	<result property="startstationid" column="StartStationId"/>
+	<result property="endstationid" column="EndStationId"/>
+	<result property="routename" column="RouteName"/>
+	<association property="startstation" resultMap="startStationResultMap"></association>
+	<association property="endstation" resultMap="endStationResultMap"></association>
 	</resultMap>
 </mapper>
