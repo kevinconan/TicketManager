@@ -62,6 +62,16 @@
 			
 		</action>
 		
+		<action name="test_*" class="testAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">route</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">busList</param>
+			</result>
+			
+		</action>
+		
 		
 		
 		
