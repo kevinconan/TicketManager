@@ -30,8 +30,12 @@ public class TestAction extends BaseAction<Object> {
 	}
 	
 	public String route(){
-		System.out.println(routeMapper.getById(1).getEndStation().getStationname());
+	//	System.out.println(routeMapper.getById(1).getEndStation().getStationname());
+		try{
 		setRoute(routeMapper.getById(1));
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return MESSAGE;
 	}
 }
