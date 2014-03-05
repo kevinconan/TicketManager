@@ -1,7 +1,11 @@
 package kevin.tm.action;
 
+import java.util.List;
+
 import kevin.tm.dao.RouteBeanMapper;
 import kevin.tm.dao.RouteMapper;
+import kevin.tm.dao.ext.BusBeanExtMapper;
+import kevin.tm.model.BusBeanExt;
 import kevin.tm.model.Route;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,19 @@ public class TestAction extends BaseAction<Object> {
 
     private Route route;
 
+    private List<BusBeanExt> busList;
+
+    public List<BusBeanExt> getBusList() {
+	return this.busList;
+    }
+
+    public void setBusList(List<BusBeanExt> busList) {
+	this.busList = busList;
+    }
+
+    @Autowired
+    private BusBeanExtMapper busBeanExtMapper;
+
     public String route() {
 	try {
 
@@ -27,7 +44,9 @@ public class TestAction extends BaseAction<Object> {
 	    // RouteBean routeBean = this.routeBeanMapper.selectByPrimaryKey(1);
 	    // System.out.println(routeBean);
 	    this.route = this.routeMapper.getById(1);
-	    System.out.println(this.route);
+	    // System.out.println(this.route);
+	    this.busList = this.busBeanExtMapper.getAllBusBeanExts();
+	    System.out.println(this.route.getRoutename());
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
