@@ -336,7 +336,7 @@ request.setAttribute("username", userName); */
 				 Ext.Ajax.request({
                      url : 'bus_add',// 文件路径
                      method : 'post',// 提交方法post或get
-                     params : {"busBean":formparams},
+                     params : {"jsonData":formparams},
                      // 提交成功的回调函数
                      success : function(data,response) {                                               
                      	var dat = Ext.JSON.decode(data.responseText);
