@@ -340,22 +340,22 @@ request.setAttribute("username", userName); */
                      params : {"jsonData":formparams},
                      // 提交成功的回调函数
                      success : function(data,response) {                                               
-                     	var dat = Ext.JSON.decode(data.responseText);
-                     //	alert(dat);
+                     	var dat = response.result.msg;
+                    // 	alert(dat);
                          switch(dat){
-                         case "0" : 
-                        	 Ext.Msg.alert('成功','操作成功！');break;
-                         case "1" :	
-                         	Ext.Msg.alert('错误','操作失败！');break;
+                         case "ok" : 
+                        	 Ext.Msg.alert('成功','操作成功！');win.close();break;
+                         case "fail" :	
+                         	Ext.Msg.alert('错误','操作失败！');win.close();break;
                          default :
-                         	Ext.Msg.alert('错误','操作失败！');break;
+                         	Ext.Msg.alert('错误','操作失败！');win.close();break;
                          
                          }   
                      },
                      // 提交失败的回调函数
                      failure : function() {
                              Ext.Msg.alert('错误',
-                             '服务器出现错误请稍后再试！');
+                             '服务器出现错误请稍后再试！');win.close();
                      }
              });
 				/* userForm.form.submit({
