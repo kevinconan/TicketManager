@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kevin.tm.dao.BusMapper">
-	<select id="getById" parameterType="Integer" resultMap="busResultMap">
+	<select id="getById" parameterType="VarChar" resultMap="busResultMap">
 	SELECT   B.VehicleNo, B.DriverName, B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, R.RouteId, R.StartStationId, 
                 R.EndStationId, R.RouteName, BS.StationId AS B_StationId, BS.StationName AS B_StationName, 
                 BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, SS.StationId AS S_StationId, 
