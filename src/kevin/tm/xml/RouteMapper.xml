@@ -14,6 +14,18 @@
 	Station AS ES ON R.EndStationId = ES.StationId
 	WHERE (R.RouteId = #{RouteId})
 	</select>
+	<select id="getAll" resultMap="routeResultMap">
+	SELECT R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+	SS.StationId AS S_StationId,
+	SS.StationName AS S_StationName, SS.LocationX AS S_LocationX, SS.LocationY AS
+	S_LocationY,
+	ES.StationId AS E_StationId, ES.StationName AS E_StationName, ES.LocationX AS
+	E_LocationX,
+	ES.LocationY AS E_LocationY
+	FROM Route AS R INNER JOIN
+	Station AS SS ON R.StartStationId = SS.StationId INNER JOIN
+	Station AS ES ON R.EndStationId = ES.StationId
+	</select>
 	<resultMap type="kevin.tm.model.Station" id="startStationResultMap">
 		<id property="stationid" column="S_StationId" />
 		<result property="stationname" column="S_StationName" />

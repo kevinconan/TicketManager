@@ -69,9 +69,10 @@
 		<action name="test_*" class="testAction" method="{1}">
 			<result name="MESSAGE" type="json">
 			<param name="ignoreHierarchy">false</param>
-				<param name="root">route</param>
+				<param name="root">bus</param>
 			</result>
 			<result name="LIST" type="json">
+			<param name="ignoreHierarchy">false</param>
 				<param name="root">busList</param>
 			</result>
 			

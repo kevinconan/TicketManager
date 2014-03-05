@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kevin.tm.dao.StationMapper">
-	
+	<select id="getById" parameterType="Integer" resultMap="stationResultMap">
+		SELECT StationId, StationName, LocationX, LocationY
+		FROM Station
+		WHERE (StationId = #{StationId})
+	</select>
+	<select id="getAll" resultMap="stationResultMap">
+		SELECT StationId, StationName, LocationX, LocationY
+		FROM Station
+	</select>
+	<resultMap type="kevin.tm.model.Station" id="stationResultMap">
+	<id property="stationid" column="StationId"/>
+	<result property="stationname" column="StationName"/>
+	<result property="locationx" column="LocationX"/>
+	<result property="locationy" column="LocationY"/>
+	</resultMap>
 </mapper>

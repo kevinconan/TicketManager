@@ -1,12 +1,7 @@
 package kevin.tm.action;
 
-import java.util.List;
-
-import kevin.tm.dao.RouteBeanMapper;
-import kevin.tm.dao.RouteMapper;
-import kevin.tm.dao.ext.BusBeanExtMapper;
-import kevin.tm.model.BusBeanExt;
-import kevin.tm.model.Route;
+import kevin.tm.dao.BusMapper;
+import kevin.tm.model.Bus;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,49 +10,21 @@ import org.springframework.stereotype.Controller;
 @Scope("request")
 @Controller("testAction")
 public class TestAction extends BaseAction<Object> {
-
     @Autowired
-    private RouteMapper routeMapper;
+    private BusMapper busMapper;
 
-    @Autowired
-    private RouteBeanMapper routeBeanMapper;
+    private Bus bus;
 
-    private Route route;
-
-    private List<BusBeanExt> busList;
-
-    public List<BusBeanExt> getBusList() {
-	return this.busList;
+    public Bus getBus() {
+	return this.bus;
     }
 
-    public void setBusList(List<BusBeanExt> busList) {
-	this.busList = busList;
+    public void setBus(Bus bus) {
+	this.bus = bus;
     }
 
-    @Autowired
-    private BusBeanExtMapper busBeanExtMapper;
-
-    public String route() {
-	try {
-
-	    // System.out.println(routeMapper.getById(1).getEndStation().getStationname());
-	    // RouteBean routeBean = this.routeBeanMapper.selectByPrimaryKey(1);
-	    // System.out.println(routeBean);
-	    this.route = this.routeMapper.getById(1);
-	    // System.out.println(this.route);
-	    this.busList = this.busBeanExtMapper.getAllBusBeanExts();
-	    System.out.println(this.route.getRoutename());
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+    public String test() {
+	this.bus = this.busMapper.getById("1");
 	return MESSAGE;
-    }
-
-    public Route getRoute() {
-	return this.route;
-    }
-
-    public void setRoute(Route route) {
-	this.route = route;
     }
 }
