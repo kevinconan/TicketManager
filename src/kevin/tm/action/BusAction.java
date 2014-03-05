@@ -105,7 +105,11 @@ public class BusAction extends BaseAction<BusBeanExt> {
 	return MESSAGE;
     }
 
-    public String update(BusBeanExt busBean) {
+    public String update() {
+    	if(ValidationUtil.isNullOrEmpty(busBean)){
+    		this.message = "1";
+    		return MESSAGE;
+    	}
 	if (this.busService.update(busBean) != 0) {
 	    this.message = "0";
 

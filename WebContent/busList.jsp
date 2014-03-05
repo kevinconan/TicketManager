@@ -332,11 +332,11 @@ request.setAttribute("username", userName); */
 			if(busForm.isAdd){
 				//新增书籍信息
 			//	alert(Ext.JSON.encode(busForm.form.getValues()));
-				var formparams=busForm.form.getValues();
+				var formparams=Ext.JSON.encode(busForm.form.getValues());
 				 Ext.Ajax.request({
                      url : 'bus_add',// 文件路径
                      method : 'post',// 提交方法post或get
-                     params : ["busBean",formparams],
+                     params : {"busBean":formparams},
                      // 提交成功的回调函数
                      success : function(data,response) {                                               
                      	var dat = Ext.JSON.decode(data.responseText);
