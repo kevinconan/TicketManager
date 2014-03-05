@@ -34,7 +34,16 @@ public class BusAction extends BaseAction<BusBeanExt> {
     private static final long serialVersionUID = 7467813069003588100L;
     private List<BusBeanExt> busList;
     
-    private Map<String, Object> dataMap ;
+    private Map<String, Object> msgMap ;
+    public Map<String, Object> getMsgMap() {
+		return msgMap;
+	}
+
+	public void setMsgMap(Map<String, Object> msgMap) {
+		this.msgMap = msgMap;
+	}
+
+	private Map<String, Object> dataMap ;
     public Map<String, Object> getDataMap() {
 		return dataMap;
 	}
@@ -80,21 +89,27 @@ public class BusAction extends BaseAction<BusBeanExt> {
      * 
      * */
     public String add() {
+    	msgMap = new HashMap<>();
     	Gson gson = new Gson();
     	BusBean busBean=gson.fromJson(jsonData, BusBean.class);
+    	System.out.println(jsonData);
     	if(busBean == null){
-    		this.message = "1";
-    		return MESSAGE;
+    		msgMap.put("success", true);
+    		msgMap.put("msg", "1");
+    		return "MSGMAP";
     	}
     		
 	if (this.busService.save(busBean) != 0) {
-	    this.message = "0";
+		msgMap.put("success", true);
+		msgMap.put("msg", "0");
+		System.out.println(msgMap.isEmpty());
 
 	} else {
-	    this.message = "1";
+		msgMap.put("success", false);
+		msgMap.put("msg", "1");
 	}
 
-	return MESSAGE;
+	return "MSGMAP";
     }
 
     public String delete(String vehicleNo) {

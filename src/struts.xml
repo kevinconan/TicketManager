@@ -53,14 +53,17 @@
 		</action>
 		
 		<action name="bus_*" class="busAction" method="{1}">
-			<result name="MESSAGE" type="json">
+		<result name="MESSAGE" type="json">
 				<param name="root">message</param>
+			</result>
+			<result name="MSGMAP" type="json">
+				<param name="root">msgMap</param>
 			</result>
 			<result name="LIST" type="json">
 				<param name="root">busList</param>
 			</result>
 			<result name="BUSBEAN" type="json">
-				<param name="root">dataMap</param>
+				<param name="root"></param>
 				
 			</result>
 			
