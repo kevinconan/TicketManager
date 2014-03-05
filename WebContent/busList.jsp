@@ -147,7 +147,7 @@ request.setAttribute("username", userName); */
 				queryMode: 'remote',//远程模式
 				fieldLabel:'线路'
 			},{
-				xtype:'textfield',
+				xtype:'numberfield',
 				allowBlank : false,
 				blankText : '车辆状态不能为空',
 				name : 'busstate',
@@ -213,7 +213,7 @@ request.setAttribute("username", userName); */
 				queryMode: 'remote',//远程模式
 				fieldLabel:'类型'
 			}, */{
-				xtype:'textfield',
+				xtype:'numberfield',
 				//inputType:'password',
 				name : 'seatcount',
 				fieldLabel:'座位数'
@@ -333,7 +333,8 @@ request.setAttribute("username", userName); */
 				//新增书籍信息
 			//	alert(Ext.JSON.encode(busForm.form.getValues()));
 				var formparams=Ext.JSON.encode(busForm.form.getValues());
-				 Ext.Ajax.request({
+				busForm.form.submit({
+					 clientValidation:true,
                      url : 'bus_add',// 文件路径
                      method : 'post',// 提交方法post或get
                      params : {"jsonData":formparams},
@@ -343,11 +344,11 @@ request.setAttribute("username", userName); */
                      //	alert(dat);
                          switch(dat){
                          case "0" : 
-                        	 Ext.Msg.alert('操作成功！');break;
+                        	 Ext.Msg.alert('成功','操作成功！');break;
                          case "1" :	
-                         	Ext.Msg.alert('操作失败！');break;
+                         	Ext.Msg.alert('错误','操作失败！');break;
                          default :
-                         	Ext.Msg.alert('操作失败！');break;
+                         	Ext.Msg.alert('错误','操作失败！');break;
                          
                          }   
                      },
