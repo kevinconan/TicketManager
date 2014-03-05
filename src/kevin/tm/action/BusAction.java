@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.Gson;
+
 /**
  * 车辆信息请求处理Action
  * 
@@ -78,7 +80,8 @@ public class BusAction extends BaseAction<BusBeanExt> {
      * 
      * */
     public String add() {
-    	System.out.println(busBean.getVehicleno());
+    	Gson gson = new Gson();
+    	BusBean busBean=gson.fromJson(jsonData, BusBean.class);
     	if(busBean == null){
     		this.message = "1";
     		return MESSAGE;

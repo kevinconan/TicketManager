@@ -30,9 +30,18 @@ public abstract class BaseAction<T> extends ActionSupport implements ServletRequ
 	protected List<T> list;
 
 
+	protected String jsonData;
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected HttpSession session;
+
+	public String getJsonData() {
+		return jsonData;
+	}
+
+	public void setJsonData(String jsonData) {
+		this.jsonData = jsonData;
+	}
 
 	public HttpServletRequest getRequest() {
 		return request;
