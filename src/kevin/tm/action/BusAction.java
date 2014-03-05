@@ -95,18 +95,18 @@ public class BusAction extends BaseAction<BusBeanExt> {
     	System.out.println(jsonData);
     	if(busBean == null){
     		msgMap.put("success", true);
-    		msgMap.put("msg", "1");
+    		msgMap.put("msg", "fail");
     		return "MSGMAP";
     	}
     		
 	if (this.busService.save(busBean) != 0) {
 		msgMap.put("success", true);
-		msgMap.put("msg", "0");
+		msgMap.put("msg", "ok");
 		System.out.println(msgMap.isEmpty());
 
 	} else {
 		msgMap.put("success", false);
-		msgMap.put("msg", "1");
+		msgMap.put("msg", "fail");
 	}
 
 	return "MSGMAP";
