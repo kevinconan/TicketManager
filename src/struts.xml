@@ -59,6 +59,10 @@
 			<result name="LIST" type="json">
 				<param name="root">busList</param>
 			</result>
+			<result name="BUSBEAN" type="json">
+				<param name="root">dataMap</param>
+				
+			</result>
 			
 		</action>
 		

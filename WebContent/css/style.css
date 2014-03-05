@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.add {
+    background-image:url(../images/add.gif) !important;
+}
+.option {
+    background-image:url(../images/plugin.gif) !important;
+}
+.remove {
+    background-image:url(../images/delete.gif) !important;
+}

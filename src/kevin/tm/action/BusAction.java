@@ -3,11 +3,14 @@
  */
 package kevin.tm.action;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kevin.tm.dao.model.BusBean;
 import kevin.tm.model.BusBeanExt;
 import kevin.tm.service.BusService;
+import kevin.tm.util.ValidationUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,7 +32,16 @@ public class BusAction extends BaseAction<BusBeanExt> {
     private static final long serialVersionUID = 7467813069003588100L;
     private List<BusBeanExt> busList;
     
-    public BusBean getBusBean() {
+    private Map<String, Object> dataMap ;
+    public Map<String, Object> getDataMap() {
+		return dataMap;
+	}
+
+	public void setDataMap(Map<String, Object> dataMap) {
+		this.dataMap = dataMap;
+	}
+
+	public BusBean getBusBean() {
 		return busBean;
 	}
 
@@ -107,6 +119,20 @@ public class BusAction extends BaseAction<BusBeanExt> {
     public String list() {
 	this.setBusList(this.busService.findAll());
 	return LIST;
+    }
+    
+    public String getByVehicleNo(){
+    	String vehicleno=busBean.getVehicleno();
+   //	setBusBean(busService.findByVehicleNo(vehicleno));
+    	dataMap = new HashMap<>();
+    	if (!ValidationUtil.isNullOrEmpty(busBean)){
+    		dataMap.put("success", true);
+    		
+    		dataMap.put("data", busService.findByVehicleNo(vehicleno));
+    	}else{
+    		dataMap.put("success", false);
+    	}
+    	return "BUSBEAN";
     }
 
 }

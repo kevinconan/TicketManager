@@ -19,6 +19,7 @@ request.setAttribute("username", userName); */
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
+<body>
 <script type="text/javascript">
 	var ctxpath = '<%=ctxpath%>';
 	//切换主题
@@ -73,9 +74,9 @@ request.setAttribute("username", userName); */
 		});
 		//创建工具栏组件
 		var toolbar = [
-			{text : '注册汽车',iconCls:'add',handler:showAddUser},
-			{text : '修改汽车',iconCls:'option',handler:showModifyUser},
-			{text : '注销汽车',iconCls:'remove',handler:showDeleteUsers}
+			{text : '注册汽车',iconCls:'add',handler:showAddBus},
+			{text : '修改汽车',iconCls:'option',handler:showModifyBus},
+			{text : '注销汽车',iconCls:'remove',handler:showDeleteBuses}
 		];
 		//创建Grid表格组件
 		var busGrid = new Ext.grid.Panel({
@@ -243,14 +244,14 @@ request.setAttribute("username", userName); */
 			items:busForm
 		});
 		//显示新建书籍窗口
-		function showAddUser(){
+		function showAddBus(){
 			busForm.form.reset();
 			busForm.isAdd = true;
 			win.setTitle("新增汽车");
 			win.show();
 		}
 		//显示修改书籍窗口
-		function showModifyUser(){
+		function showModifyBus(){
 			var busList = getBusIdList();
 			var num = busList.length;
 			if(num > 1){
@@ -258,7 +259,7 @@ request.setAttribute("username", userName); */
 			}else if(num == 1){
 				busForm.form.reset();
 				busForm.isAdd = false;
-				win.setTitle("修改用户信息");
+				win.setTitle("修改车辆信息");
 				win.show();
 				var busId = busList[0];
 				loadForm(busId);
@@ -294,11 +295,11 @@ request.setAttribute("username", userName); */
 					var result = Ext.JSON.decode(response.responseText);
 					if(result.success){
 						//服务器端数据成功删除后，同步删除客户端列表中的数据
-						for(var i = 0 ; i < bookList.length ; i++){
-							var index = bookStore.find('id',bookList[i]);
+						for(var i = 0 ; i < busList.length ; i++){
+							var index = busStore.find('id',busList[i]);
 							if(index != -1){
-								var rec = bookStore.getAt(index);
-								bookStore.remove(rec);
+								var rec = busStore.getAt(index);
+								busStore.remove(rec);
 							}
 						}
 						Ext.Msg.alert('提示','删除书籍信息成功。');
@@ -314,11 +315,11 @@ request.setAttribute("username", userName); */
 		}
 		//加载表单数据
 		function loadForm(busId){
-			bookForm.form.load({
+			busForm.form.load({
 				waitMsg : '正在加载数据请稍后',//提示信息
 				waitTitle : '提示',//标题
-				url : ctxpath + '/bookext.do?method=getBookById',//请求的url地址
-				params : {bookId:bookId},
+				url : 'bus_getByVehicleNo',//请求的url地址
+				params : {"busBean.vehicleno":busId},
 				method:'GET',//请求方式
 				failure:function(form,action){//加载失败的处理函数
 					Ext.Msg.alert('提示','数据加载失败');
@@ -363,7 +364,7 @@ request.setAttribute("username", userName); */
 					method:'POST',//请求方式
 					success:function(form,action){//加载成功的处理函数
 						win.hide();
-						updateBookGrid(action.result.bookId);
+						updateBusGrid(action.result.bookId);
 						Ext.Msg.alert('提示','新增书籍成功');
 					},
 					failure:function(form,action){//加载失败的处理函数
@@ -371,32 +372,42 @@ request.setAttribute("username", userName); */
 					}
 				}); */
 			}else{
-				//修改书籍信息
-				bookForm.form.submit({
+				//修改车辆信息
+				busForm.form.submit({
 					clientValidation:true,//进行客户端验证
 					waitMsg : '正在提交数据请稍后',//提示信息
 					waitTitle : '提示',//标题
-					url : ctxpath+'/bookext.do?method=modifyBook',//请求的url地址
+					url : 'bus_update',//请求的url地址
 					method:'POST',//请求方式
-					success:function(form,action){//加载成功的处理函数
-						win.hide();
-						updateBookGrid(action.result.bookId);
-						Ext.Msg.alert('提示','修改书籍成功');
-					},
-					failure:function(form,action){//加载失败的处理函数
-						Ext.Msg.alert('提示','修改书籍失败');
-					}
+					success:function(data,response) {                                               
+                     	var dat = Ext.JSON.decode(data.responseText);
+                        //	alert(dat);
+                            switch(dat){
+                            case "0" : 
+                           	 Ext.Msg.alert('操作成功！');break;
+                            case "1" :	
+                            	Ext.Msg.alert('操作失败！');break;
+                            default :
+                            	Ext.Msg.alert('操作失败！');break;
+                            
+                            }   
+                        },
+                        // 提交失败的回调函数
+                        failure : function() {
+                                Ext.Msg.alert('错误',
+                                '服务器出现错误请稍后再试！');
+                        }
 				});
 			}
 		}
 		//明细数据修改后，同步更新汽车列表信息
-		function updateBookGrid(bookId){
-			var values = bookForm.form.getValues();
-			var index = bookStore.find('id',values['id']);
-			var bookTypeField = bookForm.form.findField('bookTypeId');
+		function updateBusGrid(bookId){
+			var values = busForm.form.getValues();
+			var index = busStore.find('id',values['id']);
+			var bookTypeField = busForm.form.findField('bookTypeId');
 			var bookTypeName = bookTypeField.getRawValue();
 			if(index != -1){
-				var item = bookStore.getAt(index);
+				var item = busStore.getAt(index);
 				for(var fieldName in values){
 					item.set(fieldName,values[fieldName]);
 				}
@@ -411,7 +422,7 @@ request.setAttribute("username", userName); */
 					price : values['price'],
 					brief : values['brief']
 				}, 'Book');
-				bookStore.add(rec);
+				busStore.add(rec);
 			}
 		}
 		//取得所选汽车id
@@ -419,7 +430,7 @@ request.setAttribute("username", userName); */
 			var recs = busGrid.getSelectionModel().getSelection();
 			var list = [];
 			if(recs.length == 0){
-				Ext.MessageBox.alert('提示','请选择要进行操作的书籍！');
+				Ext.MessageBox.alert('提示','请选择要进行操作的车辆！');
 			}else{
 				for(var i = 0 ; i < recs.length ; i++){
 					var rec = recs[i];
@@ -430,5 +441,5 @@ request.setAttribute("username", userName); */
 		}
 	});
 </script>
-<body></body>
+</body>
 </html>
