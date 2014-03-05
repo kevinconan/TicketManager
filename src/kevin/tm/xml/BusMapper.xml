@@ -36,7 +36,7 @@ FROM      Bus AS B INNER JOIN
 	<result property="busstationid" column="BusStationId"/>
 	<result property="busrouteid" column="BusRouteId"/>
 	<association property="busroute" resultMap="routeResultMap"></association>
-	<association property="busstation" resultMap="stationResultMap"></association>
+	<association property="busstation" resultMap="busStationResultMap"></association>
 	</resultMap>
 	<resultMap type="kevin.tm.model.Station" id="startStationResultMap">
 		<id property="stationid" column="S_StationId" />
@@ -58,10 +58,10 @@ FROM      Bus AS B INNER JOIN
 	<association property="startstation" resultMap="startStationResultMap"></association>
 	<association property="endstation" resultMap="endStationResultMap"></association>
 	</resultMap>
-	<resultMap type="kevin.tm.model.Station" id="stationResultMap">
-	<id property="stationid" column="StationId"/>
-	<result property="stationname" column="StationName"/>
-	<result property="locationx" column="LocationX"/>
-	<result property="locationy" column="LocationY"/>
+	<resultMap type="kevin.tm.model.Station" id="busStationResultMap">
+	<id property="stationid" column="B_StationId"/>
+	<result property="stationname" column="B_StationName"/>
+	<result property="locationx" column="B_LocationX"/>
+	<result property="locationy" column="B_LocationY"/>
 	</resultMap>
 </mapper>
