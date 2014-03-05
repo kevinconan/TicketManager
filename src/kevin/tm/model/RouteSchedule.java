@@ -13,6 +13,15 @@ import kevin.tm.dao.model.RouteScheduleBean;
  */
 public class RouteSchedule extends RouteScheduleBean {
     private Route scheduleroute;
+    private Bus schedulebus;
+
+    public Bus getSchedulebus() {
+	return this.schedulebus;
+    }
+
+    public void setSchedulebus(Bus schedulebus) {
+	this.schedulebus = schedulebus;
+    }
 
     public Route getScheduleroute() {
 	return this.scheduleroute;

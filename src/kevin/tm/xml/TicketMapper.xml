@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kevin.tm.dao.TicketMapper">
+	<select id="getById" parameterType="Integer" resultMap="ticketResultMap">
+		SELECT Schedule.ScheduleId, Schedule.ScheduleRouteId, Schedule.StartTime,
+		Schedule.EndTime, Schedule.ScheduleName,
+		Schedule.ScheduleVehicleNo, R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+		B.VehicleNo, B.DriverName,
+		B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, RS.StationId AS
+		S_StationId,
+		RS.StationName AS S_StationName, RS.LocationX AS S_LocationX, RS.LocationY AS
+		S_LocationY,
+		RE.StationId AS E_StationId, RE.StationName AS E_StationName, RE.LocationX AS
+		E_LocationX,
+		RE.LocationY AS E_LocationY, BS.StationId AS B_StationId, BS.StationName AS
+		B_StationName,
+		BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, Ticket.TicketId,
+		Ticket.TicketTitle, Ticket.TicketScheduleId,
+		Ticket.SeatNo, Ticket.CustomerName, Ticket.TicketNo, Ticket.EntryTime,
+		Ticket.DeadLine, Ticket.Checked
+		FROM Station AS RE INNER JOIN
+		RouteSchedule AS Schedule INNER JOIN
+		Bus AS B ON Schedule.ScheduleVehicleNo = B.VehicleNo INNER JOIN
+		Station AS RS INNER JOIN
+		Route AS R ON RS.StationId = R.StartStationId ON Schedule.ScheduleRouteId =
+		R.RouteId ON
+		RE.StationId = R.EndStationId INNER JOIN
+		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
+		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
+		WHERE (Ticket.TicketId = #{TicketId})
+	</select>
+	<select id="getAll" resultMap="ticketResultMap">
+		SELECT Schedule.ScheduleId, Schedule.ScheduleRouteId, Schedule.StartTime,
+		Schedule.EndTime, Schedule.ScheduleName,
+		Schedule.ScheduleVehicleNo, R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+		B.VehicleNo, B.DriverName,
+		B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, RS.StationId AS
+		S_StationId,
+		RS.StationName AS S_StationName, RS.LocationX AS S_LocationX, RS.LocationY AS
+		S_LocationY,
+		RE.StationId AS E_StationId, RE.StationName AS E_StationName, RE.LocationX AS
+		E_LocationX,
+		RE.LocationY AS E_LocationY, BS.StationId AS B_StationId, BS.StationName AS
+		B_StationName,
+		BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, Ticket.TicketId,
+		Ticket.TicketTitle, Ticket.TicketScheduleId,
+		Ticket.SeatNo, Ticket.CustomerName, Ticket.TicketNo, Ticket.EntryTime,
+		Ticket.DeadLine, Ticket.Checked
+		FROM Station AS RE INNER JOIN
+		RouteSchedule AS Schedule INNER JOIN
+		Bus AS B ON Schedule.ScheduleVehicleNo = B.VehicleNo INNER JOIN
+		Station AS RS INNER JOIN
+		Route AS R ON RS.StationId = R.StartStationId ON Schedule.ScheduleRouteId =
+		R.RouteId ON
+		RE.StationId = R.EndStationId INNER JOIN
+		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
+		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
+	</select>
+	<resultMap type="kevin.tm.model.Ticket" id="ticketResultMap">
+		<id property="ticketid" column="TicketId" />
+		<result property="tickettitle" column="TicketTitle" />
+		<result property="ticketscheduleid" column="TicketScheduleId" />
+		<result property="seatno" column="SeatNo" />
+		<result property="customername" column="CustomerName" />
+		<result property="ticketno" column="TicketNo" />
+		<result property="entrytime" column="EntryTime" />
+		<result property="deadline" column="DeadLine" />
+		<result property="checked" column="Checked" />
+		<association property="ticketschedule" resultMap="routeScheduleResultMap"></association>
+	</resultMap>
+	<resultMap type="kevin.tm.model.RouteSchedule" id="routeScheduleResultMap">
+		<id property="scheduleid" column="ScheduleId" />
+		<result property="schedulerouteid" column="ScheduleRouteId" />
+		<result property="starttime" column="StartTime" />
+		<result property="endtime" column="EndTime" />
+		<result property="schedulename" column="ScheduleName" />
+		<result property="schedulevehicleno" column="ScheduleVehicleNo" />
+		<association property="scheduleroute" resultMap="routeResultMap"></association>
+		<association property="schedulebus" resultMap="busResultMap"></association>
+	</resultMap>
+	<resultMap type="kevin.tm.model.Station" id="startStationResultMap">
+		<id property="stationid" column="S_StationId" />
+		<result property="stationname" column="S_StationName" />
+		<result property="locationx" column="S_LocationX" />
+		<result property="locationy" column="S_LocationY" />
+	</resultMap>
+	<resultMap type="kevin.tm.model.Station" id="endStationResultMap">
+		<id property="stationid" column="E_StationId" />
+		<result property="stationname" column="E_StationName" />
+		<result property="locationx" column="E_LocationX" />
+		<result property="locationy" column="E_LocationY" />
+	</resultMap>
+	<resultMap type="kevin.tm.model.Route" id="routeResultMap">
+		<id property="routeid" column="RouteId" />
+		<result property="startstationid" column="StartStationId" />
+		<result property="endstationid" column="EndStationId" />
+		<result property="routename" column="RouteName" />
+		<association property="startstation" resultMap="startStationResultMap"></association>
+		<association property="endstation" resultMap="endStationResultMap"></association>
+	</resultMap>
+	<resultMap type="kevin.tm.model.Bus" id="busResultMap">
+		<id property="vehicleno" column="VehicleNo" />
+		<result property="drivername" column="DriverName" />
+		<result property="seatcount" column="SeatCount" />
+		<result property="busstate" column="BusState" />
+		<result property="busstationid" column="BusStationId" />
+		<result property="busrouteid" column="BusRouteId" />
+		<!--<association property="busroute" resultMap="routeResultMap"></association> -->
+		<association property="busstation" resultMap="busStationResultMap"></association>
+	</resultMap>
+	<resultMap type="kevin.tm.model.Station" id="busStationResultMap">
+		<id property="stationid" column="B_StationId" />
+		<result property="stationname" column="B_StationName" />
+		<result property="locationx" column="B_LocationX" />
+		<result property="locationy" column="B_LocationY" />
+	</resultMap>
+</mapper>
