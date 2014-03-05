@@ -12,22 +12,22 @@ import kevin.tm.dao.model.BusBean;
  * 
  */
 public class Bus extends BusBean {
-    private Station busStation;
-    private Route busRoute;
+    private Station busstation;
+    private Route busroute;
 
-    public Station getBusStation() {
-	return this.busStation;
+    public Station getBusstation() {
+	return this.busstation;
     }
 
-    public void setBusStation(Station buStation) {
-	this.busStation = buStation;
+    public void setBusstation(Station busStation) {
+	this.busstation = busStation;
     }
 
-    public Route getBusRoute() {
-	return this.busRoute;
+    public Route getBusroute() {
+	return this.busroute;
     }
 
-    public void setBusRoute(Route busRoute) {
-	this.busRoute = busRoute;
+    public void setBusroute(Route busRoute) {
+	this.busroute = busRoute;
     }
 }

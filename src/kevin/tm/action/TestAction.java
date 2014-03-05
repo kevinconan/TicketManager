@@ -1,5 +1,7 @@
 package kevin.tm.action;
 
+import java.util.List;
+
 import kevin.tm.dao.BusMapper;
 import kevin.tm.model.Bus;
 
@@ -23,8 +25,18 @@ public class TestAction extends BaseAction<Object> {
 	this.bus = bus;
     }
 
+    private List<Bus> busList;
+
+    public List<Bus> getBusList() {
+	return this.busList;
+    }
+
+    public void setBusList(List<Bus> busList) {
+	this.busList = busList;
+    }
+
     public String test() {
-	this.bus = this.busMapper.getById("1");
-	return MESSAGE;
+	this.busList = this.busMapper.getAll();
+	return LIST;
     }
 }
