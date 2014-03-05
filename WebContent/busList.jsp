@@ -116,14 +116,14 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '车牌号不能为空',
-				name : 'busBean.vehicleno',
+				name : 'vehicleno',
 				fieldLabel:'车牌号'
 			},{
 				xtype:'combo',
 				autoShow : true,
 				allowBlank : false,
 				blankText : '必须选择线路',
-				name : 'busBean.busrouteid',
+				name : 'busrouteid',
 				store : new Ext.data.JsonStore({
 				//	autoLoad :true,
 					model : 'Route',
@@ -150,14 +150,14 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '车辆状态不能为空',
-				name : 'busBean.busstate',
+				name : 'busstate',
 				fieldLabel:'车辆状态'
 			},{
 				xtype:'combo',
 				autoShow : true,
 				allowBlank : false,
 				blankText : '必须选择所属车站',
-				name : 'busBean.busstationid',
+				name : 'busstationid',
 				store : new Ext.data.JsonStore({
 				//	autoLoad :true,
 					model : 'Station',
@@ -183,7 +183,7 @@ request.setAttribute("username", userName); */
 				xtype:'textfield',
 				allowBlank : false,
 				blankText : '司机名能为空',
-				name : 'busBean.drivername',
+				name : 'drivername',
 				fieldLabel:'司机'
 			},/* {
 				xtype:'combo',
@@ -215,7 +215,7 @@ request.setAttribute("username", userName); */
 			}, */{
 				xtype:'textfield',
 				//inputType:'password',
-				name : 'busBean.seatcount',
+				name : 'seatcount',
 				fieldLabel:'座位数'
 			},/* ,{
 				xtype:'hidden',
@@ -332,10 +332,11 @@ request.setAttribute("username", userName); */
 			if(busForm.isAdd){
 				//新增书籍信息
 			//	alert(Ext.JSON.encode(busForm.form.getValues()));
+				var formparams=busForm.form.getValues();
 				 Ext.Ajax.request({
                      url : 'bus_add',// 文件路径
                      method : 'post',// 提交方法post或get
-                     params : busForm.form.getValues(),
+                     params : ["busBean",formparams],
                      // 提交成功的回调函数
                      success : function(data,response) {                                               
                      	var dat = Ext.JSON.decode(data.responseText);
