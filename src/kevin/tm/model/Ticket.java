@@ -13,13 +13,13 @@ import kevin.tm.dao.model.TicketBean;
  */
 public class Ticket extends TicketBean {
 
-    private RouteSchedule ticketSchedule;
+    private RouteSchedule ticketschedule;
 
-    public RouteSchedule getTicketSchedule() {
-	return this.ticketSchedule;
+    public RouteSchedule getTicketschedule() {
+	return this.ticketschedule;
     }
 
-    public void setTicketSchedule(RouteSchedule ticketSchedule) {
-	this.ticketSchedule = ticketSchedule;
+    public void setTicketschedule(RouteSchedule ticketSchedule) {
+	this.ticketschedule = ticketSchedule;
     }
 }

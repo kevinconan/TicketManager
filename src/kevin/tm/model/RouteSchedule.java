@@ -12,13 +12,13 @@ import kevin.tm.dao.model.RouteScheduleBean;
  * 
  */
 public class RouteSchedule extends RouteScheduleBean {
-    private Route scheduleRoute;
+    private Route scheduleroute;
 
-    public Route getScheduleRoute() {
-	return this.scheduleRoute;
+    public Route getScheduleroute() {
+	return this.scheduleroute;
     }
 
-    public void setScheduleRoute(Route scheduleRoute) {
-	this.scheduleRoute = scheduleRoute;
+    public void setScheduleroute(Route scheduleRoute) {
+	this.scheduleroute = scheduleRoute;
     }
 }
