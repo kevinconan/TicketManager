@@ -16,8 +16,8 @@
 		WHERE (LoginId = #{LoginId}) AND (LoginPwd = #{LoginPwd})
 	</select>
 	<parameterMap type="kevin.tm.model.Admin" id="loginParameterMap">
-		<parameter property="loginid" javaType="String" jdbcType="VarChar" />
-		<parameter property="loginpwd" javaType="String" jdbcType="Char" />
+		<parameter property="loginid" javaType="String"/>
+		<parameter property="loginpwd" javaType="String"/>
 	</parameterMap>
 	<resultMap type="kevin.tm.model.Admin" id="adminResultMap">
 		<id property="loginid" column="LoginId" />

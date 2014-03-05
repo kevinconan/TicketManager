@@ -2,7 +2,9 @@ package kevin.tm.action;
 
 import java.util.List;
 
+import kevin.tm.dao.AdminMapper;
 import kevin.tm.dao.BusMapper;
+import kevin.tm.model.Admin;
 import kevin.tm.model.Bus;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +37,21 @@ public class TestAction extends BaseAction<Object> {
 	this.busList = busList;
     }
 
+    @Autowired
+    private AdminMapper adminMapper;
+
+    private Admin admin;
+
+    public Admin getAdmin() {
+	return this.admin;
+    }
+
+    public void setAdmin(Admin admin) {
+	this.admin = admin;
+    }
+
     public String test() {
-	this.busList = this.busMapper.getAll();
-	return LIST;
+	this.admin = this.adminMapper.login("test", "test");
+	return MESSAGE;
     }
 }
