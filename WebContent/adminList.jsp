@@ -56,7 +56,7 @@ request.setAttribute("username", userName); */
 		
 		
 		var adminStore = Ext.create('Ext.data.Store', {  
-		    pageSize : 20,  
+		    pageSize : 5,  //改小点，好测试
 		    model : 'AdminModel',  
 		    autoLoad : true,  
 		    proxy : {  
@@ -118,10 +118,7 @@ request.setAttribute("username", userName); */
 			columns: [//配置表格列
 				{text: "管理员号", width: 80, dataIndex: 'loginid', sortable: true},
 				{text: "登陆密码", width: 80, dataIndex: 'loginpwd', sortable: true},
-				{text: "名字", width: 80, dataIndex: 'adminname', sortable: true},
-				
-
-				
+				{text: "名字", width: 80, dataIndex: 'adminname', sortable: true},	
 			]
 		});
 		new Ext.container.Viewport({

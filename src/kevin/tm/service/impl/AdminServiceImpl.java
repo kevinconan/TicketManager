@@ -108,4 +108,9 @@ public class AdminServiceImpl implements AdminService {
 	return this.adminBeanMapper.deleteByPrimaryKey(adminBean.getLoginid());
     }
 
+    @Override
+    public List<AdminBean> findByPage(int start, int limit) {
+	return this.adminBeanMapper.selectByPage(start, limit);
+    }
+
 }

@@ -5,9 +5,9 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import kevin.tm.dao.model.AdminBean;
+
+import org.springframework.stereotype.Service;
 
 /**
  * 管理员Service接口
@@ -79,4 +79,6 @@ public interface AdminService {
      * @return
      */
     public int totalCount();
+
+    public List<AdminBean> findByPage(int start, int limit);
 }

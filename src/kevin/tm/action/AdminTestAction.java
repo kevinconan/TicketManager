@@ -77,6 +77,9 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     private List<AdminBean> deleteAdminBeans;
     private List<AdminBean> adminBeanList;
 
+    private int start;
+    private int limit;
+
     private final Gson gson = new Gson();
 
     private int totalCount;
@@ -121,13 +124,30 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     }
 
     public String list() {
-	this.adminBeanList = this.adminService.findAll();
+	this.adminBeanList = this.adminService.findByPage(this.start,
+		this.limit);
 	return LIST;
     }
 
     public int getTotalCount() {
 	this.totalCount = this.adminService.totalCount();
 	return this.totalCount;
+    }
+
+    public int getStart() {
+	return this.start;
+    }
+
+    public void setStart(int start) {
+	this.start = start;
+    }
+
+    public int getLimit() {
+	return this.limit;
+    }
+
+    public void setLimit(int limit) {
+	this.limit = limit;
     }
 
 }
