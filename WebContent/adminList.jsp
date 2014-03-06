@@ -130,7 +130,7 @@ request.setAttribute("username", userName); */
 		});
 		
 		//创建新增或修改书籍信息的form表单
-		Ext.QuickTips.init();
+		Ext.QuickTips.init();});
 		//创建书籍类型数据模型
 		
 		
