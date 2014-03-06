@@ -109,9 +109,17 @@ request.setAttribute("username", userName); */
 			{text : '修改汽车',iconCls:'option'},
 			{text : '注销汽车',iconCls:'remove'}
 		];
+		var pageToolbar=new Ext.PagingToolbar({
+			  store:adminStore,
+			  pageSize:10,
+			  displayInfo:true,
+			  displayMsg:"当前显示从{0}条到{1}条，共{2}条",
+			  emptyMsg:"<span style='color:red;font-style:italic;'>对不起没有找到数据</span>"
+			 });
 		//创建Grid表格组件
 		var adminGrid = new Ext.grid.Panel({
 			tbar : toolbar,
+			bbar : pageToolbar,
 			region: 'center',
 			store: adminStore,
 			selModel : new Ext.selection.CheckboxModel(),
