@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.Gson;
+
 /**
  * @author Diluka
  * 
@@ -61,10 +63,23 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	this.deleteAdminBeans = deleteAdminBeans;
     }
 
+    public List<AdminBean> getAdminBeanList() {
+	return this.adminBeanList;
+    }
+
+    public void setAdminBeanList(List<AdminBean> adminBeanList) {
+	this.adminBeanList = adminBeanList;
+    }
+
     private AdminBean adminBean;
     private List<AdminBean> updateAdminBeans;
     private List<AdminBean> createAdminBeans;
     private List<AdminBean> deleteAdminBeans;
+    private List<AdminBean> adminBeanList;
+
+    private final Gson gson = new Gson();
+
+    private int totalCount;
 
     public String add() {
 	List<String> list = new ArrayList<>();
@@ -75,23 +90,44 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
+	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
 	return MESSAGE;
     }
 
     public String update() {
-	int count = 0;
+	List<String> list = new ArrayList<>();
+
 	for (AdminBean bean : this.updateAdminBeans) {
-	    count += this.adminService.update(bean);
+	    if (this.adminService.update(bean) == 0) {
+		list.add(bean.getLoginid());
+	    }
 	}
+
+	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
 	return MESSAGE;
     }
 
     public String delete() {
-	int count = 0;
+	List<String> list = new ArrayList<>();
+
 	for (AdminBean bean : this.deleteAdminBeans) {
-	    count += this.adminService.delete(bean);
+	    if (this.adminService.delete(bean) == 0) {
+		list.add(bean.getLoginid());
+	    }
 	}
+
+	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
 	return MESSAGE;
+    }
+
+    public String list() {
+	this.adminBeanList = this.adminService.findAll();
+	return LIST;
+    }
+
+    public int getTotalCount() {
+	this.totalCount = this.adminService.totalCount();
+	return this.totalCount;
     }
 
 }
