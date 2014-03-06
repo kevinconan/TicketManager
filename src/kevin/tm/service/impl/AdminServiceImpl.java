@@ -6,8 +6,10 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.AdminBeanMapper;
+import kevin.tm.dao.AdminMapper;
 import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.AdminBeanExample;
+import kevin.tm.model.Admin;
 import kevin.tm.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminBeanMapper adminBeanMapper;
+    @Autowired
+    private AdminMapper adminMapper;
 
     public AdminBeanMapper getAdminBeanMapper() {
 	return this.adminBeanMapper;
@@ -65,8 +69,8 @@ public class AdminServiceImpl implements AdminService {
      * @see kevin.tm.service.AdminService#findById(java.lang.String)
      */
     @Override
-    public AdminBean findById(String loginId) {
-	return this.adminBeanMapper.selectByPrimaryKey(loginId);
+    public Admin findById(String loginId) {
+	return this.adminMapper.getById(loginId);
     }
 
     /*
@@ -75,11 +79,8 @@ public class AdminServiceImpl implements AdminService {
      * @see kevin.tm.service.AdminService#findAll()
      */
     @Override
-    public List<AdminBean> findAll() {
-	AdminBeanExample adminBeanExample = new AdminBeanExample();
-	adminBeanExample.clear();
-	adminBeanExample.createCriteria().getAllCriteria();
-	return this.adminBeanMapper.selectByExample(adminBeanExample);
+    public List<Admin> findAll() {
+	return this.adminMapper.getAll();
     }
 
     /*
@@ -89,14 +90,16 @@ public class AdminServiceImpl implements AdminService {
      * java.lang.String)
      */
     @Override
-    public AdminBean login(String loginId, String loginPwd) {
+    public Admin login(String loginId, String loginPwd) {
+	return this.adminMapper.login(loginId, loginPwd);
+    }
+
+    @Override
+    public int count() {
 	AdminBeanExample adminBeanExample = new AdminBeanExample();
 	adminBeanExample.clear();
-	adminBeanExample.createCriteria().andLoginidEqualTo(loginId)
-		.andLoginpwdEqualTo(loginPwd);
-	List<AdminBean> list = this.adminBeanMapper
-		.selectByExample(adminBeanExample);
-	return list.size() > 0 ? list.get(0) : null;
+	adminBeanExample.createCriteria().getAllCriteria();
+	return this.adminBeanMapper.countByExample(adminBeanExample);
     }
 
 }
