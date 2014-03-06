@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.google.gson.Gson;
-
 /**
  * @author Diluka
  * 
@@ -77,11 +75,6 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     private List<AdminBean> deleteAdminBeans;
     private List<AdminBean> adminBeanList;
 
-    private int start;
-    private int limit;
-
-    private final Gson gson = new Gson();
-
     private int totalCount;
 
     public String add() {
@@ -93,7 +86,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
+	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
 	return MESSAGE;
     }
 
@@ -106,7 +99,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
+	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
 	return MESSAGE;
     }
 
@@ -119,7 +112,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : this.gson.toJson(list);
+	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
 	return MESSAGE;
     }
 
@@ -132,22 +125,6 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     public int getTotalCount() {
 	this.totalCount = this.adminService.totalCount();
 	return this.totalCount;
-    }
-
-    public int getStart() {
-	return this.start;
-    }
-
-    public void setStart(int start) {
-	this.start = start;
-    }
-
-    public int getLimit() {
-	return this.limit;
-    }
-
-    public void setLimit(int limit) {
-	this.limit = limit;
     }
 
 }
