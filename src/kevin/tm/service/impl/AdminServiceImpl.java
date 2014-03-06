@@ -11,11 +11,15 @@ import kevin.tm.dao.model.AdminBeanExample;
 import kevin.tm.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("adminServiceImpl")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired

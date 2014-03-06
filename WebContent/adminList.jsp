@@ -48,7 +48,7 @@ request.setAttribute("username", userName); */
 	
 	Ext.define('AdminModel', {  
 	    extend : 'Ext.data.Model',  
-	    fields : [ 'LoginId', 'LoginPwd', 'LoginName' ],  
+	    fields : [ 'loginid', 'loginpwd', 'loginname' ],  
 	      
 	});  
 	Ext.onReady(function(){
@@ -65,7 +65,7 @@ request.setAttribute("username", userName); */
 		        url : 'adminTest_list',  
 		        reader : {  
 		            type : 'json',  
-		            root : 'admin',  
+		         //   root : 'admin',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
@@ -105,15 +105,15 @@ request.setAttribute("username", userName); */
 		}); */
 		//创建工具栏组件
 		var toolbar = [
-			{text : '注册汽车',iconCls:'add',handler:showAddBus},
-			{text : '修改汽车',iconCls:'option',handler:showModifyBus},
-			{text : '注销汽车',iconCls:'remove',handler:showDeleteBuses}
+			{text : '注册汽车',iconCls:'add'},
+			{text : '修改汽车',iconCls:'option'},
+			{text : '注销汽车',iconCls:'remove'}
 		];
 		//创建Grid表格组件
 		var adminGrid = new Ext.grid.Panel({
 			tbar : toolbar,
 			region: 'center',
-			store: busStore,
+			store: adminStore,
 			selModel : new Ext.selection.CheckboxModel(),
 			columns: [//配置表格列
 				{text: "管理员号", width: 80, dataIndex: 'LoginId', sortable: true},
