@@ -65,7 +65,7 @@ request.setAttribute("username", userName); */
 		        url : 'adminTest_list',  
 		        reader : {  
 		            type : 'json',  
-		         //   root : 'admin',  
+		            root : 'admin',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
@@ -111,7 +111,7 @@ request.setAttribute("username", userName); */
 		];
 		var pageToolbar=new Ext.PagingToolbar({
 			  store:adminStore,
-			  pageSize:10,
+			  pageSize:5,//小点，和上面一致
 			  displayInfo:true,
 			  displayMsg:"当前显示从{0}条到{1}条，共{2}条",
 			  emptyMsg:"<span style='color:red;font-style:italic;'>对不起没有找到数据</span>"

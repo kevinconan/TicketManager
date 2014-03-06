@@ -4,7 +4,9 @@
 package kevin.tm.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kevin.tm.dao.model.AdminBean;
 import kevin.tm.service.AdminService;
@@ -75,8 +77,6 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     private List<AdminBean> deleteAdminBeans;
     private List<AdminBean> adminBeanList;
 
-    private int totalCount;
-
     public String add() {
 	List<String> list = new ArrayList<>();
 
@@ -119,12 +119,12 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     public String list() {
 	this.adminBeanList = this.adminService.findByPage(this.start,
 		this.limit);
-	return LIST;
-    }
-
-    public int getTotalCount() {
-	this.totalCount = this.adminService.totalCount();
-	return this.totalCount;
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("totalCount", this.adminService.totalCount());
+	map.put("admin", this.adminBeanList);
+	this.message = gson.toJson(map);
+	System.out.println(this.message);
+	return MESSAGE;
     }
 
 }
