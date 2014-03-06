@@ -6,7 +6,6 @@ package kevin.tm.action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kevin.tm.dao.model.AdminBean;
 import kevin.tm.service.AdminService;
@@ -86,8 +85,10 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
-	return MESSAGE;
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
     }
 
     public String update() {
@@ -99,8 +100,10 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
-	return MESSAGE;
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
     }
 
     public String delete() {
@@ -112,19 +115,20 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	    }
 	}
 
-	this.message = list.size() == 0 ? SUCCESS : gson.toJson(list);
-	return MESSAGE;
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
     }
 
     public String list() {
 	this.adminBeanList = this.adminService.findByPage(this.start,
 		this.limit);
-	Map<String, Object> map = new HashMap<String, Object>();
-	map.put("totalCount", this.adminService.totalCount());
-	map.put("admin", this.adminBeanList);
-	this.message = gson.toJson(map);
-	System.out.println(this.message);
-	return MESSAGE;
+
+	this.map = new HashMap<String, Object>();
+	this.map.put("totalCount", this.adminService.totalCount());
+	this.map.put("rows", this.adminBeanList);
+	return MAP;
     }
 
 }

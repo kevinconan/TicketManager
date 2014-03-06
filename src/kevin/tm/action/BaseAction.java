@@ -1,6 +1,7 @@
 package kevin.tm.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,11 @@ public abstract class BaseAction<T> extends ActionSupport implements
     protected static final String FAILURE = "FAILURE";
     protected static final String MESSAGE = "MESSAGE";
     protected static final String LIST = "LIST";
+    protected static final String MAP = "MAP";
 
     protected String message;
     protected List<T> list;
+    protected Map<String, Object> map;
 
     protected String jsonData;
     protected HttpServletRequest request;
@@ -81,6 +84,14 @@ public abstract class BaseAction<T> extends ActionSupport implements
 
     public void setList(List<T> list) {
 	this.list = list;
+    }
+
+    public Map<String, Object> getMap() {
+	return this.map;
+    }
+
+    public void setMap(Map<String, Object> map) {
+	this.map = map;
     }
 
     @Override

@@ -65,7 +65,7 @@ request.setAttribute("username", userName); */
 		        url : 'adminTest_list',  
 		        reader : {  
 		            type : 'json',  
-		            root : 'admin',  
+		            root : 'rows',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
