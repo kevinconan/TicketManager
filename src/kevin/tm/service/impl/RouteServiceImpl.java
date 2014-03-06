@@ -6,8 +6,10 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteBeanMapper;
+import kevin.tm.dao.RouteMapper;
 import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteBeanExample;
+import kevin.tm.model.Route;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class RouteServiceImpl implements RouteService {
 
     @Autowired
     private RouteBeanMapper routeBeanMapper;
+    @Autowired
+    private RouteMapper routeMapper;
 
     public RouteBeanMapper getRouteBeanMapper() {
 	return this.routeBeanMapper;
@@ -69,8 +73,8 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findById(java.lang.Integer)
      */
     @Override
-    public RouteBean findById(Integer routeId) {
-	return this.routeBeanMapper.selectByPrimaryKey(routeId);
+    public Route findById(Integer routeId) {
+	return this.routeMapper.getById(routeId);
     }
 
     /*
@@ -79,11 +83,8 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findAll()
      */
     @Override
-    public List<RouteBean> findAll() {
-	RouteBeanExample routeBeanExample = new RouteBeanExample();
-	routeBeanExample.clear();
-	routeBeanExample.createCriteria().getAllCriteria();
-	return this.routeBeanMapper.selectByExample(routeBeanExample);
+    public List<Route> findAll() {
+	return this.routeMapper.getAll();
     }
 
     /*
@@ -92,9 +93,16 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findByName(java.lang.String)
      */
     @Override
-    public List<RouteBean> findByName(String routeName) {
-	// TODO Auto-generated method stub
-	return null;
+    public List<Route> findByName(String routeName) {
+	return this.routeMapper.getByName(routeName);
+    }
+
+    @Override
+    public int count() {
+	RouteBeanExample routeBeanExample = new RouteBeanExample();
+	routeBeanExample.clear();
+	routeBeanExample.createCriteria().getAllCriteria();
+	return this.routeBeanMapper.countByExample(routeBeanExample);
     }
 
 }
