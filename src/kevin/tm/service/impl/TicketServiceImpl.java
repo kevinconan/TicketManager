@@ -6,9 +6,13 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.TicketBeanMapper;
+import kevin.tm.dao.TicketMapper;
 import kevin.tm.dao.model.TicketBean;
 import kevin.tm.dao.model.TicketBeanExample;
+import kevin.tm.model.Ticket;
 import kevin.tm.service.TicketService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Diluka
@@ -16,15 +20,11 @@ import kevin.tm.service.TicketService;
  */
 public class TicketServiceImpl implements TicketService {
 
+    @Autowired
     private TicketBeanMapper ticketBeanMapper;
 
-    public TicketBeanMapper getTicketBeanMapper() {
-	return this.ticketBeanMapper;
-    }
-
-    public void setTicketBeanMapper(TicketBeanMapper ticketBeanMapper) {
-	this.ticketBeanMapper = ticketBeanMapper;
-    }
+    @Autowired
+    private TicketMapper ticketMapper;
 
     /*
      * (non-Javadoc)
@@ -62,8 +62,8 @@ public class TicketServiceImpl implements TicketService {
      * @see kevin.tm.service.TicketService#findById(java.lang.Integer)
      */
     @Override
-    public TicketBean findById(Integer ticketId) {
-	return this.ticketBeanMapper.selectByPrimaryKey(ticketId);
+    public Ticket findById(Integer ticketId) {
+	return this.ticketMapper.getById(ticketId);
     }
 
     /*
@@ -72,11 +72,8 @@ public class TicketServiceImpl implements TicketService {
      * @see kevin.tm.service.TicketService#findAll()
      */
     @Override
-    public List<TicketBean> findAll() {
-	TicketBeanExample ticketBeanExample = new TicketBeanExample();
-	ticketBeanExample.clear();
-	ticketBeanExample.createCriteria().getAllCriteria();
-	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
+    public List<Ticket> findAll() {
+	return this.ticketMapper.getAll();
     }
 
     /*
@@ -85,11 +82,8 @@ public class TicketServiceImpl implements TicketService {
      * @see kevin.tm.service.TicketService#findByCustomerName(java.lang.String)
      */
     @Override
-    public List<TicketBean> findByCustomerName(String customerName) {
-	TicketBeanExample ticketBeanExample = new TicketBeanExample();
-	ticketBeanExample.clear();
-	ticketBeanExample.createCriteria().andCustomernameEqualTo(customerName);
-	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
+    public List<Ticket> findByCustomerName(String customerName) {
+	return this.ticketMapper.getByCustomerName(customerName);
     }
 
     /*
@@ -98,13 +92,8 @@ public class TicketServiceImpl implements TicketService {
      * @see kevin.tm.service.TicketService#findByTicketNo(java.lang.String)
      */
     @Override
-    public TicketBean findByTicketNo(String ticketNo) {
-	TicketBeanExample ticketBeanExample = new TicketBeanExample();
-	ticketBeanExample.clear();
-	ticketBeanExample.createCriteria().andTicketnoEqualTo(ticketNo);
-	List<TicketBean> list = this.ticketBeanMapper
-		.selectByExample(ticketBeanExample);
-	return list.size() > 0 ? list.get(0) : null;
+    public Ticket findByTicketNo(String ticketNo) {
+	return this.findByTicketNo(ticketNo);
     }
 
     /*
@@ -113,12 +102,16 @@ public class TicketServiceImpl implements TicketService {
      * @see kevin.tm.service.TicketService#findByScheduleId(java.lang.Integer)
      */
     @Override
-    public List<TicketBean> findByScheduleId(Integer scheduleId) {
+    public List<Ticket> findByScheduleId(Integer scheduleId) {
+	return this.ticketMapper.getByScheduleId(scheduleId);
+    }
+
+    @Override
+    public int count() {
 	TicketBeanExample ticketBeanExample = new TicketBeanExample();
 	ticketBeanExample.clear();
-	ticketBeanExample.createCriteria().andTicketscheduleidEqualTo(
-		scheduleId);
-	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
+	ticketBeanExample.createCriteria().getAllCriteria();
+	return this.ticketBeanMapper.countByExample(ticketBeanExample);
     }
 
 }

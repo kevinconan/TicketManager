@@ -56,6 +56,90 @@
 		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
 		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
 	</select>
+	<select id="getByCustomerName" parameterType="String" resultMap="ticketResultMap">
+		SELECT Schedule.ScheduleId, Schedule.ScheduleRouteId, Schedule.StartTime,
+		Schedule.EndTime, Schedule.ScheduleName,
+		Schedule.ScheduleVehicleNo, R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+		B.VehicleNo, B.DriverName,
+		B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, RS.StationId AS
+		S_StationId,
+		RS.StationName AS S_StationName, RS.LocationX AS S_LocationX, RS.LocationY AS
+		S_LocationY,
+		RE.StationId AS E_StationId, RE.StationName AS E_StationName, RE.LocationX AS
+		E_LocationX,
+		RE.LocationY AS E_LocationY, BS.StationId AS B_StationId, BS.StationName AS
+		B_StationName,
+		BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, Ticket.TicketId,
+		Ticket.TicketTitle, Ticket.TicketScheduleId,
+		Ticket.SeatNo, Ticket.CustomerName, Ticket.TicketNo, Ticket.EntryTime,
+		Ticket.DeadLine, Ticket.Checked
+		FROM Station AS RE INNER JOIN
+		RouteSchedule AS Schedule INNER JOIN
+		Bus AS B ON Schedule.ScheduleVehicleNo = B.VehicleNo INNER JOIN
+		Station AS RS INNER JOIN
+		Route AS R ON RS.StationId = R.StartStationId ON Schedule.ScheduleRouteId =
+		R.RouteId ON
+		RE.StationId = R.EndStationId INNER JOIN
+		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
+		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
+		WHERE (Ticket.CustomerName = #{CustomerName})
+	</select>
+	<select id="getByScheduleId" parameterType="Integer" resultMap="ticketResultMap">
+		SELECT Schedule.ScheduleId, Schedule.ScheduleRouteId, Schedule.StartTime,
+		Schedule.EndTime, Schedule.ScheduleName,
+		Schedule.ScheduleVehicleNo, R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+		B.VehicleNo, B.DriverName,
+		B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, RS.StationId AS
+		S_StationId,
+		RS.StationName AS S_StationName, RS.LocationX AS S_LocationX, RS.LocationY AS
+		S_LocationY,
+		RE.StationId AS E_StationId, RE.StationName AS E_StationName, RE.LocationX AS
+		E_LocationX,
+		RE.LocationY AS E_LocationY, BS.StationId AS B_StationId, BS.StationName AS
+		B_StationName,
+		BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, Ticket.TicketId,
+		Ticket.TicketTitle, Ticket.TicketScheduleId,
+		Ticket.SeatNo, Ticket.CustomerName, Ticket.TicketNo, Ticket.EntryTime,
+		Ticket.DeadLine, Ticket.Checked
+		FROM Station AS RE INNER JOIN
+		RouteSchedule AS Schedule INNER JOIN
+		Bus AS B ON Schedule.ScheduleVehicleNo = B.VehicleNo INNER JOIN
+		Station AS RS INNER JOIN
+		Route AS R ON RS.StationId = R.StartStationId ON Schedule.ScheduleRouteId =
+		R.RouteId ON
+		RE.StationId = R.EndStationId INNER JOIN
+		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
+		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
+		WHERE (Ticket.TicketScheduleId = #{TicketScheduleId})
+	</select>
+	<select id="getByTicketNo" parameterType="String" resultMap="ticketResultMap">
+		SELECT Schedule.ScheduleId, Schedule.ScheduleRouteId, Schedule.StartTime,
+		Schedule.EndTime, Schedule.ScheduleName,
+		Schedule.ScheduleVehicleNo, R.RouteId, R.StartStationId, R.EndStationId, R.RouteName,
+		B.VehicleNo, B.DriverName,
+		B.SeatCount, B.BusState, B.BusStationId, B.BusRouteId, RS.StationId AS
+		S_StationId,
+		RS.StationName AS S_StationName, RS.LocationX AS S_LocationX, RS.LocationY AS
+		S_LocationY,
+		RE.StationId AS E_StationId, RE.StationName AS E_StationName, RE.LocationX AS
+		E_LocationX,
+		RE.LocationY AS E_LocationY, BS.StationId AS B_StationId, BS.StationName AS
+		B_StationName,
+		BS.LocationX AS B_LocationX, BS.LocationY AS B_LocationY, Ticket.TicketId,
+		Ticket.TicketTitle, Ticket.TicketScheduleId,
+		Ticket.SeatNo, Ticket.CustomerName, Ticket.TicketNo, Ticket.EntryTime,
+		Ticket.DeadLine, Ticket.Checked
+		FROM Station AS RE INNER JOIN
+		RouteSchedule AS Schedule INNER JOIN
+		Bus AS B ON Schedule.ScheduleVehicleNo = B.VehicleNo INNER JOIN
+		Station AS RS INNER JOIN
+		Route AS R ON RS.StationId = R.StartStationId ON Schedule.ScheduleRouteId =
+		R.RouteId ON
+		RE.StationId = R.EndStationId INNER JOIN
+		Station AS BS ON B.BusStationId = BS.StationId INNER JOIN
+		Ticket ON Schedule.ScheduleId = Ticket.TicketScheduleId
+		WHERE (Ticket.TicketNo = #{TicketNo})
+	</select>
 	<resultMap type="kevin.tm.model.Ticket" id="ticketResultMap">
 		<id property="ticketid" column="TicketId" />
 		<result property="tickettitle" column="TicketTitle" />
