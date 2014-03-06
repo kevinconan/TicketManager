@@ -48,7 +48,7 @@ request.setAttribute("username", userName); */
 	
 	Ext.define('AdminModel', {  
 	    extend : 'Ext.data.Model',  
-	    fields : [ 'loginid', 'loginpwd', 'loginname' ],  
+	    fields : [ 'loginid', 'loginpwd', 'adminname' ],  
 	      
 	});  
 	Ext.onReady(function(){
@@ -116,9 +116,9 @@ request.setAttribute("username", userName); */
 			store: adminStore,
 			selModel : new Ext.selection.CheckboxModel(),
 			columns: [//配置表格列
-				{text: "管理员号", width: 80, dataIndex: 'LoginId', sortable: true},
-				{text: "登陆密码", width: 80, dataIndex: 'LoginPwd', sortable: true},
-				{text: "名字", width: 80, dataIndex: 'LoginName', sortable: true},
+				{text: "管理员号", width: 80, dataIndex: 'loginid', sortable: true},
+				{text: "登陆密码", width: 80, dataIndex: 'loginpwd', sortable: true},
+				{text: "名字", width: 80, dataIndex: 'adminname', sortable: true},
 				
 
 				
