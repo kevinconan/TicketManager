@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.google.gson.JsonArray;
-
 /**
  * @author Diluka
  * 
@@ -71,11 +69,10 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
     public String add() {
 	List<String> list = new ArrayList<>();
-	JsonArray array = gson.toJsonTree(this.createAdminBeans)
-		.getAsJsonArray();
+	AdminBean[] beans = GSON.fromJson(this.createAdminBeans,
+		AdminBean[].class);
 
-	for (int i = 0; i < array.size(); i++) {
-	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
+	for (AdminBean bean : beans) {
 	    if (this.adminService.save(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }
@@ -89,11 +86,10 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
     public String update() {
 	List<String> list = new ArrayList<>();
-	JsonArray array = gson.toJsonTree(this.updateAdminBeans)
-		.getAsJsonArray();
+	AdminBean[] beans = GSON.fromJson(this.updateAdminBeans,
+		AdminBean[].class);
 
-	for (int i = 0; i < array.size(); i++) {
-	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
+	for (AdminBean bean : beans) {
 	    if (this.adminService.update(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }
@@ -107,11 +103,10 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
     public String delete() {
 	List<String> list = new ArrayList<>();
-	JsonArray array = gson.toJsonTree(this.deleteAdminBeans)
-		.getAsJsonArray();
+	AdminBean[] beans = GSON.fromJson(this.deleteAdminBeans,
+		AdminBean[].class);
 
-	for (int i = 0; i < array.size(); i++) {
-	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
+	for (AdminBean bean : beans) {
 	    if (this.adminService.delete(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }

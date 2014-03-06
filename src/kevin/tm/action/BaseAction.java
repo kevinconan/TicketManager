@@ -154,7 +154,7 @@ public abstract class BaseAction<T> extends ActionSupport implements
 
     protected int start;
     protected int limit;
-    protected static final Gson gson = new Gson();
+    protected static final Gson GSON = new Gson();
 
     public int getStart() {
 	return this.start;
