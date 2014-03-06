@@ -31,6 +31,14 @@ public interface AdminService {
     public int deleteById(String loginId);
 
     /**
+     * 删除
+     * 
+     * @param adminBean
+     * @return
+     */
+    public int delete(AdminBean adminBean);
+
+    /**
      * 修改
      * 
      * @param adminBean

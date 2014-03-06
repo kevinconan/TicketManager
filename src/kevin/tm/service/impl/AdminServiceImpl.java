@@ -99,4 +99,9 @@ public class AdminServiceImpl implements AdminService {
 	return this.adminBeanMapper.countByExample(adminBeanExample);
     }
 
+    @Override
+    public int delete(AdminBean adminBean) {
+	return this.adminBeanMapper.deleteByPrimaryKey(adminBean.getLoginid());
+    }
+
 }
