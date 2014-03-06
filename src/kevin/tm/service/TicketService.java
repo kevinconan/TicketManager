@@ -76,4 +76,6 @@ public interface TicketService {
      * @return
      */
     public List<TicketBean> findByScheduleId(Integer scheduleId);
+
+    public int totalCount();
 }

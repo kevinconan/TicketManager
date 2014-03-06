@@ -52,4 +52,6 @@ public interface RouteScheduleService {
      * @return
      */
     public List<RouteScheduleBean> findAll();
+
+    public int totalCount();
 }

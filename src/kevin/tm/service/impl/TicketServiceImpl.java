@@ -10,21 +10,16 @@ import kevin.tm.dao.model.TicketBean;
 import kevin.tm.dao.model.TicketBeanExample;
 import kevin.tm.service.TicketService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author Diluka
  * 
  */
 public class TicketServiceImpl implements TicketService {
 
+    @Autowired
     private TicketBeanMapper ticketBeanMapper;
-
-    public TicketBeanMapper getTicketBeanMapper() {
-	return this.ticketBeanMapper;
-    }
-
-    public void setTicketBeanMapper(TicketBeanMapper ticketBeanMapper) {
-	this.ticketBeanMapper = ticketBeanMapper;
-    }
 
     /*
      * (non-Javadoc)
@@ -119,6 +114,14 @@ public class TicketServiceImpl implements TicketService {
 	ticketBeanExample.createCriteria().andTicketscheduleidEqualTo(
 		scheduleId);
 	return this.ticketBeanMapper.selectByExample(ticketBeanExample);
+    }
+
+    @Override
+    public int totalCount() {
+	TicketBeanExample ticketBeanExample = new TicketBeanExample();
+	ticketBeanExample.clear();
+	ticketBeanExample.createCriteria().getAllCriteria();
+	return this.ticketBeanMapper.countByExample(ticketBeanExample);
     }
 
 }

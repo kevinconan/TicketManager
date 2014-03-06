@@ -7,12 +7,15 @@ import java.util.List;
 
 import kevin.tm.dao.model.AdminBean;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 管理员Service接口
  * 
  * @author Diluka
  * 
  */
+@Service
 public interface AdminService {
     /**
      * 保存
@@ -29,6 +32,14 @@ public interface AdminService {
      * @return
      */
     public int deleteById(String loginId);
+
+    /**
+     * 删除
+     * 
+     * @param adminBean
+     * @return
+     */
+    public int delete(AdminBean adminBean);
 
     /**
      * 修改
@@ -61,4 +72,13 @@ public interface AdminService {
      * @return
      */
     public AdminBean login(String loginId, String loginPwd);
+
+    /**
+     * 记录数
+     * 
+     * @return
+     */
+    public int totalCount();
+
+    public List<AdminBean> findByPage(int start, int limit);
 }

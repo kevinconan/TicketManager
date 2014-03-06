@@ -8,6 +8,7 @@ import java.util.List;
 import kevin.tm.dao.RouteBeanMapper;
 import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteBeanExample;
+import kevin.tm.model.Route;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,8 +94,24 @@ public class RouteServiceImpl implements RouteService {
      */
     @Override
     public List<RouteBean> findByName(String routeName) {
+	RouteBeanExample routeBeanExample = new RouteBeanExample();
+	routeBeanExample.clear();
+	routeBeanExample.createCriteria().andRoutenameLike(routeName);
+	return this.routeBeanMapper.selectByExample(routeBeanExample);
+    }
+
+    @Override
+    public int totalCount() {
+	RouteBeanExample routeBeanExample = new RouteBeanExample();
+	routeBeanExample.clear();
+	routeBeanExample.createCriteria().getAllCriteria();
+	return this.routeBeanMapper.countByExample(routeBeanExample);
+    }
+
+    @Override
+    public int deleteById(int[] routeId) {
 	// TODO Auto-generated method stub
-	return null;
+	return 0;
     }
 
 }

@@ -11,23 +11,19 @@ import kevin.tm.dao.model.AdminBeanExample;
 import kevin.tm.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("adminServiceImpl")
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminBeanMapper adminBeanMapper;
-
-    public AdminBeanMapper getAdminBeanMapper() {
-	return this.adminBeanMapper;
-    }
-
-    public void setAdminBeanMapper(AdminBeanMapper adminBeanMapper) {
-	this.adminBeanMapper = adminBeanMapper;
-    }
 
     /*
      * (non-Javadoc)
@@ -97,6 +93,24 @@ public class AdminServiceImpl implements AdminService {
 	List<AdminBean> list = this.adminBeanMapper
 		.selectByExample(adminBeanExample);
 	return list.size() > 0 ? list.get(0) : null;
+    }
+
+    @Override
+    public int totalCount() {
+	AdminBeanExample adminBeanExample = new AdminBeanExample();
+	adminBeanExample.clear();
+	adminBeanExample.createCriteria().getAllCriteria();
+	return this.adminBeanMapper.countByExample(adminBeanExample);
+    }
+
+    @Override
+    public int delete(AdminBean adminBean) {
+	return this.adminBeanMapper.deleteByPrimaryKey(adminBean.getLoginid());
+    }
+
+    @Override
+    public List<AdminBean> findByPage(int start, int limit) {
+	return this.adminBeanMapper.selectByPage(start, limit);
     }
 
 }

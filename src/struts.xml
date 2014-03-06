@@ -109,5 +109,26 @@
 			</result>
 			
 		</action>
+		
+		<action name="adminTest_*" class="adminTestAction" method="{1}">
+			<result name="MESSAGE">
+				<param name="root">message</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">adminBeanList</param>
+			</result>
+			<result name="ADMINBEAN" type="json">
+				<param name="root">adminBean</param>
+			</result>
+			<result name="UPDATEADMINBEANS" type="json">
+				<param name="root">updateAdminBean</param>
+			</result>
+			<result name="CREATEADMINBEAN" type="json">
+				<param name="root">createAdminBean</param>
+			</result>
+			<result name="DELETEADMINBEAN" type="json">
+				<param name="root">deleteAdminBean</param>
+			</result>
+		</action>
 	</package>
 </struts>

@@ -48,7 +48,7 @@ Ext.onReady(function(){
 	            data : [{
 	    			text : '用户管理',
 	    			leaf: true,
-	    			url : ctxpath+'/userList.jsp'
+	    			url : ctxpath+'/adminList.jsp'
 	    		},{
 	    			text : '汽车管理',
 	    			leaf: true,
@@ -92,7 +92,7 @@ Ext.onReady(function(){
 			items: [{
 				title : '用户管理',
 				collapsible: true,
-				html : '<br><center><font size = 6>用户管理</font></center>',
+				html : '<br><center><font size = 6>车站售票系统</font></center>',
 				region: 'north',//指定子面板所在区域为north
 				height: 100
 			},{

@@ -25,14 +25,6 @@ public class StationServiceImpl implements StationService {
     @Autowired
     private StationBeanMapper stationBeanMapper;
 
-    public StationBeanMapper getStationBeanMapper() {
-	return this.stationBeanMapper;
-    }
-
-    public void setStationBeanMapper(StationBeanMapper stationBeanMapper) {
-	this.stationBeanMapper = stationBeanMapper;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -56,7 +48,8 @@ public class StationServiceImpl implements StationService {
     /*
      * (non-Javadoc)
      * 
-     * @see kevin.tm.service.StationService#update(kevin.tm.dao.model.StationBean)
+     * @see
+     * kevin.tm.service.StationService#update(kevin.tm.dao.model.StationBean)
      */
     @Override
     public int update(StationBean stationBean) {
@@ -99,29 +92,12 @@ public class StationServiceImpl implements StationService {
 	return this.stationBeanMapper.selectByExample(stationBeanExample);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see kevin.tm.service.StationService#calcTowStationDistanceById(int, int)
-     */
     @Override
-    public Double calcTowStationDistanceById(Integer stationA, Integer stationB) {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * kevin.tm.service.StationService#calcTowStationDistance(kevin.tm.dao.model
-     * .StationBean, kevin.tm.dao.model.StationBean)
-     */
-    @Override
-    public Double calcTowStationDistance(StationBean stationA,
-	    StationBean stationB) {
-	// TODO Auto-generated method stub
-	return null;
+    public int totalCount() {
+	StationBeanExample stationBeanExample = new StationBeanExample();
+	stationBeanExample.clear();
+	stationBeanExample.createCriteria().getAllCriteria();
+	return this.stationBeanMapper.countByExample(stationBeanExample);
     }
 
 }

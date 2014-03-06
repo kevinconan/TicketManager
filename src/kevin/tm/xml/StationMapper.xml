@@ -10,6 +10,11 @@
 		SELECT StationId, StationName, LocationX, LocationY
 		FROM Station
 	</select>
+	<select id="getByName" parameterType="String" resultMap="stationResultMap">
+		SELECT StationId, StationName, LocationX, LocationY
+		FROM Station
+		WHERE (StationName = #{StationName})
+	</select>
 	<resultMap type="kevin.tm.model.Station" id="stationResultMap">
 	<id property="stationid" column="StationId"/>
 	<result property="stationname" column="StationName"/>

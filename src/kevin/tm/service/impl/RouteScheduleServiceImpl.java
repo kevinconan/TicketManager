@@ -10,12 +10,15 @@ import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.RouteScheduleBeanExample;
 import kevin.tm.service.RouteScheduleService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author Diluka
  * 
  */
 public class RouteScheduleServiceImpl implements RouteScheduleService {
 
+    @Autowired
     private RouteScheduleBeanMapper routeScheduleBeanMapper;
 
     public RouteScheduleBeanMapper getRouteScheduleBeanMapper() {
@@ -30,9 +33,8 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * kevin.tm.service.RouteScheduleService#save(kevin.tm.dao.model.RouteScheduleBean
-     * )
+     * @see kevin.tm.service.RouteScheduleService#save(kevin.tm.dao.model.
+     * RouteScheduleBean )
      */
     @Override
     public int save(RouteScheduleBean routeScheduleBean) {
@@ -52,9 +54,8 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * kevin.tm.service.RouteScheduleService#update(kevin.tm.dao.model.RouteScheduleBean
-     * )
+     * @see kevin.tm.service.RouteScheduleService#update(kevin.tm.dao.model.
+     * RouteScheduleBean )
      */
     @Override
     public int update(RouteScheduleBean routeScheduleBean) {
@@ -84,6 +85,15 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 	routeScheduleBeanExample.createCriteria().getAllCriteria();
 	return this.routeScheduleBeanMapper
 		.selectByExample(routeScheduleBeanExample);
+    }
+
+    @Override
+    public int totalCount() {
+	RouteScheduleBeanExample routeScheduleBeanExample = new RouteScheduleBeanExample();
+	routeScheduleBeanExample.clear();
+	routeScheduleBeanExample.createCriteria().getAllCriteria();
+	return this.routeScheduleBeanMapper
+		.countByExample(routeScheduleBeanExample);
     }
 
 }
