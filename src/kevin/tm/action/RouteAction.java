@@ -119,13 +119,13 @@ public class RouteAction extends BaseAction<RouteBean> {
 
     public String delete() {
     msgMap = new HashMap<>();
-	Gson gson = new Gson();;
-	String[] busIds = gson.fromJson(jsonData, String[].class);
+	Gson gson = new Gson();
+	int[] routeIds = gson.fromJson(jsonData, int[].class);
 
-	for (int i = 0; i < busIds.length; i++) {
-		System.out.println(busIds[i]);
+	for (int i = 0; i < routeIds.length; i++) {
+		System.out.println(routeIds[i]);
 	}
-	int count = this.routeService.deleteByVehicleNo(busIds);	
+	int count = this.routeService.deleteById(routeIds);	
 	if (count > 0) {
 		msgMap.put("success", true);
 		msgMap.put("msg", "ok");
@@ -176,13 +176,13 @@ public class RouteAction extends BaseAction<RouteBean> {
     }
     
     public String getByVehicleNo(){
-    	String vehicleno=routeBean.getVehicleno();
+    	int vehicleno=routeBean.getRouteid();
    //	setRouteBean(routeService.findByVehicleNo(vehicleno));
     	dataMap = new HashMap<>();
     	if (!ValidationUtil.isNullOrEmpty(routeBean)){
     		dataMap.put("success", true);
     		
-    		dataMap.put("data", routeService.findByVehicleNo(vehicleno));
+    		dataMap.put("data", routeService.findById(vehicleno));
     	}else{
     		dataMap.put("success", false);
     	}
