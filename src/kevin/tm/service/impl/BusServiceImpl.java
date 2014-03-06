@@ -72,4 +72,17 @@ public class BusServiceImpl implements BusService{
 		return busBeanMapper.selectByPrimaryKey(vehicleNo);
 	}
 
+	@Override
+	public int deleteByVehicleNo(String[] vehicleNo) {
+		if(vehicleNo.length>0){
+			int count = 0;
+			for (int i = 0; i < vehicleNo.length; i++) 
+				count+=busBeanMapper.deleteByPrimaryKey(vehicleNo[i]);
+				
+			
+			return count;
+		}
+		return 0;
+	}
+
 }

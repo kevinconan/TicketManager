@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 public interface BusService {
 	public int save(BusBean busBean);
 	public int deleteByVehicleNo(String vehicleNo);
+	public int deleteByVehicleNo(String[] vehivleNo);
 	public int update(BusBean busBean);
 	public List<BusBeanExt> findAll();
 	public BusBean findByVehicleNo(String vehicleNo);
 
+	
 }

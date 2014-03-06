@@ -117,15 +117,31 @@ public class BusAction extends BaseAction<BusBeanExt> {
 	return "MSGMAP";
     }
 
-    public String delete(String vehicleNo) {
-	if (this.busService.deleteByVehicleNo(vehicleNo) != 0) {
-	    this.message = "0";
+    public String delete() {
+    msgMap = new HashMap<>();
+	Gson gson = new Gson();;
+	String[] busIds = gson.fromJson(jsonData, String[].class);
 
-	} else {
-	    this.message = "1";
+	for (int i = 0; i < busIds.length; i++) {
+		System.out.println(busIds[i]);
 	}
-
-	return MESSAGE;
+	int count = this.busService.deleteByVehicleNo(busIds);	
+	if (count > 0) {
+		msgMap.put("success", true);
+		msgMap.put("msg", "ok");
+	//	System.out.println(msgMap.isEmpty());
+	} else if(count == 0 ){
+		msgMap.put("success", false);
+		msgMap.put("msg", "fail");
+	}else if(count < 0) {
+		msgMap.put("success", false);
+		msgMap.put("msg", "repeat");
+	}else{
+		msgMap.put("success", false);
+		msgMap.put("msg", "fail");
+	}
+	
+	return "MSGMAP";
     }
 
     public String update() {

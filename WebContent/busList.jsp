@@ -280,15 +280,16 @@ request.setAttribute("username", userName); */
 		}
 		//删除书籍
 		function deleteBuses(busList){
-			var busIds = busList.join(',');
+			
+			var busIds = Ext.JSON.encode(busList);
 			var msgTip = Ext.MessageBox.show({
 				title:'提示',
 				width : 250,
 				msg:'正在删除车辆信息请稍后......'
 			});
 			Ext.Ajax.request({
-				url : ctxpath + '/bookext.do?method=deleteBooks',
-				params : {bookIds : bookIds},
+				url :'bus_delete',
+				params : {"jsonData" : busIds},
 				method : 'POST',
 				success : function(response,options){
 					msgTip.hide();
@@ -296,15 +297,15 @@ request.setAttribute("username", userName); */
 					if(result.success){
 						//服务器端数据成功删除后，同步删除客户端列表中的数据
 						for(var i = 0 ; i < busList.length ; i++){
-							var index = busStore.find('id',busList[i]);
+							var index = busStore.find('vehicleno',busList[i]);
 							if(index != -1){
 								var rec = busStore.getAt(index);
 								busStore.remove(rec);
 							}
 						}
-						Ext.Msg.alert('提示','删除书籍信息成功。');
+						Ext.Msg.alert('提示','删除车辆信息成功。');
 					}else{
-						Ext.Msg.alert('提示','删除书籍信息失败！');
+						Ext.Msg.alert('提示','删除车辆信息失败！');
 					}
 				},
 				failure : function(response,options){
@@ -390,14 +391,15 @@ request.setAttribute("username", userName); */
                         //	alert(dat);
                      	switch(dat){
                         case "ok" : 
-                       	 Ext.Msg.alert('成功','修改成功！');win.close();break;
+                       	 Ext.Msg.alert('成功','修改成功！');break;
                         
                         case "fail" :	
-                        	Ext.Msg.alert('错误','修改失败！');win.close();break;
+                        	Ext.Msg.alert('错误','修改失败！');break;
                         default :
-                        	Ext.Msg.alert('错误','操作失败！');win.close();break;
+                        	Ext.Msg.alert('错误','操作失败！');break;
                         
                         }
+                     	win.close();
                      	busStore.reload();
                         },
                         // 提交失败的回调函数
@@ -409,7 +411,7 @@ request.setAttribute("username", userName); */
 			}
 		}
 		//明细数据修改后，同步更新汽车列表信息
-		function updateBusGrid(BuskId){
+		/* function updateBusGrid(BuskId){
 			var values = busForm.form.getValues();
 			var index = busStore.find('vehicleno',values['vehicleno']);
 			var busTypeField = busForm.form.findField('bookTypeId');
@@ -432,7 +434,7 @@ request.setAttribute("username", userName); */
 				}, 'Book');
 				busStore.add(rec);
 			}
-		}
+		} */
 		//取得所选汽车id
 		function getBusIdList(){
 			var recs = busGrid.getSelectionModel().getSelection();
