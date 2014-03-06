@@ -177,7 +177,7 @@ public class BusAction extends BaseAction<BusBeanExt> {
     
     public String getByVehicleNo(){
     	String vehicleno=busBean.getVehicleno();
-   //	setBusBean(busService.findByVehicleNo(vehicleno));
+
     	dataMap = new HashMap<>();
     	if (!ValidationUtil.isNullOrEmpty(busBean)){
     		dataMap.put("success", true);
