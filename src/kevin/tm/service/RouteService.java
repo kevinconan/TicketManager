@@ -23,7 +23,7 @@ public interface RouteService {
      * @param routeBean
      * @return
      */
-    public int save(RouteBean routeBean);
+    public int save(Route routeBean);
 
     /**
      * ID删除

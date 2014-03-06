@@ -39,7 +39,7 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#save(kevin.tm.dao.model.RouteBean)
      */
     @Override
-    public int save(RouteBean routeBean) {
+    public int save(Route routeBean) {
 	return this.routeBeanMapper.insert(routeBean);
     }
 

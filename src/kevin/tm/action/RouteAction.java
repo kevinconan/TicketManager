@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kevin.tm.dao.model.RouteBean;
+import kevin.tm.model.Route;
 
 import kevin.tm.service.RouteService;
 import kevin.tm.util.ValidationUtil;
@@ -26,13 +26,13 @@ import com.google.gson.Gson;
  */
 @Scope("request")
 @Controller("routeAction")
-public class RouteAction extends BaseAction<RouteBean> {
+public class RouteAction extends BaseAction<Route> {
 
     /**
      * 
      */
     private static final long serialVersionUID = 7467813069003588100L;
-    private List<RouteBean> routeList;
+    private List<Route> routeList;
     
     private Map<String, Object> msgMap ;
     public Map<String, Object> getMsgMap() {
@@ -52,21 +52,21 @@ public class RouteAction extends BaseAction<RouteBean> {
 		this.dataMap = dataMap;
 	}
 
-	public RouteBean getRouteBean() {
+	public Route getRoute() {
 		return routeBean;
 	}
 
-	public void setRouteBean(RouteBean routeBean) {
+	public void setRoute(Route routeBean) {
 		this.routeBean = routeBean;
 	}
 
-	private RouteBean routeBean;
+	private Route routeBean;
 
-    public List<RouteBean> getRouteList() {
+    public List<Route> getRouteList() {
 	return this.routeList;
     }
 
-    public void setRouteList(List<RouteBean> routeList) {
+    public void setRouteList(List<Route> routeList) {
 	this.routeList = routeList;
     }
 
@@ -91,7 +91,7 @@ public class RouteAction extends BaseAction<RouteBean> {
     public String add() {
     	msgMap = new HashMap<>();
     	Gson gson = new Gson();
-    	RouteBean routeBean=gson.fromJson(jsonData, RouteBean.class);
+    	Route routeBean=gson.fromJson(jsonData, Route.class);
     	System.out.println(jsonData);
     	if(ValidationUtil.isNullOrEmpty(routeBean)){
     		msgMap.put("success", true);
@@ -147,7 +147,7 @@ public class RouteAction extends BaseAction<RouteBean> {
     public String update() {
     	msgMap = new HashMap<>();
     	Gson gson = new Gson();
-    	RouteBean routeBean=gson.fromJson(jsonData, RouteBean.class);
+    	Route routeBean=gson.fromJson(jsonData, Route.class);
     	System.out.println(jsonData);
     	if(ValidationUtil.isNullOrEmpty(routeBean)){
     		msgMap.put("success", true);
@@ -175,9 +175,9 @@ public class RouteAction extends BaseAction<RouteBean> {
 	return LIST;
     }
     
-    public String getByVehicleNo(){
+    public String getById(){
     	int vehicleno=routeBean.getRouteid();
-   //	setRouteBean(routeService.findByVehicleNo(vehicleno));
+   //	setRoute(routeService.findByVehicleNo(vehicleno));
     	dataMap = new HashMap<>();
     	if (!ValidationUtil.isNullOrEmpty(routeBean)){
     		dataMap.put("success", true);
