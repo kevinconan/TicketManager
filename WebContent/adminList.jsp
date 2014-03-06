@@ -194,7 +194,33 @@ request.setAttribute("username", userName); */
 		}
 		
 		function submitForm(){
-			
+			alert(adminForm.getValues());
+			 Ext.Ajax.request({
+				url :'adminTest_update',
+				params : [adminForm.getRecord()],
+				method : 'POST',
+				success : function(response,options){
+					msgTip.hide();
+					var result = Ext.JSON.decode(response.responseText);
+					if(result.success){
+						//服务器端数据成功删除后，同步删除客户端列表中的数据
+						for(var i = 0 ; i < busList.length ; i++){
+							var index = busStore.find('vehicleno',busList[i]);
+							if(index != -1){
+								var rec = busStore.getAt(index);
+								busStore.remove(rec);
+							}
+						}
+						Ext.Msg.alert('提示','删除车辆信息成功。');
+					}else{
+						Ext.Msg.alert('提示','删除车辆信息失败！');
+					}
+				},
+				failure : function(response,options){
+					msgTip.hide();
+					Ext.Msg.alert('提示','删除书籍信息请求失败！');
+				}
+			}); 
 		}
 		
 		//创建新增或修改书籍信息的form表单
