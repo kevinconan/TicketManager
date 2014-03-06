@@ -105,4 +105,10 @@ public class RouteServiceImpl implements RouteService {
 	return this.routeBeanMapper.countByExample(routeBeanExample);
     }
 
+	@Override
+	public int deleteById(int[] routeId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

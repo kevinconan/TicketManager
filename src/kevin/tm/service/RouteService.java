@@ -33,6 +33,14 @@ public interface RouteService {
      * @return
      */
     public int deleteById(Integer routeId);
+    
+    /**
+     * ID列表删除
+     * 
+     * @param routeId
+     * @return
+     */
+    public int deleteById(int[] routeId);
 
     /**
      * 修改
