@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.JsonArray;
+
 /**
  * @author Diluka
  * 
@@ -30,35 +32,27 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     @Autowired
     private AdminService adminService;
 
-    public AdminBean getAdminBean() {
-	return this.adminBean;
-    }
-
-    public void setAdminBean(AdminBean adminBean) {
-	this.adminBean = adminBean;
-    }
-
-    public List<AdminBean> getUpdateAdminBeans() {
+    public String getUpdateAdminBeans() {
 	return this.updateAdminBeans;
     }
 
-    public void setUpdateAdminBeans(List<AdminBean> updateAdminBeans) {
+    public void setUpdateAdminBeans(String updateAdminBeans) {
 	this.updateAdminBeans = updateAdminBeans;
     }
 
-    public List<AdminBean> getCreateAdminBeans() {
+    public String getCreateAdminBeans() {
 	return this.createAdminBeans;
     }
 
-    public void setCreateAdminBeans(List<AdminBean> createAdminBeans) {
+    public void setCreateAdminBeans(String createAdminBeans) {
 	this.createAdminBeans = createAdminBeans;
     }
 
-    public List<AdminBean> getDeleteAdminBeans() {
+    public String getDeleteAdminBeans() {
 	return this.deleteAdminBeans;
     }
 
-    public void setDeleteAdminBeans(List<AdminBean> deleteAdminBeans) {
+    public void setDeleteAdminBeans(String deleteAdminBeans) {
 	this.deleteAdminBeans = deleteAdminBeans;
     }
 
@@ -70,16 +64,18 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	this.adminBeanList = adminBeanList;
     }
 
-    private AdminBean adminBean;
-    private List<AdminBean> updateAdminBeans;
-    private List<AdminBean> createAdminBeans;
-    private List<AdminBean> deleteAdminBeans;
+    private String updateAdminBeans;
+    private String createAdminBeans;
+    private String deleteAdminBeans;
     private List<AdminBean> adminBeanList;
 
     public String add() {
 	List<String> list = new ArrayList<>();
+	JsonArray array = gson.toJsonTree(this.createAdminBeans)
+		.getAsJsonArray();
 
-	for (AdminBean bean : this.createAdminBeans) {
+	for (int i = 0; i < array.size(); i++) {
+	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
 	    if (this.adminService.save(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }
@@ -93,8 +89,11 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
     public String update() {
 	List<String> list = new ArrayList<>();
+	JsonArray array = gson.toJsonTree(this.updateAdminBeans)
+		.getAsJsonArray();
 
-	for (AdminBean bean : this.updateAdminBeans) {
+	for (int i = 0; i < array.size(); i++) {
+	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
 	    if (this.adminService.update(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }
@@ -108,8 +107,11 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
     public String delete() {
 	List<String> list = new ArrayList<>();
+	JsonArray array = gson.toJsonTree(this.deleteAdminBeans)
+		.getAsJsonArray();
 
-	for (AdminBean bean : this.deleteAdminBeans) {
+	for (int i = 0; i < array.size(); i++) {
+	    AdminBean bean = gson.fromJson(array.get(i), AdminBean.class);
 	    if (this.adminService.delete(bean) == 0) {
 		list.add(bean.getLoginid());
 	    }
