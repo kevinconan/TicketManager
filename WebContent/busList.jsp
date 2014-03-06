@@ -99,6 +99,7 @@ request.setAttribute("username", userName); */
 			layout:'border',//表格布局
 			items : busGrid
 		});
+		
 		//创建新增或修改书籍信息的form表单
 		Ext.QuickTips.init();
 		//创建书籍类型数据模型
@@ -125,7 +126,7 @@ request.setAttribute("username", userName); */
 				blankText : '必须选择线路',
 				name : 'busrouteid',
 				store : new Ext.data.JsonStore({
-				//	autoLoad :true,
+					autoLoad :true,
 					model : 'Route',
 					proxy: {
 				        type: 'ajax',
@@ -147,9 +148,12 @@ request.setAttribute("username", userName); */
 				queryMode: 'remote',//远程模式
 				fieldLabel:'线路'
 			},{
-				xtype:'numberfield',
+				xtype:'combo',
+				autoShow : true,
 				allowBlank : false,
-				blankText : '车辆状态不能为空',
+				blankText : '必须选择车辆状态',
+				store : [[1,'正常'],[2,'维修'],[3,'报废']],
+				emptyText :'请选择车辆状态',
 				name : 'busstate',
 				fieldLabel:'车辆状态'
 			},{
@@ -159,7 +163,7 @@ request.setAttribute("username", userName); */
 				blankText : '必须选择所属车站',
 				name : 'busstationid',
 				store : new Ext.data.JsonStore({
-				//	autoLoad :true,
+					autoLoad :true,
 					model : 'Station',
 					proxy: {
 				        type: 'ajax',
@@ -243,7 +247,7 @@ request.setAttribute("username", userName); */
 		    closable:true,
 			items:busForm
 		});
-		//显示新建书籍窗口
+		//显示新建车辆信息窗口
 		function showAddBus(){
 			busForm.form.reset();
 			busForm.isAdd = true;
@@ -262,7 +266,9 @@ request.setAttribute("username", userName); */
 				win.setTitle("修改车辆信息");
 				win.show();
 				var busId = busList[0];
+				Ext.getCmp('vehicleno').getEl().dom.setDisabled(true);
 				loadForm(busId);
+				
 			}
 		}
 		//显示删除书籍对话框
