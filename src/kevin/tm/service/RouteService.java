@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.RouteBean;
-import kevin.tm.model.Route;
 
 import org.springframework.stereotype.Service;
 
@@ -33,7 +32,7 @@ public interface RouteService {
      * @return
      */
     public int deleteById(Integer routeId);
-    
+
     /**
      * ID列表删除
      * 
@@ -56,14 +55,14 @@ public interface RouteService {
      * @param routeId
      * @return
      */
-    public Route findById(Integer routeId);
+    public RouteBean findById(Integer routeId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<Route> findAll();
+    public List<RouteBean> findAll();
 
     /**
      * 名称查找
@@ -71,7 +70,7 @@ public interface RouteService {
      * @param routeName
      * @return
      */
-    public List<Route> findByName(String routeName);
+    public List<RouteBean> findByName(String routeName);
 
-    public int count();
+    public int totalCount();
 }

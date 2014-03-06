@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteBeanMapper;
-import kevin.tm.dao.RouteMapper;
 import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteBeanExample;
-import kevin.tm.model.Route;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +24,6 @@ public class RouteServiceImpl implements RouteService {
 
     @Autowired
     private RouteBeanMapper routeBeanMapper;
-    @Autowired
-    private RouteMapper routeMapper;
 
     public RouteBeanMapper getRouteBeanMapper() {
 	return this.routeBeanMapper;
@@ -73,8 +69,8 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findById(java.lang.Integer)
      */
     @Override
-    public Route findById(Integer routeId) {
-	return this.routeMapper.getById(routeId);
+    public RouteBean findById(Integer routeId) {
+	return this.routeBeanMapper.selectByPrimaryKey(routeId);
     }
 
     /*
@@ -83,8 +79,11 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findAll()
      */
     @Override
-    public List<Route> findAll() {
-	return this.routeMapper.getAll();
+    public List<RouteBean> findAll() {
+	RouteBeanExample routeBeanExample = new RouteBeanExample();
+	routeBeanExample.clear();
+	routeBeanExample.createCriteria().getAllCriteria();
+	return this.routeBeanMapper.selectByExample(routeBeanExample);
     }
 
     /*
@@ -93,22 +92,25 @@ public class RouteServiceImpl implements RouteService {
      * @see kevin.tm.service.RouteService#findByName(java.lang.String)
      */
     @Override
-    public List<Route> findByName(String routeName) {
-	return this.routeMapper.getByName(routeName);
+    public List<RouteBean> findByName(String routeName) {
+	RouteBeanExample routeBeanExample = new RouteBeanExample();
+	routeBeanExample.clear();
+	routeBeanExample.createCriteria().andRoutenameLike(routeName);
+	return this.routeBeanMapper.selectByExample(routeBeanExample);
     }
 
     @Override
-    public int count() {
+    public int totalCount() {
 	RouteBeanExample routeBeanExample = new RouteBeanExample();
 	routeBeanExample.clear();
 	routeBeanExample.createCriteria().getAllCriteria();
 	return this.routeBeanMapper.countByExample(routeBeanExample);
     }
 
-	@Override
-	public int deleteById(int[] routeId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int deleteById(int[] routeId) {
+	// TODO Auto-generated method stub
+	return 0;
+    }
 
 }

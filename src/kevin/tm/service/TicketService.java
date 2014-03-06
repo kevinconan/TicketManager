@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.TicketBean;
-import kevin.tm.model.Ticket;
 
 /**
  * 车票Service接口
@@ -45,14 +44,14 @@ public interface TicketService {
      * @param ticketId
      * @return
      */
-    public Ticket findById(Integer ticketId);
+    public TicketBean findById(Integer ticketId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<Ticket> findAll();
+    public List<TicketBean> findAll();
 
     /**
      * 客户名查找
@@ -60,7 +59,7 @@ public interface TicketService {
      * @param customerName
      * @return
      */
-    public List<Ticket> findByCustomerName(String customerName);
+    public List<TicketBean> findByCustomerName(String customerName);
 
     /**
      * 车票编号查找
@@ -68,7 +67,7 @@ public interface TicketService {
      * @param ticketNo
      * @return
      */
-    public Ticket findByTicketNo(String ticketNo);
+    public TicketBean findByTicketNo(String ticketNo);
 
     /**
      * 日程ID查找
@@ -76,7 +75,7 @@ public interface TicketService {
      * @param scheduleId
      * @return
      */
-    public List<Ticket> findByScheduleId(Integer scheduleId);
+    public List<TicketBean> findByScheduleId(Integer scheduleId);
 
-    public int count();
+    public int totalCount();
 }

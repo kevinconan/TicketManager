@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.AdminBeanMapper;
-import kevin.tm.dao.AdminMapper;
 import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.AdminBeanExample;
-import kevin.tm.model.Admin;
 import kevin.tm.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +20,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminBeanMapper adminBeanMapper;
-    @Autowired
-    private AdminMapper adminMapper;
-
-    public AdminBeanMapper getAdminBeanMapper() {
-	return this.adminBeanMapper;
-    }
-
-    public void setAdminBeanMapper(AdminBeanMapper adminBeanMapper) {
-	this.adminBeanMapper = adminBeanMapper;
-    }
 
     /*
      * (non-Javadoc)
@@ -69,8 +57,8 @@ public class AdminServiceImpl implements AdminService {
      * @see kevin.tm.service.AdminService#findById(java.lang.String)
      */
     @Override
-    public Admin findById(String loginId) {
-	return this.adminMapper.getById(loginId);
+    public AdminBean findById(String loginId) {
+	return this.adminBeanMapper.selectByPrimaryKey(loginId);
     }
 
     /*
@@ -79,8 +67,11 @@ public class AdminServiceImpl implements AdminService {
      * @see kevin.tm.service.AdminService#findAll()
      */
     @Override
-    public List<Admin> findAll() {
-	return this.adminMapper.getAll();
+    public List<AdminBean> findAll() {
+	AdminBeanExample adminBeanExample = new AdminBeanExample();
+	adminBeanExample.clear();
+	adminBeanExample.createCriteria().getAllCriteria();
+	return this.adminBeanMapper.selectByExample(adminBeanExample);
     }
 
     /*
@@ -90,12 +81,18 @@ public class AdminServiceImpl implements AdminService {
      * java.lang.String)
      */
     @Override
-    public Admin login(String loginId, String loginPwd) {
-	return this.adminMapper.login(loginId, loginPwd);
+    public AdminBean login(String loginId, String loginPwd) {
+	AdminBeanExample adminBeanExample = new AdminBeanExample();
+	adminBeanExample.clear();
+	adminBeanExample.createCriteria().andLoginidEqualTo(loginId)
+		.andLoginpwdEqualTo(loginPwd);
+	List<AdminBean> list = this.adminBeanMapper
+		.selectByExample(adminBeanExample);
+	return list.size() > 0 ? list.get(0) : null;
     }
 
     @Override
-    public int count() {
+    public int totalCount() {
 	AdminBeanExample adminBeanExample = new AdminBeanExample();
 	adminBeanExample.clear();
 	adminBeanExample.createCriteria().getAllCriteria();

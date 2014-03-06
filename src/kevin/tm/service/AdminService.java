@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.AdminBean;
-import kevin.tm.model.Admin;
 
 /**
  * 管理员Service接口
@@ -45,14 +44,14 @@ public interface AdminService {
      * @param loginId
      * @return
      */
-    public Admin findById(String loginId);
+    public AdminBean findById(String loginId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<Admin> findAll();
+    public List<AdminBean> findAll();
 
     /**
      * 登录
@@ -61,12 +60,12 @@ public interface AdminService {
      * @param loginPwd
      * @return
      */
-    public Admin login(String loginId, String loginPwd);
+    public AdminBean login(String loginId, String loginPwd);
 
     /**
      * 记录数
      * 
      * @return
      */
-    public int count();
+    public int totalCount();
 }

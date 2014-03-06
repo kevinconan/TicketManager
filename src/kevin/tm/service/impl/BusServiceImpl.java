@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.BusBeanMapper;
-import kevin.tm.dao.BusMapper;
 import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.BusBeanExample;
-import kevin.tm.model.Bus;
 import kevin.tm.service.BusService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,6 @@ import org.springframework.stereotype.Service;
 @Service("busServiceImpl")
 public class BusServiceImpl implements BusService {
 
-    @Autowired
-    private BusMapper busMapper;
     @Autowired
     private BusBeanMapper busBeanMapper;
 
@@ -62,15 +58,17 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public List<Bus> findAll() {
-
-	return this.busMapper.getAll();
+    public List<BusBean> findAll() {
+	BusBeanExample busBeanExample = new BusBeanExample();
+	busBeanExample.clear();
+	busBeanExample.createCriteria().getAllCriteria();
+	return this.busBeanMapper.selectByExample(busBeanExample);
     }
 
     @Override
-    public Bus findByVehicleNo(String vehicleNo) {
+    public BusBean findByVehicleNo(String vehicleNo) {
 
-	return this.busMapper.getById(vehicleNo);
+	return this.busBeanMapper.selectByPrimaryKey(vehicleNo);
     }
 
     @Override
@@ -87,7 +85,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public int count() {
+    public int totalCount() {
 	BusBeanExample busBeanExample = new BusBeanExample();
 	busBeanExample.clear();
 	busBeanExample.createCriteria().getAllCriteria();

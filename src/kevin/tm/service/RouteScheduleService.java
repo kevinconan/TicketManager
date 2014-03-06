@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.RouteScheduleBean;
-import kevin.tm.model.RouteSchedule;
 
 /**
  * 线路日程Service接口
@@ -45,14 +44,14 @@ public interface RouteScheduleService {
      * @param scheduleId
      * @return
      */
-    public RouteSchedule findById(Integer scheduleId);
+    public RouteScheduleBean findById(Integer scheduleId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<RouteSchedule> findAll();
+    public List<RouteScheduleBean> findAll();
 
-    public int count();
+    public int totalCount();
 }

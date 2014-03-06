@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.StationBeanMapper;
-import kevin.tm.dao.StationMapper;
 import kevin.tm.dao.model.StationBean;
 import kevin.tm.dao.model.StationBeanExample;
-import kevin.tm.model.Station;
 import kevin.tm.service.StationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,6 @@ public class StationServiceImpl implements StationService {
 
     @Autowired
     private StationBeanMapper stationBeanMapper;
-
-    @Autowired
-    private StationMapper stationMapper;
 
     /*
      * (non-Javadoc)
@@ -67,8 +62,8 @@ public class StationServiceImpl implements StationService {
      * @see kevin.tm.service.StationService#findById(int)
      */
     @Override
-    public Station findById(Integer stationId) {
-	return this.stationMapper.getById(stationId);
+    public StationBean findById(Integer stationId) {
+	return this.stationBeanMapper.selectByPrimaryKey(stationId);
     }
 
     /*
@@ -77,8 +72,11 @@ public class StationServiceImpl implements StationService {
      * @see kevin.tm.service.StationService#findAll()
      */
     @Override
-    public List<Station> findAll() {
-	return this.stationMapper.getAll();
+    public List<StationBean> findAll() {
+	StationBeanExample stationBeanExample = new StationBeanExample();
+	stationBeanExample.clear();
+	stationBeanExample.createCriteria().getAllCriteria();
+	return this.stationBeanMapper.selectByExample(stationBeanExample);
     }
 
     /*
@@ -87,12 +85,15 @@ public class StationServiceImpl implements StationService {
      * @see kevin.tm.service.StationService#findByName(java.lang.String)
      */
     @Override
-    public List<Station> findByName(String stationName) {
-	return this.stationMapper.getByName(stationName);
+    public List<StationBean> findByName(String stationName) {
+	StationBeanExample stationBeanExample = new StationBeanExample();
+	stationBeanExample.clear();
+	stationBeanExample.createCriteria().andStationnameLike(stationName);
+	return this.stationBeanMapper.selectByExample(stationBeanExample);
     }
 
     @Override
-    public int count() {
+    public int totalCount() {
 	StationBeanExample stationBeanExample = new StationBeanExample();
 	stationBeanExample.clear();
 	stationBeanExample.createCriteria().getAllCriteria();

@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.StationBean;
-import kevin.tm.model.Station;
 
 import org.springframework.stereotype.Service;
 
@@ -48,14 +47,14 @@ public interface StationService {
      * @param stationId
      * @return
      */
-    public Station findById(Integer stationId);
+    public StationBean findById(Integer stationId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<Station> findAll();
+    public List<StationBean> findAll();
 
     /**
      * 名称查找
@@ -63,7 +62,7 @@ public interface StationService {
      * @param stationName
      * @return
      */
-    public List<Station> findByName(String stationName);
+    public List<StationBean> findByName(String stationName);
 
-    public int count();
+    public int totalCount();
 }

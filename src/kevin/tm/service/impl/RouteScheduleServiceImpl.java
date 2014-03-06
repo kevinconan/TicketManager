@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteScheduleBeanMapper;
-import kevin.tm.dao.RouteScheduleMapper;
 import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.RouteScheduleBeanExample;
-import kevin.tm.model.RouteSchedule;
 import kevin.tm.service.RouteScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +20,6 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 
     @Autowired
     private RouteScheduleBeanMapper routeScheduleBeanMapper;
-    @Autowired
-    private RouteScheduleMapper routeScheduleMapper;
 
     public RouteScheduleBeanMapper getRouteScheduleBeanMapper() {
 	return this.routeScheduleBeanMapper;
@@ -73,8 +69,8 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      * @see kevin.tm.service.RouteScheduleService#findById(java.lang.Integer)
      */
     @Override
-    public RouteSchedule findById(Integer scheduleId) {
-	return this.routeScheduleMapper.getById(scheduleId);
+    public RouteScheduleBean findById(Integer scheduleId) {
+	return this.routeScheduleBeanMapper.selectByPrimaryKey(scheduleId);
     }
 
     /*
@@ -83,12 +79,16 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      * @see kevin.tm.service.RouteScheduleService#findAll()
      */
     @Override
-    public List<RouteSchedule> findAll() {
-	return this.routeScheduleMapper.getAll();
+    public List<RouteScheduleBean> findAll() {
+	RouteScheduleBeanExample routeScheduleBeanExample = new RouteScheduleBeanExample();
+	routeScheduleBeanExample.clear();
+	routeScheduleBeanExample.createCriteria().getAllCriteria();
+	return this.routeScheduleBeanMapper
+		.selectByExample(routeScheduleBeanExample);
     }
 
     @Override
-    public int count() {
+    public int totalCount() {
 	RouteScheduleBeanExample routeScheduleBeanExample = new RouteScheduleBeanExample();
 	routeScheduleBeanExample.clear();
 	routeScheduleBeanExample.createCriteria().getAllCriteria();
