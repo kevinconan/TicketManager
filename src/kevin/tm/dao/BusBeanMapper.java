@@ -2,7 +2,6 @@ package kevin.tm.dao;
 
 import java.util.List;
 
-import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.BusBeanExample;
 
@@ -111,6 +110,6 @@ public interface BusBeanMapper {
      * @return
      */
     @Select("SELECT TOP(#{limit}) * FROM [Bus] WHERE [VehicleNo] NOT IN (SELECT TOP(#{start}) [VehicleNo] FROM [Bus])")
-    List<AdminBean> selectByPage(@Param("start") int start,
+    List<BusBean> selectByPage(@Param("start") int start,
 	    @Param("limit") int limit);
 }

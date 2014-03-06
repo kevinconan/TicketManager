@@ -124,4 +124,9 @@ public class TicketServiceImpl implements TicketService {
 	return this.ticketBeanMapper.countByExample(ticketBeanExample);
     }
 
+    @Override
+    public List<TicketBean> findByPage(int start, int limit) {
+	return this.ticketBeanMapper.selectByPage(start, limit);
+    }
+
 }

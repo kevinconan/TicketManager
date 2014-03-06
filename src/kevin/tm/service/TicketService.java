@@ -78,4 +78,6 @@ public interface TicketService {
     public List<TicketBean> findByScheduleId(Integer scheduleId);
 
     public int totalCount();
+
+    public List<TicketBean> findByPage(int start, int limit);
 }

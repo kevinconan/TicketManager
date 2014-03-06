@@ -23,4 +23,5 @@ public interface BusService {
 
     public int totalCount();
 
+    public List<BusBean> findByPage(int start, int limit);
 }

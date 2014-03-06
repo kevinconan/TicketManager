@@ -38,6 +38,7 @@ public class BusServiceImpl implements BusService {
 
     @Autowired
     private BusBeanExtMapper busBeanExtMapper;
+
     @Override
     public int save(BusBean busBean) {
 	BusBeanExample example = new BusBeanExample();
@@ -94,6 +95,11 @@ public class BusServiceImpl implements BusService {
 	busBeanExample.clear();
 	busBeanExample.createCriteria().getAllCriteria();
 	return this.busBeanMapper.countByExample(busBeanExample);
+    }
+
+    @Override
+    public List<BusBean> findByPage(int start, int limit) {
+	return this.busBeanMapper.selectByPage(start, limit);
     }
 
 }

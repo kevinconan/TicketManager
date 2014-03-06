@@ -8,7 +8,6 @@ import java.util.List;
 import kevin.tm.dao.RouteBeanMapper;
 import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteBeanExample;
-import kevin.tm.model.Route;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +111,11 @@ public class RouteServiceImpl implements RouteService {
     public int deleteById(int[] routeId) {
 	// TODO Auto-generated method stub
 	return 0;
+    }
+
+    @Override
+    public List<RouteBean> findByPage(int start, int limit) {
+	return this.routeBeanMapper.selectByPage(start, limit);
     }
 
 }

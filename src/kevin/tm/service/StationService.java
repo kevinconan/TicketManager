@@ -65,4 +65,6 @@ public interface StationService {
     public List<StationBean> findByName(String stationName);
 
     public int totalCount();
+
+    public List<StationBean> findByPage(int start, int limit);
 }

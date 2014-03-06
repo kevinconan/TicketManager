@@ -100,4 +100,9 @@ public class StationServiceImpl implements StationService {
 	return this.stationBeanMapper.countByExample(stationBeanExample);
     }
 
+    @Override
+    public List<StationBean> findByPage(int start, int limit) {
+	return this.stationBeanMapper.selectByPage(start, limit);
+    }
+
 }

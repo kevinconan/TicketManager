@@ -2,7 +2,6 @@ package kevin.tm.dao;
 
 import java.util.List;
 
-import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.TicketBean;
 import kevin.tm.dao.model.TicketBeanExample;
 
@@ -111,6 +110,6 @@ public interface TicketBeanMapper {
      * @return
      */
     @Select("SELECT TOP(#{limit}) * FROM [Ticket] WHERE [TicketId] NOT IN (SELECT TOP(#{start}) [TicketId] FROM [Ticket])")
-    List<AdminBean> selectByPage(@Param("start") int start,
+    List<TicketBean> selectByPage(@Param("start") int start,
 	    @Param("limit") int limit);
 }

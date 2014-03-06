@@ -2,7 +2,6 @@ package kevin.tm.dao;
 
 import java.util.List;
 
-import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.RouteScheduleBeanExample;
 
@@ -111,6 +110,6 @@ public interface RouteScheduleBeanMapper {
      * @return
      */
     @Select("SELECT TOP(#{limit}) * FROM [RouteSchedule] WHERE [ScheduleId] NOT IN (SELECT TOP(#{start}) [ScheduleId] FROM [RouteSchedule])")
-    List<AdminBean> selectByPage(@Param("start") int start,
+    List<RouteScheduleBean> selectByPage(@Param("start") int start,
 	    @Param("limit") int limit);
 }
