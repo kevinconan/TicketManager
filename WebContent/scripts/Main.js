@@ -48,7 +48,7 @@ Ext.onReady(function(){
 	            data : [{
 	    			text : '用户管理',
 	    			leaf: true,
-	    			url : ctxpath+'/userList.jsp'
+	    			url : ctxpath+'/adminList.jsp'
 	    		},{
 	    			text : '汽车管理',
 	    			leaf: true,
