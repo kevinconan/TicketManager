@@ -70,6 +70,7 @@ request.setAttribute("username", userName); */
 		        }  
 		    }  
 		});
+		
 		//定义汽车数据源对象
 		/* var busStore = Ext.create('Ext.data.JsonStore',{
 			autoLoad :true,
@@ -105,7 +106,7 @@ request.setAttribute("username", userName); */
 		}); */
 		//创建工具栏组件
 		var toolbar = [
-			{text : '注册汽车',iconCls:'add'},
+			{text : '注册汽车',iconCls:'add',handler : showAddAdmin},
 			{text : '修改汽车',iconCls:'option'},
 			{text : '注销汽车',iconCls:'remove'}
 		];
@@ -133,6 +134,68 @@ request.setAttribute("username", userName); */
 			layout:'border',//表格布局
 			items : adminGrid
 		});
+		
+		var adminForm = new Ext.form.Panel({
+			fieldDefaults:{//统一设置表单字段默认属性
+				labelSeparator :'：',//分隔符
+				labelWidth : 80,//标签宽度
+				msgTarget : 'side',
+				width : 300
+			},
+			bodyPadding: 5,
+			frame:true,
+			items : [{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '管理员ID不能为空',
+				name : 'loginid',
+				fieldLabel:'管理员ID'
+			},{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '密码不能为空',
+				name : 'loginpwd',
+				fieldLabel:'密码'
+			},{
+				xtype:'textfield',
+				allowBlank : false,
+				blankText : '名字不能为空',
+				name : 'adminname',
+				fieldLabel:'名字'
+			}],
+			buttons:[{
+				text : '提交',
+				handler : submitForm
+			},{
+				text : '关闭',
+				handler : function(){
+					win.hide();
+				}
+			},'->']
+			});
+		
+		var win = new Ext.window.Window({
+			layout:'fit',
+		    width:380,
+		    closeAction:'hide',
+		    height:280,
+			resizable : false,
+			shadow : true,
+			modal :true,
+		    closable:true,
+			items:adminForm
+		});
+		
+		function showAddAdmin(){
+			adminForm.form.reset();
+			adminForm.isAdd = true;
+			win.setTitle("新增管理员");
+			win.show();
+		}
+		
+		function submitForm(){
+			
+		}
 		
 		//创建新增或修改书籍信息的form表单
 		Ext.QuickTips.init();});
