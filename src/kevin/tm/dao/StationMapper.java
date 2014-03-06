@@ -17,4 +17,6 @@ public interface StationMapper {
     public Station getById(@Param("StationId") Integer stationId);
 
     public List<Station> getAll();
+
+    public List<Station> getByName(@Param("StationName") String stationName);
 }

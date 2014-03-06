@@ -5,9 +5,10 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import kevin.tm.dao.model.StationBean;
+import kevin.tm.model.Station;
+
+import org.springframework.stereotype.Service;
 
 /**
  * 车站Service接口
@@ -47,14 +48,14 @@ public interface StationService {
      * @param stationId
      * @return
      */
-    public StationBean findById(Integer stationId);
+    public Station findById(Integer stationId);
 
     /**
      * 查找全部
      * 
      * @return
      */
-    public List<StationBean> findAll();
+    public List<Station> findAll();
 
     /**
      * 名称查找
@@ -62,25 +63,7 @@ public interface StationService {
      * @param stationName
      * @return
      */
-    public List<StationBean> findByName(String stationName);
+    public List<Station> findByName(String stationName);
 
-    /**
-     * 计算两车站距离 ，调用存储过程up_CalcTowStationDistance
-     * 
-     * @param stationA
-     * @param stationB
-     * @return
-     */
-    public Double calcTowStationDistanceById(Integer stationA, Integer stationB);
-
-    /**
-     * 计算两车站距离
-     * 
-     * @param stationA
-     * @param stationB
-     * @return
-     */
-    public Double calcTowStationDistance(StationBean stationA,
-	    StationBean stationB);
-
+    public int count();
 }
