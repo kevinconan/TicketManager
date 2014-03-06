@@ -329,10 +329,11 @@ request.setAttribute("username", userName); */
 		//提交表单数据
 		function submitForm(){
 			//判断当前执行的提交操作，isAdd为true表示执行书籍新增操作，false表示执行书籍修改操作
+			var formparams=Ext.JSON.encode(busForm.form.getValues());
 			if(busForm.isAdd){
 				//新增书籍信息
 			//	alert(Ext.JSON.encode(busForm.form.getValues()));
-				var formparams=Ext.JSON.encode(busForm.form.getValues());
+			//	var formparams=Ext.JSON.encode(busForm.form.getValues());
 				busForm.form.submit({
 					 clientValidation:true,
                      url : 'bus_add',// 文件路径
@@ -345,6 +346,8 @@ request.setAttribute("username", userName); */
                          switch(dat){
                          case "ok" : 
                         	 Ext.Msg.alert('成功','操作成功！');win.close();break;
+                         case "repeat" : 
+                        	 Ext.Msg.alert('错误','添加失败，车牌号重复！');win.close();break;
                          case "fail" :	
                          	Ext.Msg.alert('错误','操作失败！');win.close();break;
                          default :
@@ -381,32 +384,35 @@ request.setAttribute("username", userName); */
 					waitTitle : '提示',//标题
 					url : 'bus_update',//请求的url地址
 					method:'POST',//请求方式
+					params : {"jsonData":formparams},
 					success:function(data,response) {                                               
-                     	var dat = Ext.JSON.decode(data.responseText);
+                     	var dat =response.result.msg;
                         //	alert(dat);
-                            switch(dat){
-                            case "0" : 
-                           	 Ext.Msg.alert('操作成功！');break;
-                            case "1" :	
-                            	Ext.Msg.alert('操作失败！');break;
-                            default :
-                            	Ext.Msg.alert('操作失败！');break;
-                            
-                            }   
+                     	switch(dat){
+                        case "ok" : 
+                       	 Ext.Msg.alert('成功','修改成功！');win.close();break;
+                        
+                        case "fail" :	
+                        	Ext.Msg.alert('错误','修改失败！');win.close();break;
+                        default :
+                        	Ext.Msg.alert('错误','操作失败！');win.close();break;
+                        
+                        }
+                     	busStore.reload();
                         },
                         // 提交失败的回调函数
                         failure : function() {
                                 Ext.Msg.alert('错误',
-                                '服务器出现错误请稍后再试！');
+                                '服务器出现错误请稍后再试！');win.close();
                         }
 				});
 			}
 		}
 		//明细数据修改后，同步更新汽车列表信息
-		function updateBusGrid(bookId){
+		function updateBusGrid(BuskId){
 			var values = busForm.form.getValues();
-			var index = busStore.find('id',values['id']);
-			var bookTypeField = busForm.form.findField('bookTypeId');
+			var index = busStore.find('vehicleno',values['vehicleno']);
+			var busTypeField = busForm.form.findField('bookTypeId');
 			var bookTypeName = bookTypeField.getRawValue();
 			if(index != -1){
 				var item = busStore.getAt(index);

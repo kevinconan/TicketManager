@@ -93,18 +93,23 @@ public class BusAction extends BaseAction<BusBeanExt> {
     	Gson gson = new Gson();
     	BusBean busBean=gson.fromJson(jsonData, BusBean.class);
     	System.out.println(jsonData);
-    	if(busBean == null){
+    	if(ValidationUtil.isNullOrEmpty(busBean)){
     		msgMap.put("success", true);
     		msgMap.put("msg", "fail");
     		return "MSGMAP";
     	}
-    		
-	if (this.busService.save(busBean) != 0) {
+    	int count = this.busService.save(busBean);	
+	if (count > 0) {
 		msgMap.put("success", true);
 		msgMap.put("msg", "ok");
-		System.out.println(msgMap.isEmpty());
-
-	} else {
+	//	System.out.println(msgMap.isEmpty());
+	} else if(count == 0 ){
+		msgMap.put("success", true);
+		msgMap.put("msg", "fail");
+	}else if(count < 0) {
+		msgMap.put("success", true);
+		msgMap.put("msg", "repeat");
+	}else{
 		msgMap.put("success", false);
 		msgMap.put("msg", "fail");
 	}
@@ -124,18 +129,29 @@ public class BusAction extends BaseAction<BusBeanExt> {
     }
 
     public String update() {
+    	msgMap = new HashMap<>();
+    	Gson gson = new Gson();
+    	BusBean busBean=gson.fromJson(jsonData, BusBean.class);
+    	System.out.println(jsonData);
     	if(ValidationUtil.isNullOrEmpty(busBean)){
-    		this.message = "1";
-    		return MESSAGE;
+    		msgMap.put("success", true);
+    		msgMap.put("msg", "fail");
+    		return "MSGMAP";
     	}
-	if (this.busService.update(busBean) != 0) {
-	    this.message = "0";
+    	int count = this.busService.update(busBean);	
+    	if (count > 0) {
+    		msgMap.put("success", true);
+    		msgMap.put("msg", "ok");
+    	//	System.out.println(msgMap.isEmpty());
+    	} else if(count == 0 ){
+    		msgMap.put("success", true);
+    		msgMap.put("msg", "fail");
+    	}else{
+    		msgMap.put("success", false);
+    		msgMap.put("msg", "fail");
+    	}
 
-	} else {
-	    this.message = "1";
-	}
-
-	return MESSAGE;
+	return "MSGMAP";
     }
 
     public String list() {

@@ -40,6 +40,12 @@ public class BusServiceImpl implements BusService{
 
 	@Override
 	public int save(BusBean busBean) {
+		BusBeanExample example = new BusBeanExample();
+		example.clear();
+		example.createCriteria().andVehiclenoEqualTo(busBean.getVehicleno());
+		//判断如果主键重复则返回-1
+		if(busBeanMapper.countByExample(example)>0)
+			return -1;
 		return busBeanMapper.insert(busBean);
 	}
 
@@ -51,7 +57,7 @@ public class BusServiceImpl implements BusService{
 	@Override
 	public int update(BusBean busBean) {
 
-		return busBeanMapper.updateByPrimaryKey(busBean);
+		return busBeanMapper.updateByPrimaryKeySelective(busBean);
 	}
 
 	@Override
