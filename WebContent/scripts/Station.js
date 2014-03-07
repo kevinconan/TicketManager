@@ -47,7 +47,7 @@ var pageToolbar_st=new Ext.PagingToolbar({
 	  displayInfo:true,
 	  displayMsg:"当前显示从{0}条到{1}条，共{2}条",
 	  emptyMsg:"<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
-	  items:[ '&nbsp;&nbsp;每页显示记录数量：',pagesize_combo_st]
+	  items:[ '&nbsp;&nbsp;每页显示：',pagesize_combo_st]
 	 });
 //定义表格组件
 var stationGrid = new Ext.grid.Panel({

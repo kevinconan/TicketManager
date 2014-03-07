@@ -98,12 +98,36 @@ request.setAttribute("username", userName); */
 		      		});
 		     
 		
-		//显示
-		new Ext.container.Viewport({
-			layout:'border',//表格布局
-			items : routesScheduleGrid
-		});
 		
+		
+		 var testGrid = new Ext.grid.Panel({
+				region: 'center',
+   		//	store: routesScheduleStore,
+   			name: 'innerGrid',
+   			selModel : new Ext.selection.CheckboxModel(),
+   			columns: [//配置表格列
+   			       {text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
+     				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true}
+   			]
+				
+			});
+		 var innerGrid = new Ext.grid.Panel({
+					region: 'center',
+	      		//	store: routesScheduleStore,
+	      			name: 'innerGrid',
+	      			selModel : new Ext.selection.CheckboxModel(),
+	      			columns: [//配置表格列
+	      				
+	      			]
+					
+				});
+		 testGrid.hide();
+		 
+		//显示
+			new Ext.container.Viewport({
+				layout:'border',//表格布局
+				items : routesScheduleGrid
+			});
 		//创建调度表单
 		var routesScheduleForm = new Ext.form.Panel({
 			autoHeight : true,
@@ -128,7 +152,9 @@ request.setAttribute("username", userName); */
 		            xtype: 'button',
 		            text : '选择线路',
 		            handler:function(){
-		            	
+		            //	alert("ok");
+		            	stationGrid.show();
+		            	testGrid.hide();
 		            	//TODO编写选择线路操作
 		            }
 		        },{
@@ -142,6 +168,8 @@ request.setAttribute("username", userName); */
 		            text : '选择车辆',
 		            handler:function(){
 		            	//TODO编写选择车辆操作
+		            	stationGrid.hide();
+		            	testGrid.show();
 		            	
 		            }
 		        }]
@@ -173,24 +201,15 @@ request.setAttribute("username", userName); */
 					fieldLabel:'&nbsp;&nbsp;&nbsp;调度名称'
 				}]
 			},{
-				items: new Ext.grid.Panel({
-					region: 'center',
-	      			store: routesScheduleStore,
-	      			name: 'innerGrid',
-	      			selModel : new Ext.selection.CheckboxModel(),
-	      			columns: [//配置表格列
-	      				
-	      			]
-					
-				})
+				items: [stationGrid,testGrid]
 			}
 			]
 		});
-		
+
 		//创建弹出窗口
 		var win = new Ext.window.Window({
 			layout:'fit',
-		    width:800,
+		    width:700,
 		    closeAction:'hide',
 		    height:400,
 			resizable : false,
