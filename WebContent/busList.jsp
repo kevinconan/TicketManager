@@ -16,6 +16,7 @@ request.setAttribute("username", userName); */
 	
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
+  <script type="text/javascript" src="./scripts/Models.js"></script>
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
@@ -127,7 +128,7 @@ request.setAttribute("username", userName); */
 				name : 'busrouteid',
 				store : new Ext.data.JsonStore({
 					autoLoad :true,
-					model : 'Route',
+					model : 'RouteModel',
 					proxy: {
 				        type: 'ajax',
 				        url : 'route_list',
@@ -164,7 +165,7 @@ request.setAttribute("username", userName); */
 				name : 'busstationid',
 				store : new Ext.data.JsonStore({
 					autoLoad :true,
-					model : 'Station',
+					model : 'StationModel',
 					proxy: {
 				        type: 'ajax',
 				        url : 'station_list',
@@ -266,7 +267,7 @@ request.setAttribute("username", userName); */
 				win.setTitle("修改车辆信息");
 				win.show();
 				var busId = busList[0];
-				Ext.getCmp('vehicleno').getEl().dom.setDisabled(true);
+			//	Ext.getCmp('vehicleno').getEl().dom.setDisabled(true);
 				loadForm(busId);
 				
 			}

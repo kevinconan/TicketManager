@@ -11,9 +11,9 @@ request.setAttribute("username", userName); */
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>管理员列表</title>
+<title>车站列表，用于测试</title>
 	<link rel="stylesheet" type="text/css" href="./ext-4.2.1-Lite/resources/ext-theme-neptune/ext-theme-neptune-all.css" />
-	<script type="text/javascript" src="./scripts/Models.js"></script>
+	
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
@@ -46,6 +46,11 @@ request.setAttribute("username", userName); */
 	    }  
 	});  
 	
+	Ext.define('AdminModel', {  
+	    extend : 'Ext.data.Model',  
+	    fields : [ 'loginid', 'loginpwd', 'adminname' ],  
+	      
+	});  
 	Ext.onReady(function(){
 		//创建汽车数据模型
 		
