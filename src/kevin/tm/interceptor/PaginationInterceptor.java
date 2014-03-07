@@ -19,6 +19,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.RowBounds;
 
 /**
+ * 对应Oracle数据库的= =
  * 
  * @author Leeyee
  * @see http://leeyee.github.io/blog/2013/05/26/mybatis-simple-pagination/
@@ -28,7 +29,6 @@ public class PaginationInterceptor implements Interceptor {
     private final static String SQL_SELECT_REGEX = "(?is)^\\s*SELECT.*$";
     private final static String SQL_COUNT_REGEX = "(?is)^\\s*SELECT\\s+COUNT\\s*\\(\\s*(?:\\*|\\w+)\\s*\\).*$";
 
-    // @Override
     @Override
     public Object intercept(Invocation inv) throws Throwable {
 	StatementHandler target = (StatementHandler) inv.getTarget();
@@ -62,19 +62,21 @@ public class PaginationInterceptor implements Interceptor {
     }
 
     public String newSql(String oldSql, RowBounds rowBounds) {
+	// this is for OracleDB
 	String start = " SELECT * FROM   (SELECT   row_.*, ROWNUM rownum_ FROM ( ";
 	String end = " ) row_ WHERE   ROWNUM <= " + rowBounds.getLimit()
 		+ ") WHERE   rownum_ > " + rowBounds.getOffset();
+	/*
+	 * String start=""; String end="";
+	 */
 	return start + oldSql + end;
     }
 
-    // @Override
     @Override
     public Object plugin(Object target) {
 	return Plugin.wrap(target, this);
     }
 
-    // @Override
     @Override
     public void setProperties(Properties arg0) {
 	System.out.println(arg0);
