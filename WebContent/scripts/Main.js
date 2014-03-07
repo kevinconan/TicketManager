@@ -53,6 +53,10 @@ Ext.onReady(function(){
 	    			text : '汽车管理',
 	    			leaf: true,
 	    			url : ctxpath+'/busList.jsp'
+	    		},{
+	    			text : '车站管理（测试）',
+	    			leaf: true,
+	    			url : ctxpath+'/StationListTest.jsp'
 	    		}]
 	        },
 	        root: {
