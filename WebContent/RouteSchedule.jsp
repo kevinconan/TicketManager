@@ -35,7 +35,7 @@ request.setAttribute("username", userName); */
 		var routesScheduleStore = Ext.create('Ext.data.Store', {  
 		    pageSize : 10,  
 		    model : 'RouteScheduleModel',  
-		    autoLoad : true,  
+		//    autoLoad : true,  
 		    proxy : {  
 		        type : 'ajax',  
 		        actionMethods : 'post',  
@@ -96,6 +96,7 @@ request.setAttribute("username", userName); */
 		      				{text: "调度车辆", width: 80, dataIndex: 'schedulevehicleno', sortable: true}
 		      			]
 		      		});
+		     
 		
 		//显示
 		new Ext.container.Viewport({
@@ -103,8 +104,105 @@ request.setAttribute("username", userName); */
 			items : routesScheduleGrid
 		});
 		
+		//创建调度表单
+		var routesScheduleForm = new Ext.form.Panel({
+			autoHeight : true,
+			layout : "form",
+			fieldDefaults:{//统一设置表单字段默认属性
+				labelSeparator :'：',//分隔符
+				labelWidth : 80,//标签宽度
+			//	msgTarget : 'side',
+				width : 200
+			},
+			bodyPadding: 5,
+			frame:true,
+			items : [{//第一行
+				layout : 'column',
+				items : [{
+					xtype:'textfield',
+					allowBlank : false,
+					blankText : '调度线路不能为空',
+					name : 'schedulerouteid',
+					fieldLabel:'调度线路'
+				},{
+		            xtype: 'button',
+		            text : '选择线路',
+		            handler:function(){
+		            	
+		            	//TODO编写选择线路操作
+		            }
+		        },{
+					xtype:'textfield',
+					allowBlank : false,
+					blankText : '调度车辆不能为空',
+					name : 'schedulevehicleno',
+					fieldLabel:'&nbsp;&nbsp;&nbsp;调度车辆'
+				},{
+		            xtype: 'button',
+		            text : '选择车辆',
+		            handler:function(){
+		            	//TODO编写选择车辆操作
+		            	
+		            }
+		        }]
+				
+			},{
+				layout : 'column',
+				items : [{
+			        xtype: 'timefield',
+			        name: 'starttime',
+			        fieldLabel: '出发时间',
+			        minValue: '6:00 AM',
+			        maxValue: '8:00 PM',
+			        increment: 30,
+			        anchor: '100%'
+			    }, {
+			        xtype: 'timefield',
+			        name: 'endtime',
+			        fieldLabel: '&nbsp;&nbsp;&nbsp;到达时间',
+			        minValue: '6:00 AM',
+			        maxValue: '8:00 PM',
+			        increment: 30,
+			        anchor: '100%'
+			   },{
+		        	
+					xtype:'textfield',
+					allowBlank : false,
+					blankText : '调度名称不能为空',
+					name : 'schedulename',
+					fieldLabel:'&nbsp;&nbsp;&nbsp;调度名称'
+				}]
+			},{
+				items: new Ext.grid.Panel({
+					region: 'center',
+	      			store: routesScheduleStore,
+	      			name: 'innerGrid',
+	      			selModel : new Ext.selection.CheckboxModel(),
+	      			columns: [//配置表格列
+	      				
+	      			]
+					
+				})
+			}
+			]
+		});
+		
+		//创建弹出窗口
+		var win = new Ext.window.Window({
+			layout:'fit',
+		    width:800,
+		    closeAction:'hide',
+		    height:400,
+			resizable : false,
+			shadow : true,
+			modal :true,
+		    closable:true,
+			items: [routesScheduleForm]
+		});
+		
 		function showNewSchedule(){
-			
+			win.setTitle("新增调度");
+			win.show();
 			
 		}
 	

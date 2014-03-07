@@ -54,9 +54,9 @@ Ext.onReady(function(){
 	    			leaf: true,
 	    			url : ctxpath+'/busList.jsp'
 	    		},{
-	    			text : '车站管理（测试）',
+	    			text : '调度管理',
 	    			leaf: true,
-	    			url : ctxpath+'/StationListTest.jsp'
+	    			url : ctxpath+'/RouteSchedule.jsp'
 	    		}]
 	        },
 	        root: {
