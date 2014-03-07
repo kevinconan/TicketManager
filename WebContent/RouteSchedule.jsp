@@ -48,7 +48,7 @@ request.setAttribute("username", userName); */
 		    }  
 		});
 		var toolbar_rs = [
-		         			{text : '新增调度',iconCls:'add'},
+		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
 		         			{text : '修改调度',iconCls:'option'},
 		         			{text : '删除调度',iconCls:'remove'}
 		         		];
@@ -97,11 +97,16 @@ request.setAttribute("username", userName); */
 		      			]
 		      		});
 		
+		//显示
 		new Ext.container.Viewport({
 			layout:'border',//表格布局
 			items : routesScheduleGrid
 		});
 		
+		function showNewSchedule(){
+			
+			
+		}
 	
 		
 		Ext.QuickTips.init();});
