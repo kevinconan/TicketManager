@@ -201,6 +201,7 @@ request.setAttribute("username", userName); */
 					fieldLabel:'&nbsp;&nbsp;&nbsp;调度名称'
 				}]
 			},{
+				
 				items: [stationGrid,testGrid]
 			}
 			]
