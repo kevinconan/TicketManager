@@ -113,4 +113,16 @@ public class AdminServiceImpl implements AdminService {
 	return this.adminBeanMapper.selectByPage(start, limit);
     }
 
+    @Override
+    public AdminBean login(AdminBean adminBean) {
+	AdminBeanExample adminBeanExample = new AdminBeanExample();
+	adminBeanExample.clear();
+	adminBeanExample.createCriteria()
+		.andLoginidEqualTo(adminBean.getLoginid())
+		.andLoginpwdEqualTo(adminBean.getLoginpwd());
+	List<AdminBean> list = this.adminBeanMapper
+		.selectByExample(adminBeanExample);
+	return list.size() > 0 ? list.get(0) : null;
+    }
+
 }

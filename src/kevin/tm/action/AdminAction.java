@@ -19,8 +19,8 @@ import org.springframework.stereotype.Controller;
  * 
  */
 @Scope("request")
-@Controller("adminTestAction")
-public class AdminTestAction extends BaseAction<AdminBean> {
+@Controller("adminAction")
+public class AdminAction extends BaseAction<AdminBean> {
 
     /**
      * 

@@ -1,5 +1,7 @@
 package kevin.tm.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import kevin.tm.dao.model.StationBean;
@@ -16,29 +18,102 @@ public class StationAction extends BaseAction<StationBean> {
     /**
      * 
      */
-	private List<StationBean> stationList;
-	
-    
+    private static final long serialVersionUID = 1361215363387998977L;
 
-	public List<StationBean> getStationList() {
-		return stationList;
-	}
-
-	public void setStationList(List<StationBean> stationList) {
-		this.stationList = stationList;
-	}
-
-	private static final long serialVersionUID = 3311756013782353554L;
     @Autowired
     private StationService stationService;
 
-    public String testFindByName() {
-	System.out.println(this.stationService.findByName("aa"));
-	return SUCCESS;
+    private String createStationBeans;
+    private String updateStationBeans;
+    private String deleteStationBeans;
+
+    public String add() {
+	List<Integer> list = new ArrayList<>();
+	StationBean[] beans = GSON.fromJson(this.createStationBeans,
+		StationBean[].class);
+
+	for (StationBean bean : beans) {
+	    if (this.stationService.save(bean) == 0) {
+		list.add(bean.getStationid());
+	    }
+	}
+
+	this.map = new HashMap<String, Object>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
     }
-    
-    public String list(){
-    	this.setStationList(this.stationService.findAll());
-    	return LIST;
+
+    public String update() {
+	List<Integer> list = new ArrayList<>();
+	StationBean[] beans = GSON.fromJson(this.updateStationBeans,
+		StationBean[].class);
+
+	for (StationBean bean : beans) {
+	    if (this.stationService.update(bean) == 0) {
+		list.add(bean.getStationid());
+	    }
+	}
+
+	this.map = new HashMap<String, Object>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
+    }
+
+    public String delete() {
+	List<Integer> list = new ArrayList<>();
+	StationBean[] beans = GSON.fromJson(this.deleteStationBeans,
+		StationBean[].class);
+
+	for (StationBean bean : beans) {
+	    if (this.stationService.delete(bean) == 0) {
+		list.add(bean.getStationid());
+	    }
+	}
+
+	this.map = new HashMap<String, Object>();
+	this.map.put(SUCCESS, list.isEmpty());
+	this.map.put(FAILURE, list);
+	return MAP;
+    }
+
+    public String list() {
+	this.list = this.stationService.findByPage(this.start, this.limit);
+
+	this.map = new HashMap<>();
+	this.map.put(TOTAL_COUNT, this.stationService.totalCount());
+	this.map.put(ROWS, this.list);
+	return MAP;
+    }
+
+    public String getById() {
+	this.message = GSON.toJson(this.stationService.findById(Integer
+		.getInteger(this.message)));
+	return MESSAGE;
+    }
+
+    public String getCreateStationBeans() {
+	return this.createStationBeans;
+    }
+
+    public void setCreateStationBeans(String createStationBeans) {
+	this.createStationBeans = createStationBeans;
+    }
+
+    public String getUpdateStationBeans() {
+	return this.updateStationBeans;
+    }
+
+    public void setUpdateStationBeans(String updateStationBeans) {
+	this.updateStationBeans = updateStationBeans;
+    }
+
+    public String getDeleteStationBeans() {
+	return this.deleteStationBeans;
+    }
+
+    public void setDeleteStationBeans(String deleteStationBeans) {
+	this.deleteStationBeans = deleteStationBeans;
     }
 }

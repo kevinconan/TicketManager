@@ -31,6 +31,14 @@ public interface RouteScheduleService {
     public int deleteById(Integer scheduleId);
 
     /**
+     * 删除
+     * 
+     * @param routeScheduleBean
+     * @return
+     */
+    public int delete(RouteScheduleBean routeScheduleBean);
+
+    /**
      * 修改
      * 
      * @param routeScheduleBean

@@ -118,4 +118,9 @@ public class RouteServiceImpl implements RouteService {
 	return this.routeBeanMapper.selectByPage(start, limit);
     }
 
+    @Override
+    public int delete(RouteBean routeBean) {
+	return this.routeBeanMapper.deleteByPrimaryKey(routeBean.getRouteid());
+    }
+
 }

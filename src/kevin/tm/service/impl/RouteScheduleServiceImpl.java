@@ -101,4 +101,10 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 	return this.routeScheduleBeanMapper.selectByPage(start, limit);
     }
 
+    @Override
+    public int delete(RouteScheduleBean routeScheduleBean) {
+	return this.routeScheduleBeanMapper
+		.deleteByPrimaryKey(routeScheduleBean.getScheduleid());
+    }
+
 }
