@@ -21,6 +21,7 @@ request.setAttribute("username", userName); */
   	<script type="text/javascript" src="./scripts/Stores.js"></script>
   	<script type="text/javascript" src="./scripts/Route.js"></script>
 	<script type="text/javascript" src="./scripts/Station.js"></script>
+	<script type="text/javascript" src="./scripts/Bus.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
@@ -69,22 +70,6 @@ request.setAttribute("username", userName); */
 		      	 });
 		      //定义表格组件
 		      
-		      var busGrid = new Ext.grid.Panel({
-			tbar : toolbar,
-			region: 'center',
-			store: busStore,
-			selModel : new Ext.selection.CheckboxModel(),
-			columns: [//配置表格列
-				{text: "车牌号", width: 80, dataIndex: 'vehicleno', sortable: true},
-				{text: "线路", width: 80, dataIndex: 'routename', sortable: true},
-				{text: "汽车状态", width: 80, dataIndex: 'busstate', sortable: true},
-				{text: "所属车站", width: 80, dataIndex: 'stationname', sortable: true},
-				{text: "司机名", width: 80, dataIndex: 'drivername', sortable: true},
-				{text: "座位数", width: 80, dataIndex: 'seatcount', sortable: true}
-
-				
-			]
-		});
 		      
 		      var routesScheduleGrid = new Ext.grid.Panel({
 
@@ -199,10 +184,12 @@ request.setAttribute("username", userName); */
 		//	width:'99%',
 		//	 height:'99%',
 			layout : 'fit',
+			//bodyPadding : 0,
 			items : [{
 				layout:'auto',
-			//	maxWidth : 750,
-			//	maxHeight :500,
+		//		bodyPadding : 0,
+				maxWidth : 750,
+				maxHeight :500,
 				items: [{
 				//	title :'test1',
 					items: routesScheduleForm

@@ -33,8 +33,8 @@ var pageToolbar_rt=new Ext.PagingToolbar({
 	 });
 //定义表格组件
 var routeGrid = new Ext.grid.Panel({
-	      	width : 700,
-		 	height :390,
+	      	width : 690,
+		 	height : 390,
 			tbar : toolbar_rt,
 			bbar : pageToolbar_rt,
 			region: 'center',
