@@ -151,13 +151,12 @@ function showDeleteStation(){
 	}
 	Ext.MessageBox.confirm("提示","您确定要删除所选车站吗？",function(btnId){
 		if(btnId == 'yes'){
-			deleteBuses(stationList);
+			deleteStation(stationList);
 		}
 	});
 }
 //删除车站
-function deleteBuses(stationList){
-	
+function deleteStation(stationList){
 	var stationIds = Ext.JSON.encode(stationList);
 	var msgTip = Ext.MessageBox.show({
 		title:'提示',
@@ -166,7 +165,7 @@ function deleteBuses(stationList){
 	});
 	Ext.Ajax.request({
 		url :'station_delete',
-		params : {"jsonData" : stationIds},
+		params : {"deleteStationBeans" : stationIds},
 		method : 'POST',
 		success : function(response,options){
 			msgTip.hide();
