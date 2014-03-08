@@ -18,6 +18,7 @@ request.setAttribute("username", userName); */
   <script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
   	<script type="text/javascript" src="./scripts/Models.js"></script>
+  	<script type="text/javascript" src="./scripts/Stores.js"></script>
 	<script type="text/javascript" src="./scripts/Station.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
@@ -32,21 +33,6 @@ request.setAttribute("username", userName); */
 	
 	Ext.onReady(function(){
 
-		var routesScheduleStore = Ext.create('Ext.data.Store', {  
-		    pageSize : 10,  
-		    model : 'RouteScheduleModel',  
-		//    autoLoad : true,  
-		    proxy : {  
-		        type : 'ajax',  
-		        actionMethods : 'post',  
-		        url : 'routemchedule_list',  
-		        reader : {  
-		            type : 'json',  
-		            root : 'rows',  
-		            totalProperty : 'totalCount'  
-		        }  
-		    }  
-		});
 		var toolbar_rs = [
 		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
 		         			{text : '修改调度',iconCls:'option'},
@@ -68,12 +54,12 @@ request.setAttribute("username", userName); */
 		      //绑定分页下拉框更改事件
 		      pagesize_combo_rs.on("select",function(comboBox){          
 		      	pageToolbar_rs.pageSize = parseInt(comboBox.getValue());
-		      	routesScheduleStore.pageSize = parseInt(comboBox.getValue());
-		      	routesScheduleStore.reload({params:{start:0,limit:pageToolbar_rs.pageSize}});   
+		      	routeScheduleStore.pageSize = parseInt(comboBox.getValue());
+		      	routeScheduleStore.reload({params:{start:0,limit:pageToolbar_rs.pageSize}});   
 		      });
 		      //分页工具栏
 		      var pageToolbar_rs=new Ext.PagingToolbar({
-		      	  store:routesScheduleStore,
+		      	  store:routeScheduleStore,
 		      	  pageSize:10,//小点，和上面一致
 		      	  displayInfo:true,
 		      	  displayMsg:"当前显示从{0}条到{1}条，共{2}条",
@@ -81,11 +67,44 @@ request.setAttribute("username", userName); */
 		      	  items:[ '&nbsp;&nbsp;每页显示记录数量：',pagesize_combo_rs]
 		      	 });
 		      //定义表格组件
+		      
+		      var busGrid = new Ext.grid.Panel({
+			tbar : toolbar,
+			region: 'center',
+			store: busStore,
+			selModel : new Ext.selection.CheckboxModel(),
+			columns: [//配置表格列
+				{text: "车牌号", width: 80, dataIndex: 'vehicleno', sortable: true},
+				{text: "线路", width: 80, dataIndex: 'routename', sortable: true},
+				{text: "汽车状态", width: 80, dataIndex: 'busstate', sortable: true},
+				{text: "所属车站", width: 80, dataIndex: 'stationname', sortable: true},
+				{text: "司机名", width: 80, dataIndex: 'drivername', sortable: true},
+				{text: "座位数", width: 80, dataIndex: 'seatcount', sortable: true}
+
+				
+			]
+		});
+		      var routeGrid = new Ext.grid.Panel({
+					tbar : toolbar,
+					region: 'center',
+					store: routeStore,
+					selModel : new Ext.selection.CheckboxModel(),
+					columns: [//配置表格列
+						{text: "线路号", width: 80, dataIndex: 'routeid', sortable: true},
+						{text: "线路名", width: 80, dataIndex: 'routename', sortable: true},
+						{text: "出发站", width: 80, dataIndex: 'startstationid', sortable: true},
+						{text: "终点站", width: 80, dataIndex: 'endstationid', sortable: true}
+
+						
+					]
+				});
+		      
 		      var routesScheduleGrid = new Ext.grid.Panel({
+
 		      			tbar : toolbar_rs,
 		      			bbar : pageToolbar_rs,
 		      			region: 'center',
-		      			store: routesScheduleStore,
+		      			store: routeScheduleStore,
 		      			selModel : new Ext.selection.CheckboxModel(),
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
@@ -99,29 +118,8 @@ request.setAttribute("username", userName); */
 		     
 		
 		
-		
-		 var testGrid = new Ext.grid.Panel({
-				region: 'center',
-   		//	store: routesScheduleStore,
-   			name: 'innerGrid',
-   			selModel : new Ext.selection.CheckboxModel(),
-   			columns: [//配置表格列
-   			       {text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
-     				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true}
-   			]
-				
-			});
-		 var innerGrid = new Ext.grid.Panel({
-					region: 'center',
-	      		//	store: routesScheduleStore,
-	      			name: 'innerGrid',
-	      			selModel : new Ext.selection.CheckboxModel(),
-	      			columns: [//配置表格列
-	      				
-	      			]
-					
-				});
-		 testGrid.hide();
+		routeGrid.hide();
+		 busGrid.hide();
 		 
 		//显示
 			new Ext.container.Viewport({
@@ -139,7 +137,7 @@ request.setAttribute("username", userName); */
 				width : 200
 			},
 			bodyPadding: 5,
-			frame:true,
+		//	frame:true,
 			items : [{//第一行
 				layout : 'column',
 				items : [{
@@ -152,9 +150,9 @@ request.setAttribute("username", userName); */
 		            xtype: 'button',
 		            text : '选择线路',
 		            handler:function(){
-		            //	alert("ok");
-		            	stationGrid.show();
-		            	testGrid.hide();
+		            
+		            	routeGrid.show();
+		       		 	busGrid.hide();
 		            	//TODO编写选择线路操作
 		            }
 		        },{
@@ -168,8 +166,8 @@ request.setAttribute("username", userName); */
 		            text : '选择车辆',
 		            handler:function(){
 		            	//TODO编写选择车辆操作
-		            	stationGrid.hide();
-		            	testGrid.show();
+		            	routeGrid.hide();
+		       		 busGrid.show();
 		            	
 		            }
 		        }]
@@ -200,15 +198,56 @@ request.setAttribute("username", userName); */
 					name : 'schedulename',
 					fieldLabel:'&nbsp;&nbsp;&nbsp;调度名称'
 				}]
-			},{
-				
+			}/* ,{
+				layout:'form',
+				columnWidth : .99,
+				columnheight : .99,
+				autoScroll : true,
 				items: [stationGrid,testGrid]
-			}
+			} */
 			]
+		});
+		
+		var panel = new Ext.panel.Panel({
+		//	width:700,
+		//	 height:500,
+			layout : 'fit',
+			items : [{
+				layout:'auto',
+				maxWidth : 700,
+				maxHeight :500,
+				items: [{
+				//	title :'test1',
+					items: routesScheduleForm
+				},{
+				//	title :'test1',
+					items: [routeGrid,busGrid]
+				}]
+			},{
+			//	layout:'accordion',
+				items: [] }]
 		});
 
 		//创建弹出窗口
 		var win = new Ext.window.Window({
+			layout:'fit',
+		    width:700,
+		    closeAction:'hide',
+		    height:500,
+			resizable : false,
+			shadow : true,
+			modal :true,
+		    closable:true,
+			items: [panel]
+		});
+		
+		function showNewSchedule(){
+			win.setTitle("新增调度");
+			win.show();
+			
+		}
+		//创建车站编辑窗口
+		var stationWin = new Ext.window.Window({
 			layout:'fit',
 		    width:700,
 		    closeAction:'hide',
@@ -217,14 +256,8 @@ request.setAttribute("username", userName); */
 			shadow : true,
 			modal :true,
 		    closable:true,
-			items: [routesScheduleForm]
+			items: []
 		});
-		
-		function showNewSchedule(){
-			win.setTitle("新增调度");
-			win.show();
-			
-		}
 	
 		
 		Ext.QuickTips.init();});

@@ -113,7 +113,7 @@ request.setAttribute("username", userName); */
 				width : 300
 			},
 			bodyPadding: 5,
-			frame:true,
+		//	frame:true,
 			items : [{
 				xtype:'textfield',
 				allowBlank : false,

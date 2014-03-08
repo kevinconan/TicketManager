@@ -1,5 +1,5 @@
 
-//定义车站数据源
+/*//定义车站数据源
 var stationStore = Ext.create('Ext.data.Store', {  
 		    pageSize : 10,  
 		    model : 'StationModel',  
@@ -14,7 +14,7 @@ var stationStore = Ext.create('Ext.data.Store', {
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
-		});
+		});*/
 //定义操作工具栏
 var toolbar_st = [
    			{text : '注册车站',iconCls:'add'},
@@ -51,6 +51,8 @@ var pageToolbar_st=new Ext.PagingToolbar({
 	 });
 //定义表格组件
 var stationGrid = new Ext.grid.Panel({
+	      	maxWidth : 700,
+		 	maxHeight :390,
 			tbar : toolbar_st,
 			bbar : pageToolbar_st,
 			region: 'center',
