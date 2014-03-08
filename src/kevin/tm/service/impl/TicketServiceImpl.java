@@ -11,11 +11,15 @@ import kevin.tm.dao.model.TicketBeanExample;
 import kevin.tm.service.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("ticketServiceImpl")
 public class TicketServiceImpl implements TicketService {
 
     @Autowired

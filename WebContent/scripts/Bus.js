@@ -36,19 +36,19 @@
 		//创建Grid表格组件
 		var busGrid = new Ext.grid.Panel({
 			width : 690,
-		 	height : 390,
+		 	height : 360,
 			tbar : toolbar_bs,
 			bbar : pageToolbar_bs,
 			region: 'center',
 			store: busStore,
 			selModel : new Ext.selection.CheckboxModel(),
 			columns: [//配置表格列
-				{text: "车牌号", width: 80, dataIndex: 'vehicleno', sortable: true},
-				{text: "线路", width: 80, dataIndex: 'routename', sortable: true},
-				{text: "汽车状态", width: 80, dataIndex: 'busstate', sortable: true},
-				{text: "所属车站", width: 80, dataIndex: 'stationname', sortable: true},
-				{text: "司机名", width: 80, dataIndex: 'drivername', sortable: true},
-				{text: "座位数", width: 80, dataIndex: 'seatcount', sortable: true}
+				{text: "车牌号", width: '16%', dataIndex: 'vehicleno', sortable: true},
+				{text: "线路", width: '16%', dataIndex: 'routename', sortable: true},
+				{text: "汽车状态", width: '16%', dataIndex: 'busstate', sortable: true},
+				{text: "所属车站", width: '16%', dataIndex: 'stationname', sortable: true},
+				{text: "司机名", width: '16%', dataIndex: 'drivername', sortable: true},
+				{text: "座位数", width: '16%', dataIndex: 'seatcount', sortable: true}
 
 				
 			]
@@ -180,7 +180,7 @@
 			},{
 				text : '关闭',
 				handler : function(){
-					win_bs_bs.hide();
+					win_bs.hide();
 				}
 			},'->']
 		});

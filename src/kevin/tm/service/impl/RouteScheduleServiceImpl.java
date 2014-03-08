@@ -11,11 +11,15 @@ import kevin.tm.dao.model.RouteScheduleBeanExample;
 import kevin.tm.service.RouteScheduleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("routeScheduleServiceImpl")
 public class RouteScheduleServiceImpl implements RouteScheduleService {
 
     @Autowired

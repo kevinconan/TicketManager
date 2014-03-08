@@ -54,7 +54,7 @@ var routeScheduleStore = Ext.create('Ext.data.JsonStore', {
     proxy : {  
         type : 'ajax',  
         actionMethods : 'post',  
-        url : 'routechedule_list',  
+        url : 'routeschedule_list',  
         reader : {  
             type : 'json',  
             root : 'rows',  

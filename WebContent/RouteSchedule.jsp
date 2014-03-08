@@ -19,9 +19,12 @@ request.setAttribute("username", userName); */
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
   	<script type="text/javascript" src="./scripts/Models.js"></script>
   	<script type="text/javascript" src="./scripts/Stores.js"></script>
-  	<script type="text/javascript" src="./scripts/Route.js"></script>
 	<script type="text/javascript" src="./scripts/Station.js"></script>
+	  	<script type="text/javascript" src="./scripts/Route.js"></script>
 	<script type="text/javascript" src="./scripts/Bus.js"></script>
+	<script type="text/javascript" src="./resources/ux/Spinner.js"></script>
+	<script type="text/javascript" src="./resources/ux/SpinnerField.js"></script>
+	<script type="text/javascript" src="./resources/ux/DateTimeField.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
@@ -87,7 +90,6 @@ request.setAttribute("username", userName); */
 		      				{text: "调度车辆", width: 80, dataIndex: 'schedulevehicleno', sortable: true}
 		      			]
 		      		});
-		     
 		
 		
 		routeGrid.hide();
@@ -105,6 +107,8 @@ request.setAttribute("username", userName); */
 			fieldDefaults:{//统一设置表单字段默认属性
 				labelSeparator :'：',//分隔符
 				labelWidth : 80,//标签宽度
+				style:"margin-left:20px;",
+				
 			//	msgTarget : 'side',
 				width : 200
 			},
@@ -116,30 +120,63 @@ request.setAttribute("username", userName); */
 					xtype:'textfield',
 					allowBlank : false,
 					blankText : '调度线路不能为空',
+					emptyText : '请选择线路',
 					name : 'schedulerouteid',
 					fieldLabel:'调度线路'
 				},{
 		            xtype: 'button',
 		            text : '选择线路',
+		            style:"margin-left:20px;",
 		            handler:function(){
 		            
-		            	routeGrid.show();
+		            	if(routeGrid.isHidden()){
+		            		routeGrid.show();
+		            	}else{
+		            		var recs = routeGrid.getSelectionModel().getSelection();
+		            		if(recs.length == 0){
+		        				Ext.MessageBox.alert('提示','请选择线路！');
+		        			}else if(recs.length >1){
+		        				Ext.MessageBox.alert('提示','你只能选择一条线路');
+		        				
+		        			}else{
+		        				routesScheduleForm.getForm().findField('schedulerouteid').setValue(recs[0].get('routeid'));
+		        				
+		        			}
+		            		
+		            	}
+		            	
 		       		 	busGrid.hide();
-		            	//TODO编写选择线路操作
+		            	
 		            }
 		        },{
 					xtype:'textfield',
 					allowBlank : false,
 					blankText : '调度车辆不能为空',
+					emptyText : '请选择车辆',
 					name : 'schedulevehicleno',
-					fieldLabel:'&nbsp;&nbsp;&nbsp;调度车辆'
+					fieldLabel:'调度车辆'
 				},{
 		            xtype: 'button',
 		            text : '选择车辆',
+		            style:"margin-left:20px;",
 		            handler:function(){
-		            	//TODO编写选择车辆操作
+		            	if(busGrid.isHidden()){
+		            		busGrid.show();
+		            	}else{
+		            		var recs = busGrid.getSelectionModel().getSelection();
+		            		if(recs.length == 0){
+		        				Ext.MessageBox.alert('提示','请选择车辆！');
+		        			}else if(recs.length >1){
+		        				Ext.MessageBox.alert('提示','你只能选择一辆车');
+		        				
+		        			}else{
+		        				routesScheduleForm.getForm().findField('schedulevehicleno').setValue(recs[0].get('vehicleno'));
+		        				
+		        			}
+		            		
+		            	}
 		            	routeGrid.hide();
-		       		 busGrid.show();
+		       		 
 		            	
 		            }
 		        }]
@@ -147,36 +184,60 @@ request.setAttribute("username", userName); */
 			},{
 				layout : 'column',
 				items : [{
+			        xtype: 'datefield',
+			        name: 'startdate',
+			        fieldLabel: '出发时间',
+			        emptyText : '请选择日期',
+			        anchor: '100%',
+			        altFormats:'Y-m-d',
+			        format : 'Y-m-d'
+			    },{
 			        xtype: 'timefield',
 			        name: 'starttime',
-			        fieldLabel: '出发时间',
-			        minValue: '6:00 AM',
-			        maxValue: '8:00 PM',
-			        increment: 30,
-			        anchor: '100%'
+			        emptyText : '时间',
+			     //   fieldLabel: '出发时间',
+			        anchor: '50%',
+			        style:"margin-left:0px;",
+			        width : 86,
+			        altFormats:'H:i:s',
+			        format : 'H:i:s'
 			    }, {
+			        xtype: 'datefield',
+			        name: 'enddate',
+			        emptyText : '请选择日期',
+			        fieldLabel: '到达时间',
+			        anchor: '100%',
+			        altFormats:'Y-m-d',
+			        format : 'Y-m-d'
+			   },{
 			        xtype: 'timefield',
 			        name: 'endtime',
-			        fieldLabel: '&nbsp;&nbsp;&nbsp;到达时间',
-			        minValue: '6:00 AM',
-			        maxValue: '8:00 PM',
-			        increment: 30,
-			        anchor: '100%'
-			   },{
+			        emptyText : '时间',
+			     //   fieldLabel: '出发时间',
+			        anchor: '50%',
+			        style:"margin-left:0px;",
+			        width : 86,
+			        altFormats:'H:i:s',
+			        format : 'H:i:s'
+			    }]
+			} ,{
+				layout:'column',
+
+				items: [{
 		        	
 					xtype:'textfield',
 					allowBlank : false,
 					blankText : '调度名称不能为空',
 					name : 'schedulename',
-					fieldLabel:'&nbsp;&nbsp;&nbsp;调度名称'
-				}]
-			}/* ,{
-				layout:'form',
-				columnWidth : .99,
-				columnheight : .99,
-				autoScroll : true,
-				items: [stationGrid,testGrid]
-			} */
+					fieldLabel:'调度名称'
+				},{
+		        	xtype: 'button',
+		            text : '&nbsp;&nbsp;提交&nbsp;&nbsp;',
+		            style:"margin-left:20px;",
+		            handler:function(){}
+		        	
+		        }]
+			} 
 			]
 		});
 		
@@ -216,6 +277,7 @@ request.setAttribute("username", userName); */
 		});
 		
 		function showNewSchedule(){
+			routesScheduleForm.form.reset();
 			win.setTitle("新增调度");
 			win.show();
 			

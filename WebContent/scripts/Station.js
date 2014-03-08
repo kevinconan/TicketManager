@@ -65,3 +65,264 @@ var stationGrid = new Ext.grid.Panel({
 				{text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
 			]
 		});
+var stationForm = new Ext.form.Panel({
+	fieldDefaults:{//统一设置表单字段默认属性
+		labelSeparator :'：',//分隔符
+		labelWidth : 80,//标签宽度
+		msgTarget : 'side',
+		width : 300
+	},
+	bodyPadding: 5,
+//	frame:true,
+	items : [{
+		xtype:'hidden',
+		allowBlank : false,
+		name : 'stationid'
+	},{
+		xtype:'textfield',
+		allowBlank : false,
+		name : 'stationname',
+		fieldLabel:'车站名'
+	},{
+		xtype:'textfield',
+		allowBlank : false,
+		name : 'locationx',
+		fieldLabel:'坐标x'
+	},{
+		xtype:'textfield',
+		name : 'locationy',
+		fieldLabel:'坐标y'
+	},/* ,{
+		xtype:'hidden',
+		name : 'id'
+	} */],
+	buttons:[{
+		text : '提交',
+		handler : submitForm_st
+	},{
+		text : '关闭',
+		handler : function(){
+			win_st.hide();
+		}
+	},'->']
+});
+
+var win_st = new Ext.window.Window({
+	layout:'fit',
+    width:380,
+    closeAction:'hide',
+    height:280,
+	resizable : false,
+	shadow : true,
+	modal :true,
+    closable:true,
+	items:stationForm
+});
+//显示新建车站信息窗口
+function showAddStation(){
+	stationForm.form.reset();
+	stationForm.isAdd = true;
+	win_st.setTitle("新增车站");
+	win_st.show();
+}
+//显示修改车站窗口
+function showModifyStation(){
+	var stationList = getStationIdList();
+	var num = stationList.length;
+	if(num > 1){
+		Ext.MessageBox.alert("提示","每次只能修改一条车站信息。");
+	}else if(num == 1){
+		stationForm.form.reset();
+		stationForm.isAdd = false;
+		win_st.setTitle("修改车站信息");
+		win_st.show();
+		var busId = stationList[0];
+	//	Ext.getCmp('stationid').getEl().dom.setDisabled(true);
+		loadForm(busId);
+		
+	}
+}
+//显示删除车站对话框
+function showDeleteStation(){
+	var stationList = getStationIdList();
+	var num = stationList.length;
+	if(num == 0){
+		return;
+	}
+	Ext.MessageBox.confirm("提示","您确定要删除所选车站吗？",function(btnId){
+		if(btnId == 'yes'){
+			deleteBuses(stationList);
+		}
+	});
+}
+//删除车站
+function deleteBuses(stationList){
+	
+	var stationIds = Ext.JSON.encode(stationList);
+	var msgTip = Ext.MessageBox.show({
+		title:'提示',
+		width : 250,
+		msg:'正在删除车站信息请稍后......'
+	});
+	Ext.Ajax.request({
+		url :'station_delete',
+		params : {"jsonData" : stationIds},
+		method : 'POST',
+		success : function(response,options){
+			msgTip.hide();
+			var result = Ext.JSON.decode(response.responseText);
+			if(result.success){
+				//服务器端数据成功删除后，同步删除客户端列表中的数据
+				for(var i = 0 ; i < stationList.length ; i++){
+					var index = stationStore.find('stationid',stationList[i]);
+					if(index != -1){
+						var rec = stationStore.getAt(index);
+						stationStore.remove(rec);
+					}
+				}
+				Ext.Msg.alert('提示','删除车站信息成功。');
+			}else{
+				Ext.Msg.alert('提示','删除车站信息失败！');
+			}
+		},
+		failure : function(response,options){
+			msgTip.hide();
+			Ext.Msg.alert('提示','删除车站信息请求失败！');
+		}
+	});
+}
+//加载表单数据
+function loadForm(busId){
+	stationForm.form.load({
+		waitMsg : '正在加载数据请稍后',//提示信息
+		waitTitle : '提示',//标题
+		url : 'station_getByVehicleNo',//请求的url地址
+		params : {"busBean.stationid":busId},
+		method:'GET',//请求方式
+		failure:function(form,action){//加载失败的处理函数
+			Ext.Msg.alert('提示','数据加载失败');
+		}
+	});
+}
+//提交表单数据
+function submitForm_st(){
+	//判断当前执行的提交操作，isAdd为true表示执行车站新增操作，false表示执行车站修改操作
+	var formparams=Ext.JSON.encode(stationForm.form.getValues());
+	if(stationForm.isAdd){
+		//新增车站信息
+	//	alert(Ext.JSON.encode(stationForm.form.getValues()));
+	//	var formparams=Ext.JSON.encode(stationForm.form.getValues());
+		stationForm.form.submit({
+			 clientValidation:true,
+             url : 'station_add',// 文件路径
+             method : 'post',// 提交方法post或get
+             params : {"jsonData":formparams},
+             // 提交成功的回调函数
+             success : function(data,response) {                                               
+             	var dat = response.result.msg;
+            // 	alert(dat);
+                 switch(dat){
+                 case "ok" : 
+                	 Ext.Msg.alert('成功','操作成功！');win_st.close();break;
+                 case "repeat" : 
+                	 Ext.Msg.alert('错误','添加失败，车牌号重复！');win_st.close();break;
+                 case "fail" :	
+                 	Ext.Msg.alert('错误','操作失败！');win_st.close();break;
+                 default :
+                 	Ext.Msg.alert('错误','操作失败！');win_st.close();break;
+                 
+                 }   
+             },
+             // 提交失败的回调函数
+             failure : function() {
+                     Ext.Msg.alert('错误',
+                     '服务器出现错误请稍后再试！');win_st.close();
+             }
+     });
+		/* userForm.form.submit({
+			clientValidation:true,//进行客户端验证
+			waitMsg : '正在提交数据请稍后',//提示信息
+			waitTitle : '提示',//标题
+			url : ctxpath + '/user_add',//请求的url地址
+			method:'POST',//请求方式
+			success:function(form,action){//加载成功的处理函数
+				win.hide();
+				updateBusGrid(action.result.bookId);
+				Ext.Msg.alert('提示','新增车站成功');
+			},
+			failure:function(form,action){//加载失败的处理函数
+				Ext.Msg.alert('提示','新增车站失败');
+			}
+		}); */
+	}else{
+		//修改车站信息
+		stationForm.form.submit({
+			clientValidation:true,//进行客户端验证
+			waitMsg : '正在提交数据请稍后',//提示信息
+			waitTitle : '提示',//标题
+			url : 'station_update',//请求的url地址
+			method:'POST',//请求方式
+			params : {"jsonData":formparams},
+			success:function(data,response) {                                               
+             	var dat =response.result.msg;
+                //	alert(dat);
+             	switch(dat){
+                case "ok" : 
+               	 Ext.Msg.alert('成功','修改成功！');break;
+                
+                case "fail" :	
+                	Ext.Msg.alert('错误','修改失败！');break;
+                default :
+                	Ext.Msg.alert('错误','操作失败！');break;
+                
+                }
+             	win_st.close();
+             	stationStore.reload();
+                },
+                // 提交失败的回调函数
+                failure : function() {
+                        Ext.Msg.alert('错误',
+                        '服务器出现错误请稍后再试！');win_st.close();
+                }
+		});
+	}
+}
+//明细数据修改后，同步更新汽车列表信息
+/* function updateBusGrid(BuskId){
+	var values = stationForm.form.getValues();
+	var index = stationStore.find('stationid',values['stationid']);
+	var busTypeField = stationForm.form.findField('bookTypeId');
+	var bookTypeName = bookTypeField.getRawValue();
+	if(index != -1){
+		var item = stationStore.getAt(index);
+		for(var fieldName in values){
+			item.set(fieldName,values[fieldName]);
+		}
+		item.set('typeName',bookTypeName);
+		item.commit();
+	}else{
+		var rec = Ext.ModelMgr.create({
+			id : bookId,
+			bookName : values['bookName'],
+			author : values['author'],
+			typeName : bookTypeName,
+			price : values['price'],
+			brief : values['brief']
+		}, 'Book');
+		stationStore.add(rec);
+	}
+} */
+//取得所选汽车id
+function getStationIdList(){
+	var recs = stationGrid.getSelectionModel().getSelection();
+	var list = [];
+	if(recs.length == 0){
+		Ext.MessageBox.alert('提示','请选择要进行操作的车站！');
+	}else{
+		for(var i = 0 ; i < recs.length ; i++){
+			var rec = recs[i];
+			list.push(rec.get('stationid'));
+		}
+	}
+	return list;
+}
