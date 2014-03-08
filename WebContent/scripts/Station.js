@@ -171,7 +171,7 @@ function deleteStation(stationList){
 		success : function(response,options){
 			msgTip.hide();
 			var result = Ext.JSON.decode(response.responseText);
-			if(result.success){
+			if(result.SUCCESS){
 				//服务器端数据成功删除后，同步删除客户端列表中的数据
 				for(var i = 0 ; i < stationList.length ; i++){
 					var index = stationStore.find('stationid',stationList[i]);
