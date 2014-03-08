@@ -39,7 +39,12 @@
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
 			</result>
-			
+			<result name="LIST" type="json">
+				<param name="root">list</param>
+			</result>
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 		
 		<action name="user_*" class="userAction" method="{1}">
@@ -47,9 +52,11 @@
 				<param name="root">message</param>
 			</result>
 			<result name="LIST" type="json">
-				<param name="root">userList</param>
+				<param name="root">list</param>
 			</result>
-			
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 		
 		<action name="bus_*" class="busAction" method="{1}">
@@ -71,14 +78,14 @@
 		
 		<action name="test_*" class="testAction" method="{1}">
 			<result name="MESSAGE" type="json">
-			<param name="ignoreHierarchy">false</param>
-			<param name="root">admin</param>
+				<param name="root">message</param>
 			</result>
 			<result name="LIST" type="json">
-			<param name="ignoreHierarchy">false</param>
-				<param name="root">busList</param>
+				<param name="root">list</param>
 			</result>
-			
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 		
 		
@@ -95,9 +102,11 @@
 				<param name="root">message</param>
 			</result>
 			<result name="LIST" type="json">
-				<param name="root">stationList</param>
+				<param name="root">list</param>
 			</result>
-			
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 		
 		<action name="route_*" class="routeAction" method="{1}">
@@ -105,9 +114,23 @@
 				<param name="root">message</param>
 			</result>
 			<result name="LIST" type="json">
-				<param name="root">routeList</param>
+				<param name="root">list</param>
 			</result>
-			
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+		
+		<action name="routeSchedule_*" class="routeScheduleAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">list</param>
+			</result>
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
 		</action>
 		
 		<action name="adminTest_*" class="adminTestAction" method="{1}">
@@ -119,15 +142,6 @@
 			</result>
 			<result name="LIST" type="json">
 				<param name="root">list</param>
-			</result>
-			<result name="UPDATEADMINBEANS" type="json">
-				<param name="root">updateAdminBean</param>
-			</result>
-			<result name="CREATEADMINBEAN" type="json">
-				<param name="root">createAdminBean</param>
-			</result>
-			<result name="DELETEADMINBEAN" type="json">
-				<param name="root">deleteAdminBean</param>
 			</result>
 		</action>
 	</package>

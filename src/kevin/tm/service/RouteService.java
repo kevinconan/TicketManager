@@ -34,6 +34,14 @@ public interface RouteService {
     public int deleteById(Integer routeId);
 
     /**
+     * 删除
+     * 
+     * @param routeBean
+     * @return
+     */
+    public int delete(RouteBean routeBean);
+
+    /**
      * ID列表删除
      * 
      * @param routeId

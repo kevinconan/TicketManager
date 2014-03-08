@@ -34,6 +34,14 @@ public interface StationService {
     public int deleteById(Integer stationId);
 
     /**
+     * 删除
+     * 
+     * @param stationBean
+     * @return
+     */
+    public int delete(StationBean stationBean);
+
+    /**
      * 修改
      * 
      * @param stationBean

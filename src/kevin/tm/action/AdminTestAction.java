@@ -54,18 +54,9 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	this.deleteAdminBeans = deleteAdminBeans;
     }
 
-    public List<AdminBean> getAdminBeanList() {
-	return this.adminBeanList;
-    }
-
-    public void setAdminBeanList(List<AdminBean> adminBeanList) {
-	this.adminBeanList = adminBeanList;
-    }
-
     private String updateAdminBeans;
     private String createAdminBeans;
     private String deleteAdminBeans;
-    private List<AdminBean> adminBeanList;
 
     public String add() {
 	List<String> list = new ArrayList<>();
@@ -119,13 +110,18 @@ public class AdminTestAction extends BaseAction<AdminBean> {
     }
 
     public String list() {
-	this.adminBeanList = this.adminService.findByPage(this.start,
-		this.limit);
+	this.list = this.adminService.findByPage(this.start, this.limit);
 
 	this.map = new HashMap<String, Object>();
-	this.map.put("totalCount", this.adminService.totalCount());
-	this.map.put("rows", this.adminBeanList);
+	this.map.put(TOTAL_COUNT, this.adminService.totalCount());
+	this.map.put(ROWS, this.list);
 	return MAP;
+    }
+
+    public String login() {
+	AdminBean bean = GSON.fromJson(this.message, AdminBean.class);
+	this.message = GSON.toJson(this.adminService.login(bean));
+	return MESSAGE;
     }
 
 }

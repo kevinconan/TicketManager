@@ -74,6 +74,14 @@ public interface AdminService {
     public AdminBean login(String loginId, String loginPwd);
 
     /**
+     * 登录
+     * 
+     * @param adminBean
+     * @return
+     */
+    public AdminBean login(AdminBean adminBean);
+
+    /**
      * 记录数
      * 
      * @return

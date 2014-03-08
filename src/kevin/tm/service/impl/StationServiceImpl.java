@@ -105,4 +105,10 @@ public class StationServiceImpl implements StationService {
 	return this.stationBeanMapper.selectByPage(start, limit);
     }
 
+    @Override
+    public int delete(StationBean stationBean) {
+	return this.stationBeanMapper.deleteByPrimaryKey(stationBean
+		.getStationid());
+    }
+
 }
