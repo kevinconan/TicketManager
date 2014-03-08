@@ -19,6 +19,7 @@ request.setAttribute("username", userName); */
   <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
   	<script type="text/javascript" src="./scripts/Models.js"></script>
   	<script type="text/javascript" src="./scripts/Stores.js"></script>
+  	<script type="text/javascript" src="./scripts/Route.js"></script>
 	<script type="text/javascript" src="./scripts/Station.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
@@ -84,20 +85,6 @@ request.setAttribute("username", userName); */
 				
 			]
 		});
-		      var routeGrid = new Ext.grid.Panel({
-					tbar : toolbar,
-					region: 'center',
-					store: routeStore,
-					selModel : new Ext.selection.CheckboxModel(),
-					columns: [//配置表格列
-						{text: "线路号", width: 80, dataIndex: 'routeid', sortable: true},
-						{text: "线路名", width: 80, dataIndex: 'routename', sortable: true},
-						{text: "出发站", width: 80, dataIndex: 'startstationid', sortable: true},
-						{text: "终点站", width: 80, dataIndex: 'endstationid', sortable: true}
-
-						
-					]
-				});
 		      
 		      var routesScheduleGrid = new Ext.grid.Panel({
 
@@ -209,13 +196,13 @@ request.setAttribute("username", userName); */
 		});
 		
 		var panel = new Ext.panel.Panel({
-		//	width:700,
-		//	 height:500,
+		//	width:'99%',
+		//	 height:'99%',
 			layout : 'fit',
 			items : [{
 				layout:'auto',
-				maxWidth : 700,
-				maxHeight :500,
+			//	maxWidth : 750,
+			//	maxHeight :500,
 				items: [{
 				//	title :'test1',
 					items: routesScheduleForm
@@ -249,7 +236,7 @@ request.setAttribute("username", userName); */
 		//创建车站编辑窗口
 		var stationWin = new Ext.window.Window({
 			layout:'fit',
-		    width:700,
+		    width:710,
 		    closeAction:'hide',
 		    height:400,
 			resizable : false,
