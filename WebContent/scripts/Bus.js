@@ -170,7 +170,7 @@
 				//inputType:'password',
 				name : 'seatcount',
 				fieldLabel:'座位数'
-			},/* ,{
+			}/*, ,{
 				xtype:'hidden',
 				name : 'id'
 			} */],
