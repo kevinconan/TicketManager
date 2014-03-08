@@ -88,9 +88,16 @@ public class StationAction extends BaseAction<StationBean> {
     }
 
     public String getById() {
-	this.message = GSON.toJson(this.stationService.findById(Integer
-		.getInteger(this.message)));
-	return MESSAGE;
+	this.list = new ArrayList<>();
+	Object[] objects = GSON.fromJson(this.message, Object[].class);
+	for (Object object : objects) {
+	    this.list.add(this.stationService.findById((int) Double
+		    .parseDouble(object.toString())));
+	}
+
+	this.map = new HashMap<>();
+	this.map.put(ROWS, this.list);
+	return MAP;
     }
 
     public String getCreateStationBeans() {
