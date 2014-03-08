@@ -94,7 +94,10 @@ public class StationAction extends BaseAction<StationBean> {
 	    this.list.add(this.stationService.findById((int) Double
 		    .parseDouble(object.toString())));
 	}
-	return LIST;
+
+	this.map = new HashMap<>();
+	this.map.put(ROWS, this.list);
+	return MAP;
     }
 
     public String getCreateStationBeans() {

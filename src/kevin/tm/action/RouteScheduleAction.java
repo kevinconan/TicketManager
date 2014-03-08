@@ -101,7 +101,10 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	    this.list.add(this.routeScheduleService.findById((int) Double
 		    .parseDouble(object.toString())));
 	}
-	return LIST;
+
+	this.map = new HashMap<>();
+	this.map.put(ROWS, this.list);
+	return MAP;
     }
 
     public String getCreateRouteScheduleBeans() {

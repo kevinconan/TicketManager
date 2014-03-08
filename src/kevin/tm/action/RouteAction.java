@@ -103,7 +103,10 @@ public class RouteAction extends BaseAction<RouteBean> {
 	    this.list.add(this.routeService.findById((int) Double
 		    .parseDouble(object.toString())));
 	}
-	return LIST;
+
+	this.map = new HashMap<>();
+	this.map.put(ROWS, this.list);
+	return MAP;
     }
 
     public String getCreateRouteBeans() {
