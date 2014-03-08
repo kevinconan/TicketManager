@@ -17,9 +17,9 @@ var stationStore = Ext.create('Ext.data.Store', {
 		});*/
 //定义操作工具栏
 var toolbar_st = [
-   			{text : '注册车站',iconCls:'add'},
-   			{text : '修改车站',iconCls:'option'},
-   			{text : '注销车站',iconCls:'remove'}
+   			{text : '注册车站',iconCls:'add',handler : showAddStation},
+   			{text : '修改车站',iconCls:'option',handler : showModifyStation},
+   			{text : '注销车站',iconCls:'remove',handler : showDeleteStation}
    		];
 
 //分页工具下拉框
