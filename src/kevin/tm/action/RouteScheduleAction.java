@@ -95,9 +95,13 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
     }
 
     public String getById() {
-	this.message = GSON.toJson(this.routeScheduleService.findById(Integer
-		.getInteger(this.message)));
-	return MESSAGE;
+	this.list = new ArrayList<>();
+	Object[] objects = GSON.fromJson(this.message, Object[].class);
+	for (Object object : objects) {
+	    this.list.add(this.routeScheduleService.findById((int) Double
+		    .parseDouble(object.toString())));
+	}
+	return LIST;
     }
 
     public String getCreateRouteScheduleBeans() {

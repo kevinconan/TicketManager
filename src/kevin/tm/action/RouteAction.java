@@ -97,9 +97,13 @@ public class RouteAction extends BaseAction<RouteBean> {
     }
 
     public String getById() {
-	this.message = GSON.toJson(this.routeService.findById(Integer
-		.getInteger(this.message)));
-	return MESSAGE;
+	this.list = new ArrayList<>();
+	Object[] objects = GSON.fromJson(this.message, Object[].class);
+	for (Object object : objects) {
+	    this.list.add(this.routeService.findById((int) Double
+		    .parseDouble(object.toString())));
+	}
+	return LIST;
     }
 
     public String getCreateRouteBeans() {
