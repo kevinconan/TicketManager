@@ -144,7 +144,8 @@ function showModifyStation(){
 }
 //显示删除车站对话框
 function showDeleteStation(){
-	var stationList = getStationIdList();
+	//var stationList = getStationIdList();
+	var stationList = getStationList();
 	var num = stationList.length;
 	if(num == 0){
 		return;
@@ -321,6 +322,21 @@ function getStationIdList(){
 		for(var i = 0 ; i < recs.length ; i++){
 			var rec = recs[i];
 			list.push(rec.get('stationid'));
+		}
+	}
+	return list;
+}
+function getStationList(){
+	var recs = stationGrid.getSelectionModel().getSelection();
+	var list = [];
+	if(recs.length == 0){
+		Ext.MessageBox.alert('提示','请选择要进行操作的车站！');
+	}else{
+		for(var i = 0 ; i < recs.length ; i++){
+			var rec = recs[i];
+			var obj=new Object();
+			obj.stationid=rec.get('stationid');
+			list.push(obj);
 		}
 	}
 	return list;
