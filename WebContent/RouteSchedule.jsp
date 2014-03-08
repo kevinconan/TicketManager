@@ -40,7 +40,7 @@ request.setAttribute("username", userName); */
 
 		var toolbar_rs = [
 		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
-		         			{text : '修改调度',iconCls:'option'},
+		         			{text : '修改调度',iconCls:'option',handler:test},
 		         			{text : '删除调度',iconCls:'remove'}
 		         		];
 
@@ -281,6 +281,18 @@ request.setAttribute("username", userName); */
 			win.setTitle("新增调度");
 			win.show();
 			
+		}
+		function test(){
+			for(var i=0;i<routeStore.data.items.length;i++){
+				console.log(routeStore.data.items[i].data.routeid);
+			}
+			var selected=routesScheduleGrid.getSelectionModel().getSelection();
+			for(var i=0;i<selected.length;i++){
+				var obj=selected[i];
+				
+				console.log(obj.data.schedulerouteid);
+				console.log(routeStore.data.items.find(function(element, index, array){return element.data.routeid==obj.data.schedulerouteid;}).data.routename);
+			}
 		}
 		//创建车站编辑窗口
 		var stationWin = new Ext.window.Window({

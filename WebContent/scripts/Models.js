@@ -90,7 +90,8 @@ Ext.define('RouteScheduleModel', {
 		 'schedulevehicleno',
     ],
     associations: [{ 
-    	type: 'belongsTo', model: 'RouteModel',primaryKey: 'routeid', foreignKey: 'schedulerouteid' 
+    	type: 'belongsTo', model: 'RouteModel',primaryKey: 'routeid', foreignKey: 'schedulerouteid',
+    	associationKey:'route',name:'route'
     	},{
     	type : 'hasMany' , model : 'TicketModel',  
         name : 'tickets',  
