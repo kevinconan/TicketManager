@@ -9,7 +9,7 @@ var stationStore = Ext.create('Ext.data.JsonStore', {
 		        url : 'station_list',  
 		        reader : {  
 		            type : 'json',  
-		            root : 'rows',  
+		            root : 'data',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
@@ -25,7 +25,7 @@ var routeStore = Ext.create('Ext.data.JsonStore', {
 		        url : 'route_list',  
 		        reader : {  
 		            type : 'json',  
-		            root : 'rows',  
+		            root : 'data',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
@@ -41,7 +41,7 @@ var busStore = Ext.create('Ext.data.JsonStore', {
 		        url : 'bus_list',  
 		        reader : {  
 		            type : 'json',  
-		            root : 'rows',  
+		            root : 'data',  
 		            totalProperty : 'totalCount'  
 		        }  
 		    }  
@@ -57,7 +57,7 @@ var routeScheduleStore = Ext.create('Ext.data.JsonStore', {
         url : 'routeschedule_list',  
         reader : {  
             type : 'json',  
-            root : 'rows',  
+            root : 'data',  
             totalProperty : 'totalCount'  
         }
     }
@@ -73,7 +73,7 @@ var ticketStore = Ext.create('Ext.data.JsonStore', {
         url : 'ticket_list',  
         reader : {  
             type : 'json',  
-            root : 'rows',  
+            root : 'data',  
             totalProperty : 'totalCount'  
         }  
     }  
@@ -89,7 +89,7 @@ var adminStore = Ext.create('Ext.data.JsonStore', {
         url : 'admin_list',  
         reader : {  
             type : 'json',  
-            root : 'rows',  
+            root : 'data',  
             totalProperty : 'totalCount'  
         }  
     }  
