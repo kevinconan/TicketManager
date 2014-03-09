@@ -296,6 +296,9 @@ request.setAttribute("username", userName); */
 		});
 		
 		function showNewSchedule(){
+			routeGrid.hide();
+			busGrid.hide();
+			stationGrid.hide();
 			routesScheduleForm.isAdd = true;//新增表单标识
 			routesScheduleForm.form.reset();
 			win.setTitle("新增调度");

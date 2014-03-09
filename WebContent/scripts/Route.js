@@ -79,6 +79,9 @@ var routeForm = new Ext.form.Panel({
             style: "margin-left:20px;",
             handler: function () {
 
+            	if(stationGrid.isHidden()){
+            		stationGrid.show();
+            	}else{		
                 var recs = stationGrid.getSelectionModel().getSelection();
                 if (recs.length == 0) {
                     Ext.MessageBox.alert('提示', '请选择发车站！');
@@ -90,7 +93,7 @@ var routeForm = new Ext.form.Panel({
 
                 }
 
-
+            	}
             }
         }, {
             xtype: 'textfield',
@@ -105,6 +108,9 @@ var routeForm = new Ext.form.Panel({
             style: "margin-left:20px;",
             handler: function () {
 
+            	if(stationGrid.isHidden()){
+            		stationGrid.show();
+            	}else{	
                 var recs = stationGrid.getSelectionModel().getSelection();
                 if (recs.length == 0) {
                     Ext.MessageBox.alert('提示', '请选择终点站！');
@@ -117,6 +123,7 @@ var routeForm = new Ext.form.Panel({
                 }
 
 
+            	}
             }
         }]
 
@@ -178,6 +185,9 @@ var win_rt = new Ext.window.Window({
 });
 
 function showNewRoute() {
+	routeGrid.hide();
+	busGrid.hide();
+	stationGrid.hide();
     routeForm.form.reset();
     win_rt.setTitle("新增线路");
     win_rt.show();

@@ -86,6 +86,7 @@ var busForm = new Ext.form.Panel({
 
             	if(stationGrid.isHidden()){
             		stationGrid.show();
+            		routeGrid.hide();
             	}else{	
                 var recs = stationGrid.getSelectionModel().getSelection();
                 if (recs.length == 0) {
@@ -99,7 +100,7 @@ var busForm = new Ext.form.Panel({
                 }
 
             }
-            	routeGrid.hide();
+            	
             }
         }, {
             xtype: 'textfield',
@@ -115,6 +116,7 @@ var busForm = new Ext.form.Panel({
             handler:function(){
             
             	if(routeGrid.isHidden()){
+            		stationGrid.hide();
             		routeGrid.show();
             	}else{
             		var recs = routeGrid.getSelectionModel().getSelection();
@@ -226,6 +228,9 @@ var win_bs = new Ext.window.Window({
 });
 
 function showNewBus() {
+	routeGrid.hide();
+	busGrid.hide();
+	stationGrid.hide();
     busForm.form.reset();
     win_bs.setTitle("新增线路");
     win_bs.show();
