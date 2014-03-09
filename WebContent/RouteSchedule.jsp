@@ -73,7 +73,7 @@ request.setAttribute("username", userName); */
 		      	 });
 		      //定义表格组件
 		      
-		      
+		     
 		      var routesScheduleGrid = new Ext.grid.Panel({
 
 		      			tbar : toolbar_rs,
@@ -83,7 +83,26 @@ request.setAttribute("username", userName); */
 		      			selModel : new Ext.selection.CheckboxModel(),
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
-		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true},
+		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,
+		      					renderer : function(value){
+		      						var list = [];
+		      						list.push(value);
+		      						var nameS = "";
+		      						var	lists = Ext.JSON.encode(list);
+		      						Ext.Ajax.request({
+		      							url : 'route_getById',
+		      							params : {"message" : lists},
+		      							method : 'GET',
+		      							success : function(response,options){
+		      								 debugger;
+		      								var result = Ext.JSON.decode(response.responseText);
+		      							    nameS = result.rows[0].routename;
+		      							},scope:'renderer',
+		      							
+		      						});
+		      						return nameS;
+		      					}
+		      				},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
@@ -207,8 +226,8 @@ request.setAttribute("username", userName); */
 			        emptyText : '请选择日期',
 			        fieldLabel: '到达时间',
 			        anchor: '100%',
-			        altFormats:'Y-m-d',
-			        format : 'Y-m-d'
+			        altFormats:'Y-m-d h:i:s',
+			        format : 'Y-m-d h:i:s'
 			   },{
 			        xtype: 'timefield',
 			        name: 'endtime',
@@ -234,7 +253,7 @@ request.setAttribute("username", userName); */
 		        	xtype: 'button',
 		            text : '&nbsp;&nbsp;提交&nbsp;&nbsp;',
 		            style:"margin-left:20px;",
-		            handler:function(){}
+		            handler: submitScheduleForm
 		        	
 		        }]
 			} 
@@ -277,35 +296,41 @@ request.setAttribute("username", userName); */
 		});
 		
 		function showNewSchedule(){
+			routesScheduleForm.isAdd = true;//新增表单标识
 			routesScheduleForm.form.reset();
 			win.setTitle("新增调度");
 			win.show();
 			
 		}
 		function test(){
-			for(var i=0;i<routeStore.data.items.length;i++){
+			 for(var i=0;i<routeStore.data.items.length;i++){
 				console.log(routeStore.data.items[i].data.routeid);
-			}
+			} 
 			var selected=routesScheduleGrid.getSelectionModel().getSelection();
 			for(var i=0;i<selected.length;i++){
 				var obj=selected[i];
-				
-				console.log(obj.data.schedulerouteid);
-				console.log(routeStore.data.items.find(function(element, index, array){return element.data.routeid==obj.data.schedulerouteid;}).data.routename);
+				obj.getRouteModel({reload: true, // 若owner模型已经缓存，强制重新加载
+				    callback: function(route, operation) {
+				    	console.log(route.routename);
+				    }, // 总会被调用的一个方法
+				    success : function(route, operation) {}, // 加载成功时才会被调用的一个方法
+				    failure : function(toute, operation) {}, // 加载不成功时才会被调用的一个方法
+				    scope   : this});
+				console.log();
+			//	console.log(routeStore.data.items.find(function(element, index, array){return element.data.routeid==obj.data.schedulerouteid;}).data.routename);
 			}
 		}
-		//创建车站编辑窗口
-		var stationWin = new Ext.window.Window({
-			layout:'fit',
-		    width:710,
-		    closeAction:'hide',
-		    height:400,
-			resizable : false,
-			shadow : true,
-			modal :true,
-		    closable:true,
-			items: []
-		});
+//提交调度信息表单
+	function submitScheduleForm(){
+		if(routesScheduleForm.isAdd){//新增提交
+			var startdate = routesScheduleForm.getForm().findField('startdate').getValue();
+			var starttime = startdate+routesScheduleForm.getForm().findField('starttime').getValue();
+			alert(starttime);
+		}
+	
+		
+		
+}
 	
 		
 		Ext.QuickTips.init();});

@@ -8,32 +8,31 @@
 Ext.define('AdminModel', {  
 	    extend : 'Ext.data.Model',  
 	    fields : [ 'loginid', 'loginpwd', 'adminname' ],  
+	    idProperty :'loginid'
 	      
 	});  
 //定义车站数据模型
 Ext.define('StationModel', {  
 	    extend : 'Ext.data.Model',  
 	    fields : [ 'stationid', 'stationname', 'locationx','locationy' ],
+	    idProperty :'stationid',
 	    associations: [{
 	    	type : 'hasMany' , model : 'BusModel',  
 	        name : 'busList',  
 	        foreignKey : 'busstationid',  
-	        associationKey : 'busList',  
-	        primaryKey : 'vehicleno',  
+	        associationKey : 'busList',    
 	        storeConfig : Ext.data.StoreManager.lookup('busStore')
 	        },{
 	        type : 'hasMany' , model : 'RouteModel',  
 		    name : 'startList',  
 		    foreignKey : 'startstationid',  
 		    associationKey : 'startList',  
-		    primaryKey : 'routeid',  
 		    storeConfig : Ext.data.StoreManager.lookup('routeStore')
 		    },{
 		    type : 'hasMany' , model : 'RouteModel',  
 			name : 'endList',  
 			foreignKey : 'endstationid',  
 			associationKey : 'endList',  
-			primaryKey : 'routeid',  
 			storeConfig : Ext.data.StoreManager.lookup('routeStore')}
 	    ],
 	     
@@ -49,9 +48,10 @@ Ext.define('BusModel', {
 		 'drivername',
 		 'seatcount',
 		 ],
+		 idProperty :'vehicleno',
 		 associations: [
-		         { type: 'belongsTo', model: 'StationModel',primaryKey: 'stationid', foreignKey: 'busstationid' },
-		         { type: 'belongsTo', model: 'RouteModel',primaryKey: 'routeid', foreignKey: 'busrouteid' }
+		         { type: 'belongsTo', model: 'StationModel',foreignKey: 'busstationid' },
+		         { type: 'belongsTo', model: 'RouteModel',foreignKey: 'busrouteid' }
 		            ] 
 
 });
@@ -65,15 +65,15 @@ Ext.define('RouteModel', {
 		 'startstationid',
 		 'endstationid',
     ],
+    idProperty :'routeid',
     associations: [
-  		         { type: 'belongsTo', model: 'StationModel',primaryKey: 'stationid', foreignKey: 'startstationid' },
-  		         { type: 'belongsTo', model: 'StationModel',primaryKey: 'stationid', foreignKey: 'endstationid' },
+  		         { type: 'belongsTo', model: 'StationModel', foreignKey: 'startstationid' },
+  		         { type: 'belongsTo', model: 'StationModel',foreignKey: 'endstationid' },
   		         {
   		       	   type : 'hasMany' , model : 'RouteScheduleModel',  
   		           name : 'routeschedules',  
   		           foreignKey : 'schedulerouteid',  
-  		           associationKey : 'routeschedules',  
-  		           primaryKey : 'scheduleid',  
+  		           associationKey : 'routeschedules',    
   		           storeConfig : Ext.data.StoreManager.lookup('routeScheduleStore')
   		           }
   		            ]
@@ -89,15 +89,15 @@ Ext.define('RouteScheduleModel', {
 		 'schedulename',
 		 'schedulevehicleno',
     ],
+    idProperty :'scheduleid',
     associations: [{ 
-    	type: 'belongsTo', model: 'RouteModel',primaryKey: 'routeid', foreignKey: 'schedulerouteid',
+    	type: 'belongsTo', model: 'RouteModel',foreignKey: 'schedulerouteid',
     	associationKey:'route',name:'route'
     	},{
     	type : 'hasMany' , model : 'TicketModel',  
         name : 'tickets',  
         foreignKey : 'ticketscheduleid',  
         associationKey : 'tickets',  
-        primaryKey : 'ticketid',  
         storeConfig : Ext.data.StoreManager.lookup('ticketStore')
         }]
 });
@@ -115,7 +115,8 @@ Ext.define('TicketModel', {
 		 'deadline',
 		 'checked',
     ],
+    idProperty :'ticketid',
     associations: [
-    		         { type: 'belongsTo', model: 'RouteScheduleModel',primaryKey: 'scheduleid', foreignKey: 'ticketscheduleid' }
+    		         { type: 'belongsTo', model: 'RouteScheduleModel', foreignKey: 'ticketscheduleid' }
     		            ]
 });
