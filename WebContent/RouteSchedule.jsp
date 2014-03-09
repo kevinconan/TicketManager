@@ -83,31 +83,32 @@ request.setAttribute("username", userName); */
 		      			selModel : new Ext.selection.CheckboxModel(),
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
-		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,
-		      					renderer : function(value){
-		      						var list = [];
-		      						list.push(value);
-		      						var nameS = "";
-		      						var	lists = Ext.JSON.encode(list);
-		      						Ext.Ajax.request({
-		      							url : 'route_getById',
-		      							params : {"message" : lists},
-		      							method : 'GET',
-		      							success : function(response,options){
-		      								 debugger;
-		      								var result = Ext.JSON.decode(response.responseText);
-		      							    nameS = result.rows[0].routename;
-		      							},scope:'renderer',
-		      							
-		      						});
-		      						return nameS;
-		      					}
-		      				},
+		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
 		      				{text: "调度车辆", width: 80, dataIndex: 'schedulevehicleno', sortable: true}
-		      			]
+		      			],
+		      			beforeshow:function(value,op){
+		      				consloe.log("beforeshow");
+		      	        	var	list=[];
+		      	        	for(var i=0;i<routeScheduleStore.data.items.length;i++){
+		      	        		list.push(routeScheduleStore.data.items[i].data.schedulerouteid);
+		      	        	}
+		      	        	var message=Ext.JSON.encode(list);
+		      	        	Ext.Ajax.request({
+		      	    				url : 'route_getById',
+		      	    				params : {"message" : message},
+		      	    				method : 'GET',
+		      	    				success : function(response,options){
+		      	    					var result = Ext.JSON.decode(response.responseText);
+		      	    					for(var i=0;i<result.rows;i++){
+		      	    						routeStore.add(RouteModel.create(result.rows[i]));
+		      	    						console.log(result.rows[i]);
+		      	    					}
+		      	    				}	
+		      	    			});
+		      	        }
 		      		});
 		
 		
@@ -303,20 +304,14 @@ request.setAttribute("username", userName); */
 			
 		}
 		function test(){
-			 for(var i=0;i<routeStore.data.items.length;i++){
-				console.log(routeStore.data.items[i].data.routeid);
-			} 
+			for(var i=0;i<routeStore.data.items.length;i++){
+				console.log(routeStore.data.items[i].data.routename);
+			}
 			var selected=routesScheduleGrid.getSelectionModel().getSelection();
 			for(var i=0;i<selected.length;i++){
 				var obj=selected[i];
-				obj.getRouteModel({reload: true, // 若owner模型已经缓存，强制重新加载
-				    callback: function(route, operation) {
-				    	console.log(route.routename);
-				    }, // 总会被调用的一个方法
-				    success : function(route, operation) {}, // 加载成功时才会被调用的一个方法
-				    failure : function(toute, operation) {}, // 加载不成功时才会被调用的一个方法
-				    scope   : this});
-				console.log();
+				
+				//console.log(obj.data.route.routename);
 			//	console.log(routeStore.data.items.find(function(element, index, array){return element.data.routeid==obj.data.schedulerouteid;}).data.routename);
 			}
 		}
