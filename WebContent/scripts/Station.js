@@ -120,9 +120,7 @@ var win_st = new Ext.window.Window({
 });
 //显示新建车站信息窗口
 function showAddStation() {
-	routeGrid.hide();
-	busGrid.hide();
-	stationGrid.hide();
+
     stationForm.form.reset();
     stationForm.isAdd = true;
     win_st.setTitle("新增车站");

@@ -185,9 +185,7 @@ var win_rt = new Ext.window.Window({
 });
 
 function showNewRoute() {
-	routeGrid.hide();
-	busGrid.hide();
-	stationGrid.hide();
+
     routeForm.form.reset();
     win_rt.setTitle("新增线路");
     win_rt.show();
