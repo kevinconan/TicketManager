@@ -84,6 +84,7 @@ request.setAttribute("username", userName); */
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
 <<<<<<< HEAD
+<<<<<<< HEAD
 		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,
 		      					renderer : function(value){
 		      						var list = [];
@@ -106,6 +107,9 @@ request.setAttribute("username", userName); */
 		      						return nameS;
 		      					}
 		      				},
+=======
+		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
+>>>>>>> bddae9ee2f5910d03507a93efdf9bfdc15d9a700
 =======
 		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
 >>>>>>> bddae9ee2f5910d03507a93efdf9bfdc15d9a700
