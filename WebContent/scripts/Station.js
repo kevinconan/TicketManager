@@ -136,9 +136,9 @@ function showModifyStation(){
 		stationForm.isAdd = false;
 		win_st.setTitle("修改车站信息");
 		win_st.show();
-		var busId = stationList[0];
+		var stationId = stationList[0];
 	//	Ext.getCmp('stationid').getEl().dom.setDisabled(true);
-		loadForm(busId);
+		loadForm(stationId);
 		
 	}
 }
@@ -174,24 +174,27 @@ function deleteStation(stationList){
 			if(result.success){
 				
 				Ext.Msg.alert('提示','删除车站信息成功。');
+				stationStore.reload();
 			}else{
 				Ext.Msg.alert('提示','删除车站信息失败！');
+				stationStore.reload();
 			}
 		},
 		failure : function(response,options){
 			msgTip.hide();
 			Ext.Msg.alert('提示','删除车站信息请求失败！');
+			stationStore.reload();
 		}
 	});
 	stationStore.reload();
 }
 //加载表单数据
-function loadForm(busId){
+function loadForm(stationId){
 	stationForm.form.load({
 		waitMsg : '正在加载数据请稍后',//提示信息
 		waitTitle : '提示',//标题
 		url : 'station_getByVehicleNo',//请求的url地址
-		params : {"busBean.stationid":busId},
+		params : {"busBean.stationid":stationId},
 		method:'GET',//请求方式
 		failure:function(form,action){//加载失败的处理函数
 			Ext.Msg.alert('提示','数据加载失败');
@@ -224,18 +227,21 @@ function submitForm_st(){
             	 msgTip.hide();
      			var result = Ext.JSON.decode(submit.response.responseText);
      			if(result.success){
-    				
+    				stationStore.reload();
     				Ext.Msg.alert('提示','添加车站信息成功。');
     			}else{
+    				stationStore.reload();
     				Ext.Msg.alert('提示','添加车站信息失败！');
     			}  
              },
              // 提交失败的回调函数
              failure : function() {
+            	 stationStore.reload();
                      Ext.Msg.alert('错误',
                      '服务器出现错误请稍后再试！');win_st.close();
              }
      });
+		win_st.close();
 		/* userForm.form.submit({
 			clientValidation:true,//进行客户端验证
 			waitMsg : '正在提交数据请稍后',//提示信息
