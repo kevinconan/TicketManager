@@ -268,7 +268,7 @@ function submitForm_st(){
 			waitTitle : '提示',//标题
 			url : 'station_update',//请求的url地址
 			method:'POST',//请求方式
-			params : {"createStationBeans":formparams},
+			params : {"updateStationBeans":formparams},
 			success : function(form,submit) {                                               
            	 msgTip.hide();
     			var result = Ext.JSON.decode(submit.response.responseText);
