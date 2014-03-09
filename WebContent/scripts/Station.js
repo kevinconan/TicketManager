@@ -74,11 +74,11 @@ var stationForm = new Ext.form.Panel({
 	},
 	bodyPadding: 5,
 //	frame:true,
-	items : [/*{
+	items : [{
 		xtype:'hidden',
 		allowBlank : false,
 		name : 'stationid'
-	},*/{
+	},{
 		xtype:'textfield',
 		allowBlank : false,
 		name : 'stationname',
@@ -138,7 +138,7 @@ function showModifyStation(){
 		win_st.show();
 		var stationId = stationList[0];
 	//	Ext.getCmp('stationid').getEl().dom.setDisabled(true);
-		loadForm(stationId);
+		loadForm_st(stationId);
 		
 	}
 }
@@ -189,12 +189,15 @@ function deleteStation(stationList){
 	stationStore.reload();
 }
 //加载表单数据
-function loadForm(stationId){
+function loadForm_st(stationId){
+	var list =[];
+	list.push(stationId)
+	var message=Ext.JSON.encode(list);
 	stationForm.form.load({
 		waitMsg : '正在加载数据请稍后',//提示信息
 		waitTitle : '提示',//标题
-		url : 'station_getByVehicleNo',//请求的url地址
-		params : {"busBean.stationid":stationId},
+		url : 'station_getById',//请求的url地址
+		params : {"message":message},
 		method:'GET',//请求方式
 		failure:function(form,action){//加载失败的处理函数
 			Ext.Msg.alert('提示','数据加载失败');
