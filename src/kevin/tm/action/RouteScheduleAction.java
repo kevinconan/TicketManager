@@ -99,7 +99,7 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	return LIST;
     }
 
-    public String getById() {
+    public String getByIds() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);
 	for (Object object : objects) {
@@ -110,6 +110,17 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, true);
 	this.map.put(DATA, this.list);
+	return MAP;
+    }
+
+    public String getById() {
+	Object object = GSON.fromJson(this.message, Object.class);
+	RouteScheduleBean bean = this.routeScheduleService
+		.findById((int) Double.parseDouble(object.toString()));
+
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, bean);
 	return MAP;
     }
 

@@ -101,7 +101,7 @@ public class RouteAction extends BaseAction<RouteBean> {
 	return LIST;
     }
 
-    public String getById() {
+    public String getByIds() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);
 	for (Object object : objects) {
@@ -112,6 +112,17 @@ public class RouteAction extends BaseAction<RouteBean> {
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, true);
 	this.map.put(DATA, this.list);
+	return MAP;
+    }
+
+    public String getById() {
+	Object object = GSON.fromJson(this.message, Object.class);
+	RouteBean bean = this.routeService.findById((int) Double
+		.parseDouble(object.toString()));
+
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, bean);
 	return MAP;
     }
 

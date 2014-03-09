@@ -92,7 +92,7 @@ public class StationAction extends BaseAction<StationBean> {
 	return LIST;
     }
 
-    public String getById() {
+    public String getByIds() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);
 	for (Object object : objects) {
@@ -103,6 +103,17 @@ public class StationAction extends BaseAction<StationBean> {
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, true);
 	this.map.put(DATA, this.list);
+	return MAP;
+    }
+
+    public String getById() {
+	Object object = GSON.fromJson(this.message, Object.class);
+	StationBean bean = this.stationService.findById((int) Double
+		.parseDouble(object.toString()));
+
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, bean);
 	return MAP;
     }
 
