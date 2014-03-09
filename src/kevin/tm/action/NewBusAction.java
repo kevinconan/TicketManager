@@ -91,16 +91,25 @@ public class NewBusAction extends BaseAction<BusBean> {
 	return LIST;
     }
 
-    public String getById() {
+    public String getByIds() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);
 	for (Object object : objects) {
-	    this.list.add(this.busService.findById((int) Double
-		    .parseDouble(object.toString())));
+	    this.list.add(this.busService.findByVehicleNo(object.toString()));
 	}
 
 	this.map = new HashMap<>();
 	this.map.put(DATA, this.list);
+	return MAP;
+    }
+
+    public String getById() {
+	Object object = GSON.fromJson(this.message, Object.class);
+	BusBean bean = this.busService.findByVehicleNo(object.toString());
+
+	this.map = new HashMap<>();
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, bean);
 	return MAP;
     }
 
