@@ -59,8 +59,8 @@ var routeScheduleStore = Ext.create('Ext.data.JsonStore', {
             type : 'json',  
             root : 'rows',  
             totalProperty : 'totalCount'  
-        }  
-    }  
+        }
+    }
 });
 //定义车票数据源
 var ticketStore = Ext.create('Ext.data.JsonStore', {  
