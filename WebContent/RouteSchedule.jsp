@@ -12,20 +12,19 @@ request.setAttribute("username", userName); */
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>调度管理</title>
-	<link rel="stylesheet" type="text/css" href="./ext-4.2.1-Lite/resources/ext-theme-neptune/ext-theme-neptune-all.css" />
-
-  <script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
-  <script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
-  <script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
-  	<script type="text/javascript" src="./scripts/Models.js"></script>
-  	<script type="text/javascript" src="./scripts/Stores.js"></script>
-	<script type="text/javascript" src="./scripts/Station.js"></script>
-	  	<script type="text/javascript" src="./scripts/Route.js"></script>
-	<script type="text/javascript" src="./scripts/Bus.js"></script>
-	<script type="text/javascript" src="./resources/ux/Spinner.js"></script>
-	<script type="text/javascript" src="./resources/ux/SpinnerField.js"></script>
-	<script type="text/javascript" src="./resources/ux/DateTimeField.js"></script>
-	<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="./ext-4.2.1-Lite/resources/ext-theme-neptune/ext-theme-neptune-all.css" />
+<script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
+<script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
+<script type="text/javascript" src="./ext-4.2.1-Lite/locale/ext-lang-zh_CN.js"></script>
+<script type="text/javascript" src="./scripts/Models.js"></script>
+<script type="text/javascript" src="./scripts/Stores.js"></script>
+<script type="text/javascript" src="./scripts/Station.js"></script>
+<script type="text/javascript" src="./scripts/Route.js"></script>
+<script type="text/javascript" src="./scripts/Bus.js"></script>
+<script type="text/javascript" src="./resources/ux/Spinner.js"></script>
+<script type="text/javascript" src="./resources/ux/SpinnerField.js"></script>
+<script type="text/javascript" src="./resources/ux/DateTimeField.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
 <script type="text/javascript">
