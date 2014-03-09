@@ -90,7 +90,7 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 
 	this.map = new HashMap<>();
 	this.map.put(TOTAL_COUNT, this.routeScheduleService.totalCount());
-	this.map.put(ROWS, this.list);
+	this.map.put(DATA, this.list);
 	return MAP;
     }
 
@@ -108,7 +108,8 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	}
 
 	this.map = new HashMap<>();
-	this.map.put(ROWS, this.list);
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, this.list);
 	return MAP;
     }
 

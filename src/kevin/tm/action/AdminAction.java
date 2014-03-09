@@ -114,7 +114,7 @@ public class AdminAction extends BaseAction<AdminBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(TOTAL_COUNT, this.adminService.totalCount());
-	this.map.put(ROWS, this.list);
+	this.map.put(DATA, this.list);
 	return MAP;
     }
 

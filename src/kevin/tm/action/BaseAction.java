@@ -29,7 +29,7 @@ public abstract class BaseAction<T> extends ActionSupport implements
     protected static final String LIST = "LIST";
     protected static final String MAP = "MAP";
     protected static final String TOTAL_COUNT = "totalCount";
-    protected static final String ROWS = "rows";
+    protected static final String DATA = "data";
 
     protected String message;
     protected List<T> list;
