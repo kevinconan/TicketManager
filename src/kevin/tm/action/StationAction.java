@@ -87,6 +87,11 @@ public class StationAction extends BaseAction<StationBean> {
 	return MAP;
     }
 
+    public String listAll() {
+	this.list = this.stationService.findAll();
+	return LIST;
+    }
+
     public String getById() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);

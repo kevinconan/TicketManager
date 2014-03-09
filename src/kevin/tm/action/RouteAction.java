@@ -96,6 +96,11 @@ public class RouteAction extends BaseAction<RouteBean> {
 	return MAP;
     }
 
+    public String listAll() {
+	this.list = this.routeService.findAll();
+	return LIST;
+    }
+
     public String getById() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);

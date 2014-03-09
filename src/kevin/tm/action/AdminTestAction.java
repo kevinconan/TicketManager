@@ -118,6 +118,11 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 	return MAP;
     }
 
+    public String listAll() {
+	this.list = this.adminService.findAll();
+	return LIST;
+    }
+
     public String login() {
 	AdminBean bean = GSON.fromJson(this.message, AdminBean.class);
 	this.message = GSON.toJson(this.adminService.login(bean));

@@ -94,6 +94,11 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	return MAP;
     }
 
+    public String listAll() {
+	this.list = this.routeScheduleService.findAll();
+	return LIST;
+    }
+
     public String getById() {
 	this.list = new ArrayList<>();
 	Object[] objects = GSON.fromJson(this.message, Object[].class);
