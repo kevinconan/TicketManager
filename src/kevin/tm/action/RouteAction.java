@@ -49,7 +49,7 @@ public class RouteAction extends BaseAction<RouteBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -66,7 +66,7 @@ public class RouteAction extends BaseAction<RouteBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -83,7 +83,7 @@ public class RouteAction extends BaseAction<RouteBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -92,8 +92,13 @@ public class RouteAction extends BaseAction<RouteBean> {
 
 	this.map = new HashMap<>();
 	this.map.put(TOTAL_COUNT, this.routeService.totalCount());
-	this.map.put(ROWS, this.list);
+	this.map.put(DATA, this.list);
 	return MAP;
+    }
+
+    public String listAll() {
+	this.list = this.routeService.findAll();
+	return LIST;
     }
 
     public String getById() {
@@ -105,7 +110,8 @@ public class RouteAction extends BaseAction<RouteBean> {
 	}
 
 	this.map = new HashMap<>();
-	this.map.put(ROWS, this.list);
+	this.map.put(SUCCESS, true);
+	this.map.put(DATA, this.list);
 	return MAP;
     }
 

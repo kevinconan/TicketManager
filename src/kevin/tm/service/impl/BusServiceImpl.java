@@ -102,4 +102,9 @@ public class BusServiceImpl implements BusService {
 	return this.busBeanMapper.selectByPage(start, limit);
     }
 
+    @Override
+    public int delete(BusBean busBean) {
+	return this.busBeanMapper.deleteByPrimaryKey(busBean.getVehicleno());
+    }
+
 }
