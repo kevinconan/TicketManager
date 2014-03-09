@@ -71,7 +71,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -88,7 +88,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -105,7 +105,7 @@ public class AdminTestAction extends BaseAction<AdminBean> {
 
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 

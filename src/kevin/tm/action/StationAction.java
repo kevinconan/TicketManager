@@ -40,7 +40,7 @@ public class StationAction extends BaseAction<StationBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -57,7 +57,7 @@ public class StationAction extends BaseAction<StationBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
@@ -74,7 +74,7 @@ public class StationAction extends BaseAction<StationBean> {
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());
-	this.map.put(FAILURE, list);
+	this.map.put(ERRORS, list);
 	return MAP;
     }
 
