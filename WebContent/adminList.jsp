@@ -35,8 +35,8 @@ request.setAttribute("username", userName); */
 	    proxy : {  
 	        type : 'ajax',  
 	        api : {  
-	            create : 'adminTest_add',  
-	            update : 'adminTest_update'  
+	            create : 'admin_add',  
+	            update : 'admin_update'  
 	        },  
 	        writer : {  
 	            type : 'json'  
@@ -58,7 +58,7 @@ request.setAttribute("username", userName); */
 		    proxy : {  
 		        type : 'ajax',  
 		        actionMethods : 'post',  
-		        url : 'adminTest_list',  
+		        url : 'admin_list',  
 		        reader : {  
 		            type : 'json',  
 		            root : 'rows',  
