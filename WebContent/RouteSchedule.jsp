@@ -319,8 +319,9 @@ request.setAttribute("username", userName); */
 	function submitScheduleForm(){
 		if(routesScheduleForm.isAdd){//新增提交
 			var startdate = routesScheduleForm.getForm().findField('startdate').getValue();
-			var starttime = startdate+routesScheduleForm.getForm().findField('starttime').getValue();
-			alert(starttime);
+			var starttime = routesScheduleForm.getForm().findField('starttime').getValue();
+			startdate.setHours(starttime.getHours(),starttime.getMinutes(),starttime.getSeconds(),0);
+			alert(startdate);
 		}
 	
 		
