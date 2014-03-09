@@ -94,11 +94,13 @@ request.setAttribute("username", userName); */
 		      							params : {"message" : lists},
 		      							method : 'GET',
 		      							success : function(response,options){
-		      								 debugger;
+		      							//	 debugger;
 		      								var result = Ext.JSON.decode(response.responseText);
 		      							    nameS = result.rows[0].routename;
-		      							},scope:'renderer',
-		      							
+		      							},
+		      							failure : function(response,options){
+		      								
+		      							}
 		      						});
 		      						return nameS;
 		      					}

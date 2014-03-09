@@ -74,11 +74,11 @@ var stationForm = new Ext.form.Panel({
 	},
 	bodyPadding: 5,
 //	frame:true,
-	items : [{
+	items : [/*{
 		xtype:'hidden',
 		allowBlank : false,
 		name : 'stationid'
-	},{
+	},*/{
 		xtype:'textfield',
 		allowBlank : false,
 		name : 'stationname',
@@ -111,7 +111,7 @@ var win_st = new Ext.window.Window({
 	layout:'fit',
     width:380,
     closeAction:'hide',
-    height:280,
+    height:200,
 	resizable : false,
 	shadow : true,
 	modal :true,
@@ -201,31 +201,29 @@ function loadForm(busId){
 //提交表单数据
 function submitForm_st(){
 	//判断当前执行的提交操作，isAdd为true表示执行车站新增操作，false表示执行车站修改操作
-	var formparams=Ext.JSON.encode(stationForm.form.getValues());
+	list = [];
+	list.push(stationForm.form.getValues());
+	var formparams=Ext.JSON.encode(list);
 	if(stationForm.isAdd){
 		//新增车站信息
 	//	alert(Ext.JSON.encode(stationForm.form.getValues()));
 	//	var formparams=Ext.JSON.encode(stationForm.form.getValues());
+		
 		stationForm.form.submit({
 			 clientValidation:true,
              url : 'station_add',// 文件路径
              method : 'post',// 提交方法post或get
-             params : {"jsonData":formparams},
+             params : {"createStationBeans":formparams},
              // 提交成功的回调函数
              success : function(data,response) {                                               
-             	var dat = response.result.msg;
-            // 	alert(dat);
-                 switch(dat){
-                 case "ok" : 
-                	 Ext.Msg.alert('成功','操作成功！');win_st.close();break;
-                 case "repeat" : 
-                	 Ext.Msg.alert('错误','添加失败，车牌号重复！');win_st.close();break;
-                 case "fail" :	
-                 	Ext.Msg.alert('错误','操作失败！');win_st.close();break;
-                 default :
-                 	Ext.Msg.alert('错误','操作失败！');win_st.close();break;
-                 
-                 }   
+            	 msgTip.hide();
+     			var result = Ext.JSON.decode(response.responseText);
+     			if(result.SUCCESS){
+    				
+    				Ext.Msg.alert('提示','添加车站信息成功。');
+    			}else{
+    				Ext.Msg.alert('提示','添加车站信息失败！');
+    			}  
              },
              // 提交失败的回调函数
              failure : function() {
