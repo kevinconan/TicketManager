@@ -29,7 +29,8 @@ public class StationAction extends BaseAction<StationBean> {
 
     public String add() {
 	List<Integer> list = new ArrayList<>();
-	StationBean[] beans = GSON.fromJson(this.createStationBeans,
+	StationBean[] beans = GSON.fromJson(
+		this.createStationBeans.replaceAll("\"\"", "null"),
 		StationBean[].class);
 
 	for (StationBean bean : beans) {
@@ -46,7 +47,8 @@ public class StationAction extends BaseAction<StationBean> {
 
     public String update() {
 	List<Integer> list = new ArrayList<>();
-	StationBean[] beans = GSON.fromJson(this.updateStationBeans,
+	StationBean[] beans = GSON.fromJson(
+		this.updateStationBeans.replaceAll("\"\"", "null"),
 		StationBean[].class);
 
 	for (StationBean bean : beans) {
@@ -63,7 +65,8 @@ public class StationAction extends BaseAction<StationBean> {
 
     public String delete() {
 	List<Integer> list = new ArrayList<>();
-	StationBean[] beans = GSON.fromJson(this.deleteStationBeans,
+	StationBean[] beans = GSON.fromJson(
+		this.deleteStationBeans.replaceAll("\"\"", "null"),
 		StationBean[].class);
 
 	for (StationBean bean : beans) {

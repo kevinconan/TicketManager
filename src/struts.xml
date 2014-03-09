@@ -11,7 +11,6 @@
 			<interceptor name="businessInterceptor" class="kevin.tm.interceptor.BusinessInterceptor">
 			<!--不需要拦截的方法-->
 			<param name="excludeActions">login_checkLogin</param>
-			<param name="excludeActions">station_testFindByName</param>
 			
 			</interceptor>
 			<interceptor-stack name="mystack">
@@ -118,18 +117,6 @@
 		</action>
 		
 		<action name="admin_*" class="adminAction" method="{1}">
-			<result name="MESSAGE" type="json">
-				<param name="root">message</param>
-			</result>
-			<result name="MAP" type="json">
-				<param name="root">map</param>
-			</result>
-			<result name="LIST" type="json">
-				<param name="root">list</param>
-			</result>
-		</action>
-		
-		<action name="adminTest_*" class="adminTestAction" method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
 			</result>

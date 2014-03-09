@@ -36,7 +36,8 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
     public String add() {
 	List<Integer> list = new ArrayList<>();
 	RouteScheduleBean[] beans = GSON.fromJson(
-		this.createRouteScheduleBeans, RouteScheduleBean[].class);
+		this.createRouteScheduleBeans.replaceAll("\"\"", "null"),
+		RouteScheduleBean[].class);
 
 	for (RouteScheduleBean bean : beans) {
 	    if (this.routeScheduleService.save(bean) == 0) {
@@ -53,7 +54,8 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
     public String update() {
 	List<Integer> list = new ArrayList<>();
 	RouteScheduleBean[] beans = GSON.fromJson(
-		this.updateRouteScheduleBeans, RouteScheduleBean[].class);
+		this.updateRouteScheduleBeans.replaceAll("\"\"", "null"),
+		RouteScheduleBean[].class);
 
 	for (RouteScheduleBean bean : beans) {
 	    if (this.routeScheduleService.update(bean) == 0) {
@@ -70,7 +72,8 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
     public String delete() {
 	List<Integer> list = new ArrayList<>();
 	RouteScheduleBean[] beans = GSON.fromJson(
-		this.deleteRouteScheduleBeans, RouteScheduleBean[].class);
+		this.deleteRouteScheduleBeans.replaceAll("\"\"", "null"),
+		RouteScheduleBean[].class);
 
 	for (RouteScheduleBean bean : beans) {
 	    if (this.routeScheduleService.delete(bean) == 0) {

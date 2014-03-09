@@ -22,6 +22,11 @@ import org.springframework.stereotype.Controller;
 @Controller("newBusAction")
 public class NewBusAction extends BaseAction<BusBean> {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8675883024262137235L;
+
     @Autowired
     private BusService busService;
 
@@ -31,7 +36,9 @@ public class NewBusAction extends BaseAction<BusBean> {
 
     public String add() {
 	List<Integer> list = new ArrayList<>();
-	BusBean[] beans = GSON.fromJson(this.createBusBeans, BusBean[].class);
+	BusBean[] beans = GSON
+		.fromJson(this.createBusBeans.replaceAll("\"\"", "null"),
+			BusBean[].class);
 
 	for (BusBean bean : beans) {
 	    if (this.busService.save(bean) == 0) {
@@ -47,7 +54,9 @@ public class NewBusAction extends BaseAction<BusBean> {
 
     public String update() {
 	List<Integer> list = new ArrayList<>();
-	BusBean[] beans = GSON.fromJson(this.updateBusBeans, BusBean[].class);
+	BusBean[] beans = GSON
+		.fromJson(this.updateBusBeans.replaceAll("\"\"", "null"),
+			BusBean[].class);
 
 	for (BusBean bean : beans) {
 	    if (this.busService.update(bean) == 0) {
@@ -63,7 +72,9 @@ public class NewBusAction extends BaseAction<BusBean> {
 
     public String delete() {
 	List<Integer> list = new ArrayList<>();
-	BusBean[] beans = GSON.fromJson(this.deleteBusBeans, BusBean[].class);
+	BusBean[] beans = GSON
+		.fromJson(this.deleteBusBeans.replaceAll("\"\"", "null"),
+			BusBean[].class);
 
 	for (BusBean bean : beans) {
 	    if (this.busService.delete(bean) == 0) {

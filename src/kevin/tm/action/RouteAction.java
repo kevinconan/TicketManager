@@ -38,7 +38,8 @@ public class RouteAction extends BaseAction<RouteBean> {
 
     public String add() {
 	List<Integer> list = new ArrayList<>();
-	RouteBean[] beans = GSON.fromJson(this.createRouteBeans,
+	RouteBean[] beans = GSON.fromJson(
+		this.createRouteBeans.replaceAll("\"\"", "null"),
 		RouteBean[].class);
 
 	for (RouteBean bean : beans) {
@@ -55,7 +56,8 @@ public class RouteAction extends BaseAction<RouteBean> {
 
     public String update() {
 	List<Integer> list = new ArrayList<>();
-	RouteBean[] beans = GSON.fromJson(this.updateRouteBeans,
+	RouteBean[] beans = GSON.fromJson(
+		this.updateRouteBeans.replaceAll("\"\"", "null"),
 		RouteBean[].class);
 
 	for (RouteBean bean : beans) {
@@ -72,7 +74,8 @@ public class RouteAction extends BaseAction<RouteBean> {
 
     public String delete() {
 	List<Integer> list = new ArrayList<>();
-	RouteBean[] beans = GSON.fromJson(this.deleteRouteBeans,
+	RouteBean[] beans = GSON.fromJson(
+		this.deleteRouteBeans.replaceAll("\"\"", "null"),
 		RouteBean[].class);
 
 	for (RouteBean bean : beans) {

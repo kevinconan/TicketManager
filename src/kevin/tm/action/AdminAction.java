@@ -60,7 +60,8 @@ public class AdminAction extends BaseAction<AdminBean> {
 
     public String add() {
 	List<String> list = new ArrayList<>();
-	AdminBean[] beans = GSON.fromJson(this.createAdminBeans,
+	AdminBean[] beans = GSON.fromJson(
+		this.createAdminBeans.replaceAll("\"\"", "null"),
 		AdminBean[].class);
 
 	for (AdminBean bean : beans) {
@@ -77,7 +78,8 @@ public class AdminAction extends BaseAction<AdminBean> {
 
     public String update() {
 	List<String> list = new ArrayList<>();
-	AdminBean[] beans = GSON.fromJson(this.updateAdminBeans,
+	AdminBean[] beans = GSON.fromJson(
+		this.updateAdminBeans.replaceAll("\"\"", "null"),
 		AdminBean[].class);
 
 	for (AdminBean bean : beans) {
@@ -94,7 +96,8 @@ public class AdminAction extends BaseAction<AdminBean> {
 
     public String delete() {
 	List<String> list = new ArrayList<>();
-	AdminBean[] beans = GSON.fromJson(this.deleteAdminBeans,
+	AdminBean[] beans = GSON.fromJson(
+		this.deleteAdminBeans.replaceAll("\"\"", "null"),
 		AdminBean[].class);
 
 	for (AdminBean bean : beans) {
