@@ -172,14 +172,7 @@ function deleteStation(stationList){
 			msgTip.hide();
 			var result = Ext.JSON.decode(response.responseText);
 			if(result.SUCCESS){
-				//服务器端数据成功删除后，同步删除客户端列表中的数据
-				for(var i = 0 ; i < stationList.length ; i++){
-					var index = stationStore.find('stationid',stationList[i]);
-					if(index != -1){
-						var rec = stationStore.getAt(index);
-						stationStore.remove(rec);
-					}
-				}
+				
 				Ext.Msg.alert('提示','删除车站信息成功。');
 			}else{
 				Ext.Msg.alert('提示','删除车站信息失败！');
@@ -190,6 +183,7 @@ function deleteStation(stationList){
 			Ext.Msg.alert('提示','删除车站信息请求失败！');
 		}
 	});
+	stationStore.reload();
 }
 //加载表单数据
 function loadForm(busId){
