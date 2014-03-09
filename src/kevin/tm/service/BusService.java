@@ -3,7 +3,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.BusBean;
-import kevin.tm.model.BusBeanExt;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ public interface BusService {
 
     public int update(BusBean busBean);
 
-    public List<BusBeanExt> findAll();
+    public List<BusBean> findAll();
 
     public BusBean findByVehicleNo(String vehicleNo);
 

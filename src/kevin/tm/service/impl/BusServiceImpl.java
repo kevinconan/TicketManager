@@ -6,10 +6,8 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.BusBeanMapper;
-import kevin.tm.dao.ext.BusBeanExtMapper;
 import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.BusBeanExample;
-import kevin.tm.model.BusBeanExt;
 import kevin.tm.service.BusService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +25,6 @@ public class BusServiceImpl implements BusService {
 
     @Autowired
     private BusBeanMapper busBeanMapper;
-
-    public BusBeanMapper getBusBeanMapper() {
-	return this.busBeanMapper;
-    }
-
-    public void setBusBeanMapper(BusBeanMapper busBeanMapper) {
-	this.busBeanMapper = busBeanMapper;
-    }
-
-    @Autowired
-    private BusBeanExtMapper busBeanExtMapper;
 
     @Override
     public int save(BusBean busBean) {
@@ -63,11 +50,11 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public List<BusBeanExt> findAll() {
+    public List<BusBean> findAll() {
 	BusBeanExample busBeanExample = new BusBeanExample();
 	busBeanExample.clear();
 	busBeanExample.createCriteria().getAllCriteria();
-	return this.busBeanExtMapper.getAllBusBeanExts();
+	return this.busBeanMapper.selectByExample(busBeanExample);
     }
 
     @Override

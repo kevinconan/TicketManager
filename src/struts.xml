@@ -6,32 +6,33 @@
 <struts>
 	<package name="tmpkg" namespace="/" extends="json-default">
 
-		<!--注册拦截器-->
+		<!--注册拦截器 -->
 		<interceptors>
-			<interceptor name="businessInterceptor" class="kevin.tm.interceptor.BusinessInterceptor">
-			<!--不需要拦截的方法-->
-			<param name="excludeActions">login_checkLogin</param>
-			
+			<interceptor name="businessInterceptor"
+				class="kevin.tm.interceptor.BusinessInterceptor">
+				<!--不需要拦截的方法 -->
+				<param name="excludeActions">login_checkLogin</param>
+
 			</interceptor>
 			<interceptor-stack name="mystack">
-				<interceptor-ref name="defaultStack"/>			
-				<interceptor-ref name="businessInterceptor"/>
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="businessInterceptor" />
 			</interceptor-stack>
 		</interceptors>
 
 		<!-- 设置默认拦截器栈 -->
-		<default-interceptor-ref name="mystack"/>
+		<default-interceptor-ref name="mystack" />
 
 		<!-- 全局跳转页面 -->
 		<global-results>
-			
+
 			<result name="noLogin">/Login.jsp</result>
 			<result name="error">/error.jsp</result>
 		</global-results>
-		
+
 		<!-- 全局异常 -->
 		<global-exception-mappings>
-			<exception-mapping result="error" exception="java.lang.Exception"/>
+			<exception-mapping result="error" exception="java.lang.Exception" />
 		</global-exception-mappings>
 
 		<action name="login_*" class="loginAction" method="{1}">
@@ -45,7 +46,7 @@
 				<param name="root">map</param>
 			</result>
 		</action>
-		
+
 		<action name="user_*" class="userAction" method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
@@ -57,29 +58,24 @@
 				<param name="root">map</param>
 			</result>
 		</action>
-		
+
 		<action name="bus_*" class="busAction" method="{1}">
-		<result name="MESSAGE" type="json">
+			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
 			</result>
-			<result name="MSGMAP" type="json">
-				<param name="root">msgMap</param>
-			</result>
 			<result name="LIST" type="json">
-				<param name="root">busList</param>
+				<param name="root">list</param>
 			</result>
-			<result name="BUSBEAN" type="json">
-				<param name="root">dataMap</param>
-				
+			<result name="MAP" type="json">
+				<param name="root">map</param>
 			</result>
-			
 		</action>
 
 		<action name="main" class="kevin.ssme.action.Main">
-		<result name="success">/main.jsp</result>
+			<result name="success">/main.jsp</result>
 		</action>
-		
-		
+
+
 		<action name="station_*" class="stationAction" method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
@@ -91,7 +87,7 @@
 				<param name="root">map</param>
 			</result>
 		</action>
-		
+
 		<action name="route_*" class="routeAction" method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
@@ -103,8 +99,9 @@
 				<param name="root">map</param>
 			</result>
 		</action>
-		
-		<action name="routeschedule_*" class="routeScheduleAction" method="{1}">
+
+		<action name="routeschedule_*" class="routeScheduleAction"
+			method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
 			</result>
@@ -115,7 +112,7 @@
 				<param name="root">map</param>
 			</result>
 		</action>
-		
+
 		<action name="admin_*" class="adminAction" method="{1}">
 			<result name="MESSAGE" type="json">
 				<param name="root">message</param>
