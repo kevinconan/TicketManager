@@ -268,28 +268,24 @@ function submitForm_st(){
 			waitTitle : '提示',//标题
 			url : 'station_update',//请求的url地址
 			method:'POST',//请求方式
-			params : {"jsonData":formparams},
-			success:function(data,response) {                                               
-             	var dat =response.result.msg;
-                //	alert(dat);
-             	switch(dat){
-                case "ok" : 
-               	 Ext.Msg.alert('成功','修改成功！');break;
-                
-                case "fail" :	
-                	Ext.Msg.alert('错误','修改失败！');break;
-                default :
-                	Ext.Msg.alert('错误','操作失败！');break;
-                
-                }
-             	win_st.close();
-             	stationStore.reload();
-                },
-                // 提交失败的回调函数
-                failure : function() {
-                        Ext.Msg.alert('错误',
-                        '服务器出现错误请稍后再试！');win_st.close();
-                }
+			params : {"createStationBeans":formparams},
+			success : function(form,submit) {                                               
+           	 msgTip.hide();
+    			var result = Ext.JSON.decode(submit.response.responseText);
+    			if(result.success){
+   				stationStore.reload();
+   				Ext.Msg.alert('提示','修改车站信息成功。');
+   			}else{
+   				stationStore.reload();
+   				Ext.Msg.alert('提示','修改车站信息失败！');
+   			}  
+            },
+            // 提交失败的回调函数
+            failure : function() {
+           	 stationStore.reload();
+                    Ext.Msg.alert('错误',
+                    '服务器出现错误请稍后再试！');win_st.close();
+            }
 		});
 	}
 }
