@@ -1,12 +1,12 @@
 //定义车站数据源
 var stationStore = Ext.create('Ext.data.JsonStore', {  
-		    pageSize : 10,  
+		//    pageSize : 10,  
 		    model : 'StationModel',  
 		    autoLoad : true,  
 		    proxy : {  
 		        type : 'ajax',  
 		        actionMethods : 'post',  
-		        url : 'station_list',  
+		        url : 'station_listAll',  
 		        reader : {  
 		            type : 'json',  
 		            root : 'data',  
@@ -16,13 +16,13 @@ var stationStore = Ext.create('Ext.data.JsonStore', {
 		});
 //定义线路数据源
 var routeStore = Ext.create('Ext.data.JsonStore', {  
-		    pageSize : 10,  
+		//    pageSize : 10,  
 		    model : 'RouteModel',  
 		    autoLoad : true,  
 		    proxy : {  
 		        type : 'ajax',  
 		        actionMethods : 'post',  
-		        url : 'route_list',  
+		        url : 'route_listAll',  
 		        reader : {  
 		            type : 'json',  
 		            root : 'data',  
@@ -32,13 +32,13 @@ var routeStore = Ext.create('Ext.data.JsonStore', {
 		});
 //定义汽车数据源
 var busStore = Ext.create('Ext.data.JsonStore', {  
-		    pageSize : 10,  
+		//    pageSize : 10,  
 		    model : 'BusModel',  
 		    autoLoad : true,  
 		    proxy : {  
 		        type : 'ajax',  
 		        actionMethods : 'post',  
-		        url : 'bus_list',  
+		        url : 'bus_listAll',  
 		        reader : {  
 		            type : 'json',  
 		            root : 'data',  
@@ -48,7 +48,7 @@ var busStore = Ext.create('Ext.data.JsonStore', {
 		});
 //定义调度数据源
 var routeScheduleStore = Ext.create('Ext.data.JsonStore', {  
-    pageSize : 10,  
+ //   pageSize : 10,  
     model : 'RouteScheduleModel',  
     autoLoad : true,  
     proxy : {  
@@ -64,13 +64,13 @@ var routeScheduleStore = Ext.create('Ext.data.JsonStore', {
 });
 //定义车票数据源
 var ticketStore = Ext.create('Ext.data.JsonStore', {  
-    pageSize : 10,  
+//    pageSize : 10,  
     model : 'TicketModel',  
     autoLoad : true,  
     proxy : {  
         type : 'ajax',  
         actionMethods : 'post',  
-        url : 'ticket_list',  
+        url : 'ticket_listAll',  
         reader : {  
             type : 'json',  
             root : 'data',  
@@ -80,13 +80,13 @@ var ticketStore = Ext.create('Ext.data.JsonStore', {
 });
 //定义管理员数据源
 var adminStore = Ext.create('Ext.data.JsonStore', {  
-    pageSize : 10,  
+ //   pageSize : 10,  
     model : 'AdminModel',  
     autoLoad : true,  
     proxy : {  
         type : 'ajax',  
         actionMethods : 'post',  
-        url : 'admin_list',  
+        url : 'admin_listAll',  
         reader : {  
             type : 'json',  
             root : 'data',  
