@@ -32,7 +32,8 @@ public class StationServiceImpl implements StationService {
      */
     @Override
     public int save(StationBean stationBean) {
-	return this.stationBeanMapper.insert(stationBean);
+	return this.stationBeanMapper.insertSelective(stationBean);
+	// return this.stationBeanMapper.insert(stationBean);
     }
 
     /*

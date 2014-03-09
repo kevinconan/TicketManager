@@ -42,7 +42,7 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
      */
     @Override
     public int save(RouteScheduleBean routeScheduleBean) {
-	return this.routeScheduleBeanMapper.insert(routeScheduleBean);
+	return this.routeScheduleBeanMapper.insertSelective(routeScheduleBean);
     }
 
     /*

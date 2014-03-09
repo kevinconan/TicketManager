@@ -40,7 +40,7 @@ public class RouteServiceImpl implements RouteService {
      */
     @Override
     public int save(RouteBean routeBean) {
-	return this.routeBeanMapper.insert(routeBean);
+	return this.routeBeanMapper.insertSelective(routeBean);
     }
 
     /*

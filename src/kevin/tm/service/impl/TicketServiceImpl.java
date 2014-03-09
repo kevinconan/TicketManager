@@ -32,7 +32,7 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public int save(TicketBean ticketBean) {
-	return this.ticketBeanMapper.insert(ticketBean);
+	return this.ticketBeanMapper.insertSelective(ticketBean);
     }
 
     /*
