@@ -83,36 +83,7 @@ request.setAttribute("username", userName); */
 		      			selModel : new Ext.selection.CheckboxModel(),
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
-<<<<<<< HEAD
-<<<<<<< HEAD
-		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,
-		      					renderer : function(value){
-		      						var list = [];
-		      						list.push(value);
-		      						var nameS = "";
-		      						var	lists = Ext.JSON.encode(list);
-		      						Ext.Ajax.request({
-		      							url : 'route_getById',
-		      							params : {"message" : lists},
-		      							method : 'GET',
-		      							success : function(response,options){
-		      							//	 debugger;
-		      								var result = Ext.JSON.decode(response.responseText);
-		      							    nameS = result.rows[0].routename;
-		      							},
-		      							failure : function(response,options){
-		      								
-		      							}
-		      						});
-		      						return nameS;
-		      					}
-		      				},
-=======
 		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
->>>>>>> bddae9ee2f5910d03507a93efdf9bfdc15d9a700
-=======
-		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
->>>>>>> bddae9ee2f5910d03507a93efdf9bfdc15d9a700
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
