@@ -23,8 +23,8 @@ public abstract class BaseAction<T> extends ActionSupport implements
 	ServletRequestAware, ServletResponseAware {
 
     private static final long serialVersionUID = -1564001162335439613L;
-    protected static final String SUCCESS = "SUCCESS";
-    protected static final String FAILURE = "FAILURE";
+    protected static final String SUCCESS = "success";
+    protected static final String FAILURE = "failure";
     protected static final String MESSAGE = "MESSAGE";
     protected static final String LIST = "LIST";
     protected static final String MAP = "MAP";

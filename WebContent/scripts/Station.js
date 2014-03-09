@@ -171,7 +171,7 @@ function deleteStation(stationList){
 		success : function(response,options){
 			msgTip.hide();
 			var result = Ext.JSON.decode(response.responseText);
-			if(result.SUCCESS){
+			if(result.success){
 				
 				Ext.Msg.alert('提示','删除车站信息成功。');
 			}else{
@@ -200,6 +200,11 @@ function loadForm(busId){
 }
 //提交表单数据
 function submitForm_st(){
+	var msgTip = Ext.MessageBox.show({
+		title:'提示',
+		width : 250,
+		msg:'正在添加车站信息请稍后......'
+	});
 	//判断当前执行的提交操作，isAdd为true表示执行车站新增操作，false表示执行车站修改操作
 	list = [];
 	list.push(stationForm.form.getValues());
@@ -215,10 +220,10 @@ function submitForm_st(){
              method : 'post',// 提交方法post或get
              params : {"createStationBeans":formparams},
              // 提交成功的回调函数
-             success : function(data,response) {                                               
+             success : function(form,submit) {                                               
             	 msgTip.hide();
-     			var result = Ext.JSON.decode(response.responseText);
-     			if(result.SUCCESS){
+     			var result = Ext.JSON.decode(submit.response.responseText);
+     			if(result.success){
     				
     				Ext.Msg.alert('提示','添加车站信息成功。');
     			}else{
