@@ -52,7 +52,7 @@ var pageToolbar_st = new Ext.PagingToolbar({
 //定义表格组件
 var stationGrid = new Ext.grid.Panel({
     maxWidth: 700,
-    maxHeight: 390,
+    maxHeight: 380,
     tbar: toolbar_st,
     bbar: pageToolbar_st,
     region: 'center',
