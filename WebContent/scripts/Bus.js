@@ -396,10 +396,10 @@ function submitForm_bs() {
             failure: function () {
                 busStore.reload();
                 Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_st.close();
+                '服务器出现错误请稍后再试！'); win_bs.close();
             }
         });
-        win_st.close();
+        win_bs.close();
         /* userForm.form.submit({
 			clientValidation:true,//进行客户端验证
 			waitMsg : '正在提交数据请稍后',//提示信息
@@ -439,7 +439,7 @@ function submitForm_bs() {
             failure: function () {
                 busStore.reload();
                 Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_st.close();
+                '服务器出现错误请稍后再试！'); win_bs.close();
             }
         });
     }
