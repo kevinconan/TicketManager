@@ -1,7 +1,7 @@
 var toolbar_bs = [
    			{ text: '注册客车', iconCls: 'add', handler: showNewBus },
-   			{ text: '修改客车', iconCls: 'option' },
-   			{ text: '注销客车', iconCls: 'remove' }
+   			{ text: '修改客车', iconCls: 'option', handler :showModifyBus},
+   			{ text: '注销客车', iconCls: 'remove' ,handler:showDeleteBus}
 ];
 
 //分页工具下拉框
@@ -24,7 +24,7 @@ pagesize_combo_bs.on("select", function (comboBox) {
 });
 //分页工具栏
 var pageToolbar_bs = new Ext.PagingToolbar({
-    store: routeStore,
+    store: busStore,
     pageSize: 10,//小点，和上面一致
     displayInfo: true,
     displayMsg: "当前显示从{0}条到{1}条，共{2}条",
@@ -44,7 +44,7 @@ var busGrid = new Ext.grid.Panel({
 		{ text: "车牌号", width: '16%', dataIndex: 'vehicleno', sortable: true },
 		{ text: "线路", width: '16%', dataIndex: 'busrouteid', sortable: true },
 		{ text: "汽车状态", width: '16%', dataIndex: 'busstate', sortable: true },
-		{ text: "所属车站", width: '16%', dataIndex: 'busstationid', sortable: true },
+		{ text: "所属车辆", width: '16%', dataIndex: 'busstationid', sortable: true },
 		{ text: "司机名", width: '16%', dataIndex: 'drivername', sortable: true },
 		{ text: "座位数", width: '16%', dataIndex: 'seatcount', sortable: true }
 
@@ -75,7 +75,7 @@ var stationGrid_bs = new Ext.grid.Panel({
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
+        { text: "车辆编号", width: 80, dataIndex: 'stationid', sortable: true },
         { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
         { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
         { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
@@ -119,9 +119,9 @@ var busForm = new Ext.form.Panel({
             	}else{	
                 var recs = stationGrid_bs.getSelectionModel().getSelection();
                 if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择发车站！');
+                    Ext.MessageBox.alert('提示', '请选择发车辆！');
                 } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车站');
+                    Ext.MessageBox.alert('提示', '你只能选择一个车辆');
 
                 } else {
                     busForm.getForm().findField('busstationid').setValue(recs[0].get('stationid'));
@@ -145,6 +145,7 @@ var busForm = new Ext.form.Panel({
             handler:function(){
             
             	if(routeGrid_bs.isHidden()){
+            	//	win.show();
             		stationGrid_bs.hide();
             		routeGrid_bs.show();
             	}else{
@@ -206,7 +207,7 @@ var busForm = new Ext.form.Panel({
             xtype: 'button',
             text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
             style: "margin-left:20px;",
-            handler: function () { }
+            handler: submitForm_bs
 
         }]
     }
@@ -251,8 +252,195 @@ var win_bs = new Ext.window.Window({
 
 function showNewBus() {
 
+	busForm.isAdd = true;
     busForm.form.reset();
     win_bs.setTitle("新增客车");
     win_bs.show();
 
+}
+//删除汽车处理
+function showDeleteBus() {
+    //var busList = getStationIdList();
+    var busList = getSelectionList(busGrid,false);
+    var num = busList.length;
+    if (num == 0) {
+        return;
+    }
+    Ext.MessageBox.confirm("提示", "您确定要删除所选车辆吗？", function (btnId) {
+        if (btnId == 'yes') {
+            deleteBus(busList);
+        }
+    });
+}
+//删除车辆
+function deleteBus(busList) {
+    var busIds = Ext.JSON.encode(busList);
+    var msgTip = Ext.MessageBox.show({
+        title: '提示',
+        width: 250,
+        msg: '正在删除车辆信息请稍后......'
+    });
+    Ext.Ajax.request({
+        url: 'bus_delete',
+        params: { "deleteBusBeans": busIds },
+        method: 'POST',
+        success: function (response, options) {
+            msgTip.hide();
+            var result = Ext.JSON.decode(response.responseText);
+            if (result.success) {
+
+                Ext.Msg.alert('提示', '删除车辆信息成功。');
+                busStore.reload();
+            } else {
+                Ext.Msg.alert('提示', '删除车辆信息失败！');
+                busStore.reload();
+            }
+        },
+        failure: function (response, options) {
+            msgTip.hide();
+            Ext.Msg.alert('提示', '删除车辆信息请求失败！');
+            busStore.reload();
+        }
+    });
+    win_bs.hide();
+    busStore.reload();
+}
+//获得选中列表
+function getBusList() {
+    var recs = busGrid.getSelectionModel().getSelection();
+    var list = [];
+    if (recs.length == 0) {
+        Ext.MessageBox.alert('提示', '请选择要进行操作的车辆！');
+    } else {
+        for (var i = 0 ; i < recs.length ; i++) {
+            var rec = recs[i];
+            var obj = new Object();
+            obj.vehicleno = rec.get('vehicleno');
+            list.push(obj);
+        }
+    }
+    return list;
+}
+
+//加载表单数据
+function loadForm_bs(busId) {
+    //	var list =[];
+    //	list.push(busId)
+    //	var message=Ext.JSON.encode(list);
+    busForm.form.load({
+        waitMsg: '正在加载数据请稍后',//提示信息
+        waitTitle: '提示',//标题
+        url: 'bus_getById',//请求的url地址
+        params: { "message": busId },
+        method: 'GET',//请求方式
+        failure: function (form, action) {//加载失败的处理函数
+            Ext.Msg.alert('提示', '数据加载失败');
+        }
+    });
+}
+
+
+//显示修改车辆窗口
+function showModifyBus() {
+    var busList = getSelectionList(busGrid,true);
+    var num = busList.length;
+    if (num > 1) {
+        Ext.MessageBox.alert("提示", "每次只能修改一条车辆信息。");
+    } else if (num == 1) {
+        busForm.form.reset();
+        busForm.isAdd = false;
+        win_bs.setTitle("修改车辆信息");
+        win_bs.show();
+        var busId = busList[0];
+        //	Ext.getCmp('stationid').getEl().dom.setDisabled(true);
+        loadForm_bs(busId);
+
+    }
+}
+
+
+//提交表单数据
+function submitForm_bs() {
+    var msgTip = Ext.MessageBox.show({
+        title: '提示',
+        width: 250,
+        msg: '正在添加车辆信息请稍后......'
+    });
+    //判断当前执行的提交操作，isAdd为true表示执行车辆新增操作，false表示执行车辆修改操作
+    list = [];
+    list.push(busForm.form.getValues());
+    var formparams = Ext.JSON.encode(list);
+    if (busForm.isAdd) {
+        //新增车辆信息
+        //	alert(Ext.JSON.encode(busForm.form.getValues()));
+        //	var formparams=Ext.JSON.encode(busForm.form.getValues());
+
+        busForm.form.submit({
+            clientValidation: true,
+            url: 'bus_add',// 文件路径
+            method: 'post',// 提交方法post或get
+            params: { "createBusBeans": formparams },
+            // 提交成功的回调函数
+            success: function (form, submit) {
+                msgTip.hide();
+                var result = Ext.JSON.decode(submit.response.responseText);
+                if (result.success) {
+                    busStore.reload();
+                    Ext.Msg.alert('提示', '添加车辆信息成功。');
+                } else {
+                    busStore.reload();
+                    Ext.Msg.alert('提示', '添加车辆信息失败！');
+                }
+            },
+            // 提交失败的回调函数
+            failure: function () {
+                busStore.reload();
+                Ext.Msg.alert('错误',
+                '服务器出现错误请稍后再试！'); win_st.close();
+            }
+        });
+        win_st.close();
+        /* userForm.form.submit({
+			clientValidation:true,//进行客户端验证
+			waitMsg : '正在提交数据请稍后',//提示信息
+			waitTitle : '提示',//标题
+			url : ctxpath + '/user_add',//请求的url地址
+			method:'POST',//请求方式
+			success:function(form,action){//加载成功的处理函数
+				win.hide();
+				updateBusGrid(action.result.bookId);
+				Ext.Msg.alert('提示','新增车辆成功');
+			},
+			failure:function(form,action){//加载失败的处理函数
+				Ext.Msg.alert('提示','新增车辆失败');
+			}
+		}); */
+    } else {
+        //修改车辆信息
+        busForm.form.submit({
+            clientValidation: true,//进行客户端验证
+            waitMsg: '正在提交数据请稍后',//提示信息
+            waitTitle: '提示',//标题
+            url: 'bus_update',//请求的url地址
+            method: 'POST',//请求方式
+            params: { "updateBusBeans": formparams },
+            success: function (form, submit) {
+                msgTip.hide();
+                var result = Ext.JSON.decode(submit.response.responseText);
+                if (result.success) {
+                    busStore.reload();
+                    Ext.Msg.alert('提示', '修改车辆信息成功。');
+                } else {
+                    busStore.reload();
+                    Ext.Msg.alert('提示', '修改车辆信息失败！');
+                }
+            },
+            // 提交失败的回调函数
+            failure: function () {
+                busStore.reload();
+                Ext.Msg.alert('错误',
+                '服务器出现错误请稍后再试！'); win_st.close();
+            }
+        });
+    }
 }

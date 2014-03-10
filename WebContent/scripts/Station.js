@@ -128,7 +128,7 @@ function showAddStation() {
 }
 //显示修改车站窗口
 function showModifyStation() {
-    var stationList = getStationIdList();
+    var stationList = getSelectionList(stationGrid,true);
     var num = stationList.length;
     if (num > 1) {
         Ext.MessageBox.alert("提示", "每次只能修改一条车站信息。");
@@ -145,8 +145,7 @@ function showModifyStation() {
 }
 //显示删除车站对话框
 function showDeleteStation() {
-    //var stationList = getStationIdList();
-    var stationList = getStationList();
+    var stationList = getSelectionList(stationGrid,false);
     var num = stationList.length;
     if (num == 0) {
         return;
@@ -290,57 +289,30 @@ function submitForm_st() {
         });
     }
 }
-//明细数据修改后，同步更新汽车列表信息
-/* function updateBusGrid(BuskId){
-	var values = stationForm.form.getValues();
-	var index = stationStore.find('stationid',values['stationid']);
-	var busTypeField = stationForm.form.findField('bookTypeId');
-	var bookTypeName = bookTypeField.getRawValue();
-	if(index != -1){
-		var item = stationStore.getAt(index);
-		for(var fieldName in values){
-			item.set(fieldName,values[fieldName]);
-		}
-		item.set('typeName',bookTypeName);
-		item.commit();
-	}else{
-		var rec = Ext.ModelMgr.create({
-			id : bookId,
-			bookName : values['bookName'],
-			author : values['author'],
-			typeName : bookTypeName,
-			price : values['price'],
-			brief : values['brief']
-		}, 'Book');
-		stationStore.add(rec);
-	}
-} */
-//取得所选汽车id
-function getStationIdList() {
-    var recs = stationGrid.getSelectionModel().getSelection();
+
+
+/**
+ * 获取grid选择列表id
+ * @author Kevin
+ * @param grid,type
+ * grid:需要操作的表单
+ * type：操作方式，true：修改，false，删除
+ * **/
+function getSelectionList(grid,type) {
+	//debugger
+    var recs = grid.getSelectionModel().getSelection();
+    var string =recs[0].idProperty;
     var list = [];
+    var obj = {};
     if (recs.length == 0) {
-        Ext.MessageBox.alert('提示', '请选择要进行操作的车站！');
-    } else {
-        for (var i = 0 ; i < recs.length ; i++) {
-            var rec = recs[i];
-            list.push(rec.get('stationid'));
+        Ext.MessageBox.alert('提示', '请选择要进行操作的项目！');
+    } else if(recs.length==1 && type==true){
+        list.push(recs[0].get(string));
+    }else{
+    	for (var i = 0 ; i < recs.length ; i++) {
+          	 list.push(recs[i].data);
         }
-    }
-    return list;
-}
-function getStationList() {
-    var recs = stationGrid.getSelectionModel().getSelection();
-    var list = [];
-    if (recs.length == 0) {
-        Ext.MessageBox.alert('提示', '请选择要进行操作的车站！');
-    } else {
-        for (var i = 0 ; i < recs.length ; i++) {
-            var rec = recs[i];
-            var obj = new Object();
-            obj.stationid = rec.get('stationid');
-            list.push(obj);
-        }
+    	
     }
     return list;
 }
