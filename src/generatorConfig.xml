@@ -21,6 +21,10 @@
     <table tableName="RouteSchedule" domainObjectName="RouteScheduleBean"/>
     <table tableName="Station" domainObjectName="StationBean"/>
     <table tableName="Ticket" domainObjectName="TicketBean"/>
+    <table tableName="Ticketinfo" domainObjectName="Ticketinfo"/>
+    <table tableName="Routeinfo" domainObjectName="Routeinfo"/>
+    <table tableName="Businfo" domainObjectName="Businfo"/>
+    <table tableName="Scheduleinfo" domainObjectName="Scheduleinfo"/>
     
 
   </context>
