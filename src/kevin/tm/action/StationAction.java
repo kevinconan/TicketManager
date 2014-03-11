@@ -81,14 +81,14 @@ public class StationAction extends BaseAction<StationBean> {
 	return MAP;
     }
 
-    // public String list() {
-    // this.list = this.stationService.findByPage(this.start, this.limit);
-    //
-    // this.map = new HashMap<>();
-    // this.map.put(TOTAL_COUNT, this.stationService.totalCount());
-    // this.map.put(DATA, this.list);
-    // return MAP;
-    // }
+     public String list() {
+     this.list = this.stationService.findByPage(this.start, this.limit);
+    
+     this.map = new HashMap<>();
+     this.map.put(TOTAL_COUNT, this.stationService.totalCount());
+     this.map.put(DATA, this.list);
+     return MAP;
+     }
 
     public String listAll() {
 	this.list = this.stationService.findAll();

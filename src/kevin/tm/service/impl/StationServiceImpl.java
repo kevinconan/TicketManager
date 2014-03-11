@@ -10,6 +10,7 @@ import kevin.tm.dao.model.StationBean;
 import kevin.tm.dao.model.StationBeanExample;
 import kevin.tm.service.StationService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -101,10 +102,10 @@ public class StationServiceImpl implements StationService {
 	return this.stationBeanMapper.countByExample(stationBeanExample);
     }
 
-    // @Override
-    // public List<StationBean> findByPage(int start, int limit) {
-    // return this.stationBeanMapper.selectByPage(start, limit);
-    // }
+     @Override
+     public List<StationBean> findByPage(int start, int limit) {
+     return this.stationBeanMapper.selectByPage(new RowBounds(start,limit));
+     }
 
     @Override
     public int delete(StationBean stationBean) {

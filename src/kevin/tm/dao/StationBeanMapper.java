@@ -4,6 +4,8 @@ import java.util.List;
 import kevin.tm.dao.model.StationBean;
 import kevin.tm.dao.model.StationBeanExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.session.RowBounds;
 
 public interface StationBeanMapper {
 
@@ -74,4 +76,7 @@ public interface StationBeanMapper {
 	 * @mbggenerated  Tue Mar 11 14:47:47 CST 2014
 	 */
 	int updateByPrimaryKey(StationBean record);
+	
+	@Select("select * from station")
+	List<StationBean> selectByPage(RowBounds rowBounds);
 }
