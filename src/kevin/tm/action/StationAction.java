@@ -83,7 +83,7 @@ public class StationAction extends BaseAction<StationBean> {
 
      public String list() {
      this.list = this.stationService.findByPage(this.start, this.limit);
-    
+     System.out.println(start+"  "+limit);
      this.map = new HashMap<>();
      this.map.put(TOTAL_COUNT, this.stationService.totalCount());
      this.map.put(DATA, this.list);
