@@ -46,6 +46,7 @@
   		<property name="typeAliasesPackage" value="com.mybatis.model" />
   		<property name="plugins">
   			<list>
+  				<ref bean="paginationInterceptor"/>
   				<ref bean="showSqlInterceptor"/>
   			</list>
   		</property>
@@ -55,7 +56,7 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="kevin.tm.dao" />
 </bean>
-
+<bean name="paginationInterceptor" class="kevin.tm.interceptor.PaginationInterceptor"></bean>
 <bean name="showSqlInterceptor" class="kevin.tm.interceptor.ShowSqlInterceptor"></bean>
 
 
