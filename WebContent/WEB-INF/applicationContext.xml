@@ -21,9 +21,9 @@
 
 <!-- 定义数据源连接 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-		<property name="url" value="jdbc:sqlserver://25.71.5.217:1433;databaseName=TicketManager;user=sa;password=root" />
-		<property name="username" value="sa" />
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://25.147.226.96:3306/ticketmanager" />
+		<property name="username" value="root" />
 		<property name="password" value="root" />
 		<property name="maxActive" value="100"/>
 		<property name="maxIdle" value="30"/>
