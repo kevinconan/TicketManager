@@ -68,8 +68,8 @@ public class PaginationInterceptor implements Interceptor {
 	// String end = " ) row_ WHERE   ROWNUM <= " + rowBounds.getLimit()
 	// + ") WHERE   rownum_ > " + rowBounds.getOffset();
 	String start = "SELECT * FROM (";
-	String end = ") AS t LIMIT " + rowBounds.getLimit() + ","
-		+ rowBounds.getOffset();
+	String end = ") AS t LIMIT " + rowBounds.getOffset() + ","
+		+ rowBounds.getLimit();
 	return start + oldSql + end;
     }
 
