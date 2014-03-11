@@ -5,9 +5,9 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import kevin.tm.dao.model.TicketBean;
+
+import org.springframework.stereotype.Service;
 
 /**
  * 车票Service接口
@@ -82,5 +82,5 @@ public interface TicketService {
 
     public int totalCount();
 
-    public List<TicketBean> findByPage(int start, int limit);
+    // public List<TicketBean> findByPage(int start, int limit);
 }

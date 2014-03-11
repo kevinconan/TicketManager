@@ -88,5 +88,5 @@ public interface AdminService {
      */
     public int totalCount();
 
-    public List<AdminBean> findByPage(int start, int limit);
+    // public List<AdminBean> findByPage(int start, int limit);
 }

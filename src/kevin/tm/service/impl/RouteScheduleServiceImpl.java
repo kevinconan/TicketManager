@@ -100,10 +100,10 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 		.countByExample(routeScheduleBeanExample);
     }
 
-    @Override
-    public List<RouteScheduleBean> findByPage(int start, int limit) {
-	return this.routeScheduleBeanMapper.selectByPage(start, limit);
-    }
+    // @Override
+    // public List<RouteScheduleBean> findByPage(int start, int limit) {
+    // return this.routeScheduleBeanMapper.selectByPage(start, limit);
+    // }
 
     @Override
     public int delete(RouteScheduleBean routeScheduleBean) {

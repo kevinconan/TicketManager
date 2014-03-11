@@ -90,14 +90,14 @@ public class RouteAction extends BaseAction<RouteBean> {
 	return MAP;
     }
 
-    public String list() {
-	this.list = this.routeService.findByPage(this.start, this.limit);
-
-	this.map = new HashMap<>();
-	this.map.put(TOTAL_COUNT, this.routeService.totalCount());
-	this.map.put(DATA, this.list);
-	return MAP;
-    }
+    // public String list() {
+    // this.list = this.routeService.findByPage(this.start, this.limit);
+    //
+    // this.map = new HashMap<>();
+    // this.map.put(TOTAL_COUNT, this.routeService.totalCount());
+    // this.map.put(DATA, this.list);
+    // return MAP;
+    // }
 
     public String listAll() {
 	this.list = this.routeService.findAll();

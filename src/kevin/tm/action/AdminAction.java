@@ -112,14 +112,14 @@ public class AdminAction extends BaseAction<AdminBean> {
 	return MAP;
     }
 
-    public String list() {
-	this.list = this.adminService.findByPage(this.start, this.limit);
-
-	this.map = new HashMap<String, Object>();
-	this.map.put(TOTAL_COUNT, this.adminService.totalCount());
-	this.map.put(DATA, this.list);
-	return MAP;
-    }
+    // public String list() {
+    // this.list = this.adminService.findByPage(this.start, this.limit);
+    //
+    // this.map = new HashMap<String, Object>();
+    // this.map.put(TOTAL_COUNT, this.adminService.totalCount());
+    // this.map.put(DATA, this.list);
+    // return MAP;
+    // }
 
     public String listAll() {
 	this.list = this.adminService.findAll();

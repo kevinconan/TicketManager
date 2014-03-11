@@ -87,15 +87,15 @@ public class RouteScheduleAction extends BaseAction<RouteScheduleBean> {
 	return MAP;
     }
 
-    public String list() {
-	this.list = this.routeScheduleService
-		.findByPage(this.start, this.limit);
-
-	this.map = new HashMap<>();
-	this.map.put(TOTAL_COUNT, this.routeScheduleService.totalCount());
-	this.map.put(DATA, this.list);
-	return MAP;
-    }
+    // public String list() {
+    // this.list = this.routeScheduleService
+    // .findByPage(this.start, this.limit);
+    //
+    // this.map = new HashMap<>();
+    // this.map.put(TOTAL_COUNT, this.routeScheduleService.totalCount());
+    // this.map.put(DATA, this.list);
+    // return MAP;
+    // }
 
     public String listAll() {
 	this.list = this.routeScheduleService.findAll();

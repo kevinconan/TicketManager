@@ -38,10 +38,10 @@ public class BusServiceImpl implements BusService {
 	return this.busBeanMapper.insert(busBean);
     }
 
-    @Override
-    public int deleteByVehicleNo(String vehicleNo) {
-	return this.busBeanMapper.deleteByPrimaryKey(vehicleNo);
-    }
+    // @Override
+    // public int deleteByVehicleNo(String vehicleNo) {
+    // return this.busBeanMapper.deleteByPrimaryKey(vehicleNo);
+    // }
 
     @Override
     public int update(BusBean busBean) {
@@ -59,22 +59,25 @@ public class BusServiceImpl implements BusService {
 
     @Override
     public BusBean findByVehicleNo(String vehicleNo) {
-
-	return this.busBeanMapper.selectByPrimaryKey(vehicleNo);
+	BusBeanExample busBeanExample = new BusBeanExample();
+	busBeanExample.clear();
+	busBeanExample.createCriteria().andVehiclenoEqualTo(vehicleNo);
+	List<BusBean> list = this.busBeanMapper.selectByExample(busBeanExample);
+	return list.size() > 0 ? list.get(0) : null;
     }
 
-    @Override
-    public int deleteByVehicleNo(String[] vehicleNo) {
-	if (vehicleNo.length > 0) {
-	    int count = 0;
-	    for (int i = 0; i < vehicleNo.length; i++) {
-		count += this.busBeanMapper.deleteByPrimaryKey(vehicleNo[i]);
-	    }
-
-	    return count;
-	}
-	return 0;
-    }
+    // @Override
+    // public int deleteByVehicleNo(String[] vehicleNo) {
+    // if (vehicleNo.length > 0) {
+    // int count = 0;
+    // for (int i = 0; i < vehicleNo.length; i++) {
+    // count += this.busBeanMapper.deleteByPrimaryKey(vehicleNo[i]);
+    // }
+    //
+    // return count;
+    // }
+    // return 0;
+    // }
 
     @Override
     public int totalCount() {
@@ -84,14 +87,14 @@ public class BusServiceImpl implements BusService {
 	return this.busBeanMapper.countByExample(busBeanExample);
     }
 
-    @Override
-    public List<BusBean> findByPage(int start, int limit) {
-	return this.busBeanMapper.selectByPage(start, limit);
-    }
+    // @Override
+    // public List<BusBean> findByPage(int start, int limit) {
+    // return this.busBeanMapper.selectByPage(start, limit);
+    // }
 
     @Override
     public int delete(BusBean busBean) {
-	return this.busBeanMapper.deleteByPrimaryKey(busBean.getVehicleno());
+	return this.busBeanMapper.deleteByPrimaryKey(busBean.getBusid());
     }
 
 }

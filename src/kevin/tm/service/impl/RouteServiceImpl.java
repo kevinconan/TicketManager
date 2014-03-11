@@ -113,10 +113,10 @@ public class RouteServiceImpl implements RouteService {
 	return 0;
     }
 
-    @Override
-    public List<RouteBean> findByPage(int start, int limit) {
-	return this.routeBeanMapper.selectByPage(start, limit);
-    }
+    // @Override
+    // public List<RouteBean> findByPage(int start, int limit) {
+    // return this.routeBeanMapper.selectByPage(start, limit);
+    // }
 
     @Override
     public int delete(RouteBean routeBean) {

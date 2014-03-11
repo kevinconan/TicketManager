@@ -5,9 +5,9 @@ package kevin.tm.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import kevin.tm.dao.model.RouteScheduleBean;
+
+import org.springframework.stereotype.Service;
 
 /**
  * 线路日程Service接口
@@ -66,5 +66,5 @@ public interface RouteScheduleService {
 
     public int totalCount();
 
-    public List<RouteScheduleBean> findByPage(int start, int limit);
+    // public List<RouteScheduleBean> findByPage(int start, int limit);
 }

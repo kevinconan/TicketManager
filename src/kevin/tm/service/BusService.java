@@ -12,9 +12,9 @@ public interface BusService {
 
     public int delete(BusBean busBean);
 
-    public int deleteByVehicleNo(String vehicleNo);
-
-    public int deleteByVehicleNo(String[] vehivleNo);
+    // public int deleteByVehicleNo(String vehicleNo);
+    //
+    // public int deleteByVehicleNo(String[] vehivleNo);
 
     public int update(BusBean busBean);
 
@@ -24,5 +24,5 @@ public interface BusService {
 
     public int totalCount();
 
-    public List<BusBean> findByPage(int start, int limit);
+    // public List<BusBean> findByPage(int start, int limit);
 }
