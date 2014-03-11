@@ -10,6 +10,7 @@ import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.BusBeanExample;
 import kevin.tm.service.BusService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -87,10 +88,10 @@ public class BusServiceImpl implements BusService {
 	return this.busBeanMapper.countByExample(busBeanExample);
     }
 
-    // @Override
-    // public List<BusBean> findByPage(int start, int limit) {
-    // return this.busBeanMapper.selectByPage(start, limit);
-    // }
+    @Override
+    public List<BusBean> findByPage(int start, int limit) {
+	return this.busBeanMapper.selectByPage(new RowBounds(start, limit));
+    }
 
     @Override
     public int delete(BusBean busBean) {

@@ -10,6 +10,7 @@ import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteBeanExample;
 import kevin.tm.service.RouteService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -113,10 +114,10 @@ public class RouteServiceImpl implements RouteService {
 	return 0;
     }
 
-    // @Override
-    // public List<RouteBean> findByPage(int start, int limit) {
-    // return this.routeBeanMapper.selectByPage(start, limit);
-    // }
+    @Override
+    public List<RouteBean> findByPage(int start, int limit) {
+	return this.routeBeanMapper.selectByPage(new RowBounds(start, limit));
+    }
 
     @Override
     public int delete(RouteBean routeBean) {

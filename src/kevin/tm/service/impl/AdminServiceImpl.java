@@ -10,6 +10,7 @@ import kevin.tm.dao.model.AdminBean;
 import kevin.tm.dao.model.AdminBeanExample;
 import kevin.tm.service.AdminService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -108,10 +109,10 @@ public class AdminServiceImpl implements AdminService {
 	return this.adminBeanMapper.deleteByPrimaryKey(adminBean.getLoginid());
     }
 
-    // @Override
-    // public List<AdminBean> findByPage(int start, int limit) {
-    // return this.adminBeanMapper.selectByPage(start, limit);
-    // }
+    @Override
+    public List<AdminBean> findByPage(int start, int limit) {
+	return this.adminBeanMapper.selectByPage(new RowBounds(start, limit));
+    }
 
     @Override
     public AdminBean login(AdminBean adminBean) {

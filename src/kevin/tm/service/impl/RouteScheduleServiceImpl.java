@@ -10,6 +10,7 @@ import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.RouteScheduleBeanExample;
 import kevin.tm.service.RouteScheduleService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -100,10 +101,11 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 		.countByExample(routeScheduleBeanExample);
     }
 
-    // @Override
-    // public List<RouteScheduleBean> findByPage(int start, int limit) {
-    // return this.routeScheduleBeanMapper.selectByPage(start, limit);
-    // }
+    @Override
+    public List<RouteScheduleBean> findByPage(int start, int limit) {
+	return this.routeScheduleBeanMapper.selectByPage(new RowBounds(start,
+		limit));
+    }
 
     @Override
     public int delete(RouteScheduleBean routeScheduleBean) {

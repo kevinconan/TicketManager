@@ -66,5 +66,5 @@ public interface RouteScheduleService {
 
     public int totalCount();
 
-    // public List<RouteScheduleBean> findByPage(int start, int limit);
+    public List<RouteScheduleBean> findByPage(int start, int limit);
 }

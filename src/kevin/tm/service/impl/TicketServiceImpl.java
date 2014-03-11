@@ -10,6 +10,7 @@ import kevin.tm.dao.model.TicketBean;
 import kevin.tm.dao.model.TicketBeanExample;
 import kevin.tm.service.TicketService;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -128,9 +129,9 @@ public class TicketServiceImpl implements TicketService {
 	return this.ticketBeanMapper.countByExample(ticketBeanExample);
     }
 
-    // @Override
-    // public List<TicketBean> findByPage(int start, int limit) {
-    // return this.ticketBeanMapper.selectByPage(start, limit);
-    // }
+    @Override
+    public List<TicketBean> findByPage(int start, int limit) {
+	return this.ticketBeanMapper.selectByPage(new RowBounds(start, limit));
+    }
 
 }
