@@ -124,5 +124,41 @@
 				<param name="root">list</param>
 			</result>
 		</action>
+		
+		<action name="ticket_*" class="ticketAction" method="{1}">
+			<result name="MESSAGE" type="json">
+				<param name="root">message</param>
+			</result>
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+			<result name="LIST" type="json">
+				<param name="root">list</param>
+			</result>
+		</action>
+		
+		<action name="businfo_*" class="businfoAction" method="{1}">
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+		
+		<action name="routeinfo_*" class="routeinfoAction" method="{1}">
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+		
+		<action name="scheduleinfo_*" class="scheduleinfoAction" method="{1}">
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
+		
+		<action name="ticketinfo_*" class="ticketinfoAction" method="{1}">
+			<result name="MAP" type="json">
+				<param name="root">map</param>
+			</result>
+		</action>
 	</package>
 </struts>

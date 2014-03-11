@@ -134,4 +134,9 @@ public class TicketServiceImpl implements TicketService {
 	return this.ticketBeanMapper.selectByPage(new RowBounds(start, limit));
     }
 
+    @Override
+    public int delete(TicketBean bean) {
+	return this.ticketBeanMapper.deleteByPrimaryKey(bean.getTicketid());
+    }
+
 }

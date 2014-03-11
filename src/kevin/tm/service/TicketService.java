@@ -83,4 +83,6 @@ public interface TicketService {
     public int totalCount();
 
     public List<TicketBean> findByPage(int start, int limit);
+
+    public int delete(TicketBean bean);
 }
