@@ -63,12 +63,13 @@ public class PaginationInterceptor implements Interceptor {
 
     public String newSql(String oldSql, RowBounds rowBounds) {
 	// this is for OracleDB
-	String start = " SELECT * FROM   (SELECT   row_.*, ROWNUM rownum_ FROM ( ";
-	String end = " ) row_ WHERE   ROWNUM <= " + rowBounds.getLimit()
-		+ ") WHERE   rownum_ > " + rowBounds.getOffset();
-	/*
-	 * String start=""; String end="";
-	 */
+	// String start =
+	// " SELECT * FROM   (SELECT   row_.*, ROWNUM rownum_ FROM ( ";
+	// String end = " ) row_ WHERE   ROWNUM <= " + rowBounds.getLimit()
+	// + ") WHERE   rownum_ > " + rowBounds.getOffset();
+	String start = "SELECT * FROM (";
+	String end = ") AS t LIMIT " + rowBounds.getLimit() + ","
+		+ rowBounds.getOffset();
 	return start + oldSql + end;
     }
 
