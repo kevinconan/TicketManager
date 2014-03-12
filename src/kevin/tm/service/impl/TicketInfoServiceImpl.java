@@ -9,11 +9,13 @@ import kevin.tm.service.TicketInfoService;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+@Scope("prototype")
+@Service("ticketInfoServiceImpl")
 public class TicketInfoServiceImpl implements TicketInfoService {
     @Autowired
     private TicketinfoMapper mapper;
-
     @Override
     public int totalCount() {
 	TicketinfoExample example = new TicketinfoExample();

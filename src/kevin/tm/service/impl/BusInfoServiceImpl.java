@@ -12,11 +12,15 @@ import kevin.tm.service.BusInfoService;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Diluka
  * 
  */
+@Scope("prototype")
+@Service("busInfoServiceImpl")
 public class BusInfoServiceImpl implements BusInfoService {
 
     @Autowired

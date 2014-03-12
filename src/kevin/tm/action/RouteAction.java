@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kevin.tm.dao.model.RouteBean;
+import kevin.tm.dao.model.Routeinfo;
 import kevin.tm.service.RouteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,11 +92,11 @@ public class RouteAction extends BaseAction<RouteBean> {
     }
 
     public String list() {
-	this.list = this.routeService.findByPage(this.start, this.limit);
+	List<Routeinfo> list = this.routeService.findByPage(this.start, this.limit);
 
 	this.map = new HashMap<>();
 	this.map.put(TOTAL_COUNT, this.routeService.totalCount());
-	this.map.put(DATA, this.list);
+	this.map.put(DATA, list);
 	return MAP;
     }
 

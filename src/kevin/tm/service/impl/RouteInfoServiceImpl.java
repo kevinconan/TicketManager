@@ -9,7 +9,11 @@ import kevin.tm.service.RouteInfoService;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
+@Scope("prototype")
+@Service("routeInfoServiceImpl")
 public class RouteInfoServiceImpl implements RouteInfoService {
     @Autowired
     private RouteinfoMapper mapper;

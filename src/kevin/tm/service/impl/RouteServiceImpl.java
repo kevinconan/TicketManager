@@ -6,8 +6,11 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteBeanMapper;
+import kevin.tm.dao.RouteinfoMapper;
 import kevin.tm.dao.model.RouteBean;
+import kevin.tm.dao.model.Routeinfo;
 import kevin.tm.dao.model.RouteBeanExample;
+import kevin.tm.service.RouteInfoService;
 import kevin.tm.service.RouteService;
 
 import org.apache.ibatis.session.RowBounds;
@@ -23,6 +26,8 @@ import org.springframework.stereotype.Service;
 @Service("routeServiceImpl")
 public class RouteServiceImpl implements RouteService {
 
+	@Autowired
+	private RouteinfoMapper routeinfoMapper;
     @Autowired
     private RouteBeanMapper routeBeanMapper;
 
@@ -115,8 +120,8 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<RouteBean> findByPage(int start, int limit) {
-	return this.routeBeanMapper.selectByPage(new RowBounds(start, limit));
+    public List<Routeinfo> findByPage(int start, int limit) {
+	return this.routeinfoMapper.selectByPage(new RowBounds(start, limit));
     }
 
     @Override
