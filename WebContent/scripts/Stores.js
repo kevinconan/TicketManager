@@ -6,7 +6,7 @@ var stationStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'station_list',
+        url: 'stationinfo_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -22,7 +22,7 @@ var routeStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'route_list',
+        url: 'routeinfo_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -38,7 +38,7 @@ var busStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'bus_list',
+        url: 'businfo_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -54,7 +54,7 @@ var routeScheduleStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'routeschedule_list',
+        url: 'scheduleinfo_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -70,7 +70,7 @@ var ticketStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'ticket_list',
+        url: 'ticketinfo_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -86,7 +86,7 @@ var adminStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'admin_list',
+        url: 'admininfo_list',
         reader: {
             type: 'json',
             root: 'data',

@@ -72,22 +72,24 @@ var stationGrid_bs = new Ext.grid.Panel({
         triggerAction: 'all',
         valueField: 'value',
         displayField: 'text'
-    }).on("select", function (comboBox) {
-    	var pageToolbar_st = Ext.getCmp('stationGrid_bs_bb');
-        pageToolbar_st.pageSize = parseInt(comboBox.getValue());
-        stationStore.pageSize = parseInt(comboBox.getValue());
-        stationStore.reload({ params: { start: 0, limit: pageToolbar_st.pageSize } });
     })]
 }),
     region: 'center',
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        { text: "车辆编号", width: 80, dataIndex: 'stationid', sortable: true },
+        { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
         { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
         { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
         { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
     ]
+});
+
+Ext.getCmp('stationGrid_bs_cb').on("select", function (comboBox) {
+	var pageToolbar_st = Ext.getCmp('stationGrid_bs_bb');
+    pageToolbar_st.pageSize = parseInt(comboBox.getValue());
+    stationStore.pageSize = parseInt(comboBox.getValue());
+    stationStore.reload({ params: { start: 0, limit: pageToolbar_st.pageSize } });
 });
 
 //创建调度表单
@@ -243,7 +245,7 @@ var panel_bs = new Ext.panel.Panel({
             items: busForm
         }, {
 
-            items: [stationGrid_bs,routeGrid_bs]
+            items: [stationGrid_bs]
         }]
     }, {
         //	layout:'accordion',

@@ -6,7 +6,6 @@ package kevin.tm.service;
 import java.util.List;
 
 import kevin.tm.dao.model.RouteBean;
-import kevin.tm.dao.model.Routeinfo;
 
 import org.springframework.stereotype.Service;
 
@@ -83,5 +82,5 @@ public interface RouteService {
 
     public int totalCount();
 
-    public List<Routeinfo> findByPage(int start, int limit);
+    public List<RouteBean> findByPage(int start, int limit);
 }
