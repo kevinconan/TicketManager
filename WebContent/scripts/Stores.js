@@ -6,7 +6,7 @@ var stationStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'stationinfo_list',
+        url: 'station_list',
         reader: {
             type: 'json',
             root: 'data',
@@ -86,7 +86,7 @@ var adminStore = Ext.create('Ext.data.JsonStore', {
     proxy: {
         type: 'ajax',
         actionMethods: 'post',
-        url: 'admininfo_list',
+        url: 'admin_list',
         reader: {
             type: 'json',
             root: 'data',

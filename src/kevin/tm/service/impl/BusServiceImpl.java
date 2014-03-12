@@ -66,6 +66,15 @@ public class BusServiceImpl implements BusService {
 	List<BusBean> list = this.busBeanMapper.selectByExample(busBeanExample);
 	return list.size() > 0 ? list.get(0) : null;
     }
+    
+    public BusBean findByBusId(int busId) {
+    	BusBeanExample busBeanExample = new BusBeanExample();
+    	busBeanExample.clear();
+    	busBeanExample.createCriteria().andBusidEqualTo(busId);
+    	List<BusBean> list = this.busBeanMapper.selectByExample(busBeanExample);
+    	return list.size() > 0 ? list.get(0) : null;
+        }
+
 
     // @Override
     // public int deleteByVehicleNo(String[] vehicleNo) {

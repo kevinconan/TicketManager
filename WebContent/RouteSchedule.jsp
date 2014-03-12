@@ -82,11 +82,14 @@ request.setAttribute("username", userName); */
 		      			selModel : new Ext.selection.CheckboxModel(),
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
-		      				{text: "调度线路", width: 80, dataIndex: 'schedulerouteid', sortable: true,},
+		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
+		      				{text: "调度线路", width: 80, dataIndex: 'routename', sortable: true,},
+		      				{text: "出发站点", width: 80, dataIndex: 'startstationname', sortable: true},
+		      				{text: "到达站点", width: 80, dataIndex: 'endstationname', sortable: true},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
-		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
-		      				{text: "调度车辆", width: 80, dataIndex: 'schedulevehicleno', sortable: true}
+		      				
+		      				{text: "调度车辆", width: 80, dataIndex: 'schedulebusid', sortable: true}
 		      			],
 		      			beforeshow:function(value,op){
 		      				consloe.log("beforeshow");
@@ -136,6 +139,9 @@ request.setAttribute("username", userName); */
 			items : [{//第一行
 				layout : 'column',
 				items : [{
+					xtype:'hidden',
+					name:'scheduleid',
+				},{
 					xtype:'textfield',
 					allowBlank : false,
 					blankText : '调度线路不能为空',
@@ -172,7 +178,7 @@ request.setAttribute("username", userName); */
 					allowBlank : false,
 					blankText : '调度车辆不能为空',
 					emptyText : '请选择车辆',
-					name : 'schedulevehicleno',
+					name : 'schedulebusid',
 					fieldLabel:'调度车辆'
 				},{
 		            xtype: 'button',
@@ -189,7 +195,7 @@ request.setAttribute("username", userName); */
 		        				Ext.MessageBox.alert('提示','你只能选择一辆车');
 		        				
 		        			}else{
-		        				routesScheduleForm.getForm().findField('schedulevehicleno').setValue(recs[0].get('vehicleno'));
+		        				routesScheduleForm.getForm().findField('schedulebusid').setValue(recs[0].get('busid'));
 		        				
 		        			}
 		            		
@@ -204,7 +210,7 @@ request.setAttribute("username", userName); */
 				layout : 'column',
 				items : [{
 			        xtype: 'datefield',
-			        name: 'startdate',
+			        name: 'starttime',
 			        fieldLabel: '出发时间',
 			        emptyText : '请选择日期',
 			        anchor: '100%',
@@ -212,9 +218,8 @@ request.setAttribute("username", userName); */
 			        format : 'Y-m-d'
 			    },{
 			        xtype: 'timefield',
-			        name: 'starttime',
+			        name: 's_time',
 			        emptyText : '时间',
-			     //   fieldLabel: '出发时间',
 			        anchor: '50%',
 			        style:"margin-left:0px;",
 			        width : 86,
@@ -222,17 +227,16 @@ request.setAttribute("username", userName); */
 			        format : 'H:i:s'
 			    }, {
 			        xtype: 'datefield',
-			        name: 'enddate',
+			        name: 'endtime',
 			        emptyText : '请选择日期',
 			        fieldLabel: '到达时间',
 			        anchor: '100%',
-			        altFormats:'Y-m-d h:i:s',
-			        format : 'Y-m-d h:i:s'
+			        altFormats:'Y-m-d',
+			        format : 'Y-m-d'
 			   },{
 			        xtype: 'timefield',
-			        name: 'endtime',
+			        name: 'e_time',
 			        emptyText : '时间',
-			     //   fieldLabel: '出发时间',
 			        anchor: '50%',
 			        style:"margin-left:0px;",
 			        width : 86,
@@ -296,9 +300,6 @@ request.setAttribute("username", userName); */
 		});
 		
 		function showNewSchedule(){
-			routeGrid.hide();
-			busGrid.hide();
-			stationGrid.hide();
 			routesScheduleForm.isAdd = true;//新增表单标识
 			routesScheduleForm.form.reset();
 			win.setTitle("新增调度");
@@ -319,17 +320,66 @@ request.setAttribute("username", userName); */
 		}
 //提交调度信息表单
 	function submitScheduleForm(){
+		 var msgTip = Ext.MessageBox.show({
+		        title: '提示',
+		        width: 250,
+		        msg: '正在添加线路信息请稍后......'
+		    });
+	//连接控件时间
+			 var startdate = routesScheduleForm.getForm().findField('starttime').getValue();
+			var starttime = routesScheduleForm.getForm().findField('s_time').getValue();
+			var enddate = routesScheduleForm.getForm().findField('endtime').getValue();
+			var endtime = routesScheduleForm.getForm().findField('e_time').getValue();
+			routesScheduleForm.getForm().findField('starttime').setValue(convTimeField(startdate,starttime));
+			routesScheduleForm.getForm().findField('endtime').setValue(convTimeField(enddate,endtime));
+			alert(convTimeField(enddate,endtime));
+		 	list = [];
+		    list.push(routesScheduleForm.form.getValues());
+		    var formparams = Ext.JSON.encode(list);
+		    console.log(list);	
 		if(routesScheduleForm.isAdd){//新增提交
-			var startdate = routesScheduleForm.getForm().findField('startdate').getValue();
-			var starttime = routesScheduleForm.getForm().findField('starttime').getValue();
-			startdate.setHours(starttime.getHours(),starttime.getMinutes(),starttime.getSeconds(),0);
-			alert(startdate);
+			routesScheduleForm.form.submit({
+	        //    clientValidation: true,
+	            url: 'routeschedule_add',// 文件路径
+	            method: 'post',// 提交方法post或get
+	            params: { "createRouteScheduleBeans": formparams },
+	            // 提交成功的回调函数
+	            success: function (form, submit) {
+	                msgTip.hide();
+	                var result = Ext.JSON.decode(submit.response.responseText);
+	                if (result.success) {
+	                	routeScheduleStore.reload();
+	                    Ext.Msg.alert('提示', '添加调度信息成功。');
+	                } else {
+	                	routeScheduleStore.reload();
+	                    Ext.Msg.alert('提示', '添加调度信息失败！');
+	                }
+	            },
+	            // 提交失败的回调函数
+	            failure: function () {
+	            	routeScheduleStore.reload();
+	                Ext.Msg.alert('错误',
+	                '服务器出现错误请稍后再试！'); win.close();
+	            }
+	        });
+		win.close();
+			
+			
 		}
 	
 		
 		
-}
+	}
+
+/**
+ * 连接双控件的时间
+ ***/
+	function convTimeField(date,time){
+	var dat = new Date();
+	dat = date.setHours(time.getHours(),time.getMinutes(),time.getSeconds(),0);
+	return dat;
 	
+}
 		
 		Ext.QuickTips.init();});
 

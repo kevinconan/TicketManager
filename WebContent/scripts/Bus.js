@@ -177,6 +177,9 @@ var busForm = new Ext.form.Panel({
     }, {
 		layout : 'column',
 		items : [{
+			xtype: 'hidden',
+			name: 'busid',
+		},{
 
             xtype: 'textfield',
             allowBlank: false,
@@ -410,12 +413,17 @@ function submitForm_bs() {
             },
             // 提交失败的回调函数
             failure: function () {
+            	if(!busForm.form.isValid()){
+                	Ext.Msg.alert('错误',
+                    '您的填写有误，请修改后提交!');
+                }else{
                 busStore.reload();
                 Ext.Msg.alert('错误',
                 '服务器出现错误请稍后再试！'); win_bs.close();
+                }
             }
         });
-        win_bs.close();
+        
         /* userForm.form.submit({
 			clientValidation:true,//进行客户端验证
 			waitMsg : '正在提交数据请稍后',//提示信息
@@ -454,8 +462,13 @@ function submitForm_bs() {
             // 提交失败的回调函数
             failure: function () {
                 busStore.reload();
-                Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_bs.close();
+                if(!busForm.form.isValid()){
+                	Ext.Msg.alert('错误',
+                    '您的填写有误，请修改后提交!');
+                }else{
+                Ext.Msg.alert('错误','服务器出现错误请稍后再试！'); 
+                win_bs.close();
+                }
             }
         });
     }

@@ -116,8 +116,9 @@ public class BusAction extends BaseAction<BusBean> {
 
     public String getById() {
 	Object object = GSON.fromJson(this.message, Object.class);
-	System.out.println(object);
-	BusBean bean = this.busService.findByVehicleNo(object.toString());
+	//System.out.println(object);
+	BusBean bean = this.busService.findByBusId((int) Double
+		    .parseDouble(object.toString()));
 
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, true);

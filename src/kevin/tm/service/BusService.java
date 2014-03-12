@@ -21,7 +21,8 @@ public interface BusService {
     public List<BusBean> findAll();
 
     public BusBean findByVehicleNo(String vehicleNo);
-
+    
+    public BusBean findByBusId(int busId);
     public int totalCount();
 
     public List<BusBean> findByPage(int start, int limit);
