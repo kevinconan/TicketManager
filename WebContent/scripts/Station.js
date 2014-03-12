@@ -306,7 +306,7 @@ function getSelectionList(grid,type) {
     var obj = {};
     if (recs.length == 0) {
         Ext.MessageBox.alert('提示', '请选择要进行操作的项目！');
-    } else if(recs.length==1 && type==true){
+    } else if(recs.length==1 && type){
         list.push(recs[0].get(string));
     }else{
     	for (var i = 0 ; i < recs.length ; i++) {

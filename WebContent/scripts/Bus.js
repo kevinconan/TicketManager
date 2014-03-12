@@ -41,36 +41,44 @@ var busGrid = new Ext.grid.Panel({
     store: busStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-		{ text: "车牌号", width: '16%', dataIndex: 'vehicleno', sortable: true },
-		{ text: "线路", width: '16%', dataIndex: 'busrouteid', sortable: true },
-		{ text: "汽车状态", width: '16%', dataIndex: 'busstate', sortable: true },
-		{ text: "所属车辆", width: '16%', dataIndex: 'busstationid', sortable: true },
-		{ text: "司机名", width: '16%', dataIndex: 'drivername', sortable: true },
-		{ text: "座位数", width: '16%', dataIndex: 'seatcount', sortable: true }
+		{ text: "车牌号", width: '19%', dataIndex: 'vehicleno', sortable: true },
+		{ text: "汽车状态", width: '19%', dataIndex: 'busstate', sortable: true },
+		{ text: "所属车站", width: '19%', dataIndex: 'stationname', sortable: true },
+		{ text: "司机名", width: '19%', dataIndex: 'drivername', sortable: true },
+		{ text: "座位数", width: '19%', dataIndex: 'seatcount', sortable: true }
 
 
     ]
 });
-var routeGrid_bs = new Ext.grid.Panel({
-    width: 690,
-    height: 360,
-//    tbar: toolbar_rt,
- //   bbar: pageToolbar_rt,
-    region: 'center',
-    store: routeStore,
-    selModel: new Ext.selection.CheckboxModel(),
-    columns: [//配置表格列
-            { text: "线路号", width: '24%', dataIndex: 'routeid', sortable: true },
-            { text: "线路名", width: '24%', dataIndex: 'routename', sortable: true },
-            { text: "出发站", width: '24%', dataIndex: 'startstationid', sortable: true },
-            { text: "终点站", width: '24%', dataIndex: 'endstationid', sortable: true }
-    ]
-});
+
 var stationGrid_bs = new Ext.grid.Panel({
     maxWidth: 700,
     maxHeight: 380,
  //   tbar: toolbar_st,
-  //  bbar: pageToolbar_st,
+    bbar: new Ext.PagingToolbar({
+    id: 'stationGrid_bs_bb',
+    store: stationStore,
+    pageSize: 10,//小点，和上面一致
+    displayInfo: true,
+    displayMsg: "当前显示从{0}条到{1}条，共{2}条",
+    emptyMsg: "<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
+    items: ['&nbsp;&nbsp;每页显示：', new Ext.form.ComboBox({
+        store: [[5, '5条'], [10, '10条'], [20, '20条'], [40, '40条'], [60, '60条'], [100, '100条']],
+        width: 70,
+        emptyText: '10条',
+        mode: 'remote',
+        id: 'stationGrid_bs_cb',
+        editable: false,
+        triggerAction: 'all',
+        valueField: 'value',
+        displayField: 'text'
+    }).on("select", function (comboBox) {
+    	var pageToolbar_st = Ext.getCmp('stationGrid_bs_bb');
+        pageToolbar_st.pageSize = parseInt(comboBox.getValue());
+        stationStore.pageSize = parseInt(comboBox.getValue());
+        stationStore.reload({ params: { start: 0, limit: pageToolbar_st.pageSize } });
+    })]
+}),
     region: 'center',
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
@@ -81,8 +89,6 @@ var stationGrid_bs = new Ext.grid.Panel({
         { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
     ]
 });
-	routeGrid_bs.hide();
-	stationGrid_bs.hide();
 
 //创建调度表单
 var busForm = new Ext.form.Panel({
@@ -115,7 +121,6 @@ var busForm = new Ext.form.Panel({
 
             	if(stationGrid_bs.isHidden()){
             		stationGrid_bs.show();
-            		routeGrid_bs.hide();
             	}else{	
                 var recs = stationGrid_bs.getSelectionModel().getSelection();
                 if (recs.length == 0) {
@@ -131,7 +136,7 @@ var busForm = new Ext.form.Panel({
             }
             	
             }
-        }, {
+        }/*, {
             xtype: 'textfield',
             allowBlank: false,
             blankText: '运营线路不能为空',
@@ -165,7 +170,7 @@ var busForm = new Ext.form.Panel({
        		 	busGrid.hide();
             	
             }
-        }]
+        }*/]
 
     }, {
 		layout : 'column',
@@ -207,7 +212,16 @@ var busForm = new Ext.form.Panel({
             xtype: 'button',
             text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
             style: "margin-left:20px;",
-            handler: submitForm_bs
+            handler: function(){
+            	Ext.MessageBox.confirm("提示", "您确定要提交吗？", function (btnId) {
+                	//	alert(btnId);
+                        if (btnId == 'yes') {
+                        	submitForm_bs();
+                        }
+                    });
+                	
+                	
+                }
 
         }]
     }
