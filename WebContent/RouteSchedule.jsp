@@ -146,6 +146,7 @@ request.setAttribute("username", userName); */
 					allowBlank : false,
 					blankText : '调度线路不能为空',
 					emptyText : '请选择线路',
+					readOnly : true,
 					name : 'schedulerouteid',
 					fieldLabel:'调度线路'
 				},{
@@ -178,6 +179,7 @@ request.setAttribute("username", userName); */
 					allowBlank : false,
 					blankText : '调度车辆不能为空',
 					emptyText : '请选择车辆',
+					readOnly : true,
 					name : 'schedulebusid',
 					fieldLabel:'调度车辆'
 				},{
@@ -214,10 +216,13 @@ request.setAttribute("username", userName); */
 			        fieldLabel: '出发时间',
 			        emptyText : '请选择日期',
 			        anchor: '100%',
-			        altFormats:'Y-m-d',
-			        format : 'Y-m-d'
+			        editable : false,
+			        altFormats:'Y-m-d H:i:s',
+			        format : 'Y-m-d H:i:s',
+			        submitFormat :'Y-m-d H:i:s '
 			    },{
 			        xtype: 'timefield',
+			        id : 's_t',
 			        name: 's_time',
 			        emptyText : '时间',
 			        anchor: '50%',
@@ -231,10 +236,13 @@ request.setAttribute("username", userName); */
 			        emptyText : '请选择日期',
 			        fieldLabel: '到达时间',
 			        anchor: '100%',
-			        altFormats:'Y-m-d',
-			        format : 'Y-m-d'
+			        editable : false,
+			        altFormats:'Y-m-d H:i:s',
+			        format : 'Y-m-d H:i:s',
+			        submitFormat :'Y-m-d H:i:s '
 			   },{
 			        xtype: 'timefield',
+			        id :'e_t',
 			        name: 'e_time',
 			        emptyText : '时间',
 			        anchor: '50%',
@@ -326,13 +334,6 @@ request.setAttribute("username", userName); */
 		        msg: '正在添加线路信息请稍后......'
 		    });
 	//连接控件时间
-			 var startdate = routesScheduleForm.getForm().findField('starttime').getValue();
-			var starttime = routesScheduleForm.getForm().findField('s_time').getValue();
-			var enddate = routesScheduleForm.getForm().findField('endtime').getValue();
-			var endtime = routesScheduleForm.getForm().findField('e_time').getValue();
-			routesScheduleForm.getForm().findField('starttime').setValue(convTimeField(startdate,starttime));
-			routesScheduleForm.getForm().findField('endtime').setValue(convTimeField(enddate,endtime));
-			alert(convTimeField(enddate,endtime));
 		 	list = [];
 		    list.push(routesScheduleForm.form.getValues());
 		    var formparams = Ext.JSON.encode(list);
@@ -375,15 +376,30 @@ request.setAttribute("username", userName); */
  * 连接双控件的时间
  ***/
 	function convTimeField(date,time){
-	var dat = new Date();
-	dat = date.setHours(time.getHours(),time.getMinutes(),time.getSeconds(),0);
+	var dat = new Date(date.setHours(time.getHours(),time.getMinutes(),time.getSeconds(),0));
 	return dat;
 	
 }
+
+	/**
+	 * 
+	 *时间下拉绑定select时间
+	 */
+	Ext.getCmp('s_t').on('change',function(){
+		var startdate = routesScheduleForm.getForm().findField('starttime').getValue();
+		var starttime = routesScheduleForm.getForm().findField('s_time').getValue();
+		routesScheduleForm.getForm().findField('starttime').setValue(convTimeField(startdate,starttime));		
+	});
+	
+	Ext.getCmp('e_t').on('change',function(){
+		var startdate = routesScheduleForm.getForm().findField('endtime').getValue();
+		var starttime = routesScheduleForm.getForm().findField('e_time').getValue();
+		routesScheduleForm.getForm().findField('endtime').setValue(convTimeField(startdate,starttime));		
+	});
+	
 		
 		Ext.QuickTips.init();});
 
-		
 </script>
 </body>
 </html>
