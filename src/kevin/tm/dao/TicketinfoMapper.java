@@ -25,6 +25,9 @@ public interface TicketinfoMapper {
      */
     List<Ticketinfo> selectByExample(TicketinfoExample example);
 
+    List<Ticketinfo> selectByExample(TicketinfoExample example,
+	    RowBounds rowBounds);
+
     @Select("select * from ticketinfo")
     List<Ticketinfo> selectByPage(RowBounds rowBounds);
 }

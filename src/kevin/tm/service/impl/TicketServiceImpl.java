@@ -139,4 +139,12 @@ public class TicketServiceImpl implements TicketService {
 	return this.ticketBeanMapper.deleteByPrimaryKey(bean.getTicketid());
     }
 
+    @Override
+    public int countByScheduleid(Integer scheduleid) {
+	TicketBeanExample example = new TicketBeanExample();
+	example.clear();
+	example.createCriteria().andTicketscheduleidEqualTo(scheduleid);
+	return this.ticketBeanMapper.countByExample(example);
+    }
+
 }

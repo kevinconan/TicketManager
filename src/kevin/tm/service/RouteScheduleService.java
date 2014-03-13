@@ -67,4 +67,6 @@ public interface RouteScheduleService {
     public int totalCount();
 
     public List<RouteScheduleBean> findByPage(int start, int limit);
+
+    public int seatCount(Integer scheduleId);
 }

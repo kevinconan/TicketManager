@@ -6,8 +6,10 @@ package kevin.tm.service.impl;
 import java.util.List;
 
 import kevin.tm.dao.RouteScheduleBeanMapper;
+import kevin.tm.dao.model.BusBean;
 import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.RouteScheduleBeanExample;
+import kevin.tm.service.BusService;
 import kevin.tm.service.RouteScheduleService;
 
 import org.apache.ibatis.session.RowBounds;
@@ -25,6 +27,8 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
 
     @Autowired
     private RouteScheduleBeanMapper routeScheduleBeanMapper;
+    @Autowired
+    private BusService busService;
 
     public RouteScheduleBeanMapper getRouteScheduleBeanMapper() {
 	return this.routeScheduleBeanMapper;
@@ -111,6 +115,22 @@ public class RouteScheduleServiceImpl implements RouteScheduleService {
     public int delete(RouteScheduleBean routeScheduleBean) {
 	return this.routeScheduleBeanMapper
 		.deleteByPrimaryKey(routeScheduleBean.getScheduleid());
+    }
+
+    @Override
+    public int seatCount(Integer scheduleId) {
+	RouteScheduleBean routeScheduleBean = this.findById(scheduleId);
+	if (routeScheduleBean != null) {
+	    BusBean busBean = this.busService.findByBusId(routeScheduleBean
+		    .getSchedulebusid());
+	    if (busBean != null) {
+		return busBean.getSeatcount();
+	    } else {
+		return -1;
+	    }
+	} else {
+	    return -1;
+	}
     }
 
 }

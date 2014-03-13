@@ -85,4 +85,6 @@ public interface TicketService {
     public List<TicketBean> findByPage(int start, int limit);
 
     public int delete(TicketBean bean);
+
+    int countByScheduleid(Integer scheduleid);
 }
