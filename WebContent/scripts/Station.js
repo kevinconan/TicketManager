@@ -303,7 +303,7 @@ function getSelectionList(grid,type) {
     var recs = grid.getSelectionModel().getSelection();
     var list = [];
     var obj = {};
-    if (recs.length == 0 || recs.length == null) {
+    if (recs.length == null  || recs.length == 0) {
         Ext.MessageBox.alert('提示', '请选择要进行操作的项目！');
     } else if(recs.length==1 && type){
         list.push(recs[0].get(recs[0].idProperty));
