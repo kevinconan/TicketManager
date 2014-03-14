@@ -101,6 +101,6 @@ public interface AdminBeanMapper {
      */
     int updateByPrimaryKey(AdminBean record);
 
-    @Select("select * from [admin]")
+    @Select("select * from admin")
     List<AdminBean> selectByPage(RowBounds rowBounds);
 }

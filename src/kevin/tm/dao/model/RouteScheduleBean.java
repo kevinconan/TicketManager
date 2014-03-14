@@ -2,6 +2,8 @@ package kevin.tm.dao.model;
 
 import java.util.Date;
 
+import org.apache.struts2.json.annotations.JSON;
+
 public class RouteScheduleBean {
 
 	/**
@@ -112,6 +114,7 @@ public class RouteScheduleBean {
 	 * @return  the value of routeschedule.starttime
 	 * @mbggenerated  Tue Mar 11 14:47:47 CST 2014
 	 */
+	@JSON(format="yyyy-MM-dd HH:mm:ss")  
 	public Date getStarttime() {
 		return starttime;
 	}
@@ -121,6 +124,7 @@ public class RouteScheduleBean {
 	 * @param starttime  the value for routeschedule.starttime
 	 * @mbggenerated  Tue Mar 11 14:47:47 CST 2014
 	 */
+	
 	public void setStarttime(Date starttime) {
 		this.starttime = starttime;
 	}
@@ -130,6 +134,7 @@ public class RouteScheduleBean {
 	 * @return  the value of routeschedule.endtime
 	 * @mbggenerated  Tue Mar 11 14:47:47 CST 2014
 	 */
+	@JSON(format="yyyy-MM-dd HH:mm:ss")  
 	public Date getEndtime() {
 		return endtime;
 	}
