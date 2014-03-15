@@ -121,6 +121,7 @@ request.setAttribute("username", userName); */
 			});
 		//创建调度表单
 		var routesScheduleForm = new Ext.form.Panel({
+			id:'scheduleForm',
 			autoHeight : true,
 			layout : "form",
 			fieldDefaults:{//统一设置表单字段默认属性

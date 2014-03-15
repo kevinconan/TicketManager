@@ -52,6 +52,7 @@ var routeGrid = new Ext.grid.Panel({
 
 //创建调度表单
 var routeForm = new Ext.form.Panel({
+	id:'routeForm',
     autoHeight: true,
     layout: "form",
     fieldDefaults: {//统一设置表单字段默认属性
@@ -82,9 +83,11 @@ var routeForm = new Ext.form.Panel({
             text: '选择发车站',
             style: "margin-left:20px;",
             handler: function () {
+            	stationGrid.start=true;
 
             	if(stationGrid.isHidden()){
             		stationGrid.show();
+            		
             	}else{		
                 var recs = stationGrid.getSelectionModel().getSelection();
                 if (recs.length == 0) {
@@ -111,6 +114,7 @@ var routeForm = new Ext.form.Panel({
             text: '选择终点站',
             style: "margin-left:20px;",
             handler: function () {
+            	stationGrid.start=false;
 
             	if(stationGrid.isHidden()){
             		stationGrid.show();
