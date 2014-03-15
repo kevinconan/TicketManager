@@ -67,6 +67,7 @@ var routeForm = new Ext.form.Panel({
     items: [{//第一行
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         layout: 'column',
         items: [{
             xtype: 'hidden',
@@ -101,6 +102,8 @@ var routeForm = new Ext.form.Panel({
 
                 }
 =======
+=======
+>>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
 =======
 >>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
             layout: 'column',
@@ -169,6 +172,7 @@ var routeForm = new Ext.form.Panel({
                     }
                 }]
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
 
         }, {
@@ -215,6 +219,29 @@ var routeForm = new Ext.form.Panel({
 =======
 >>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
 
+=======
+
+        }, {
+            layout: 'column',
+            items: [{
+                    xtype: 'textfield',
+                    allowBlank: false,
+                    blankText: '线路名称不能为空',
+                    name: 'routename',
+                    fieldLabel: '线路名称'
+                }, {
+                    xtype: 'button',
+                    text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
+                    style: "margin-left:20px;",
+                    handler: function() {
+                        Ext.MessageBox.confirm("提示", "您确定要提交吗？", function(btnId) {
+                            //	alert(btnId);
+                            if (btnId == 'yes') {
+                                submitForm_rt();
+                            }
+                        });
+
+>>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
 
                     }
 
