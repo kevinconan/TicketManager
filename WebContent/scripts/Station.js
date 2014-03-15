@@ -1,25 +1,25 @@
 
 /*//定义车站数据源
-var stationStore = Ext.create('Ext.data.Store', {  
-		    pageSize : 10,  
-		    model : 'StationModel',  
-		    autoLoad : true,  
-		    proxy : {  
-		        type : 'ajax',  
-		        actionMethods : 'post',  
-		        url : 'station_list',  
-		        reader : {  
-		            type : 'json',  
-		            root : 'rows',  
-		            totalProperty : 'totalCount'  
-		        }  
-		    }  
-		});*/
+ var stationStore = Ext.create('Ext.data.Store', {  
+ pageSize : 10,  
+ model : 'StationModel',  
+ autoLoad : true,  
+ proxy : {  
+ type : 'ajax',  
+ actionMethods : 'post',  
+ url : 'station_list',  
+ reader : {  
+ type : 'json',  
+ root : 'rows',  
+ totalProperty : 'totalCount'  
+ }  
+ }  
+ });*/
 //定义操作工具栏
 var toolbar_st = [
-   			{ text: '注册车站', iconCls: 'add', handler: showAddStation },
-   			{ text: '修改车站', iconCls: 'option', handler: showModifyStation },
-   			{ text: '注销车站', iconCls: 'remove', handler: showDeleteStation }
+    {text: '注册车站', iconCls: 'add', handler: showAddStation},
+    {text: '修改车站', iconCls: 'option', handler: showModifyStation},
+    {text: '注销车站', iconCls: 'remove', handler: showDeleteStation}
 ];
 
 //分页工具下拉框
@@ -35,15 +35,15 @@ var pagesize_combo_st = new Ext.form.ComboBox({
     displayField: 'text'
 });
 //绑定分页下拉框更改事件
-pagesize_combo_st.on("select", function (comboBox) {
+pagesize_combo_st.on("select", function(comboBox) {
     pageToolbar_st.pageSize = parseInt(comboBox.getValue());
     stationStore.pageSize = parseInt(comboBox.getValue());
-    stationStore.reload({ params: { start: 0, limit: pageToolbar_st.pageSize } });
+    stationStore.reload({params: {start: 0, limit: pageToolbar_st.pageSize}});
 });
 //分页工具栏
 var pageToolbar_st = new Ext.PagingToolbar({
     store: stationStore,
-    pageSize: 10,//小点，和上面一致
+    pageSize: 10, //小点，和上面一致
     displayInfo: true,
     displayMsg: "当前显示从{0}条到{1}条，共{2}条",
     emptyMsg: "<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
@@ -59,52 +59,52 @@ var stationGrid = new Ext.grid.Panel({
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
-        { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
-        { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
-        { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
+        {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
+        {text: "站名", width: 80, dataIndex: 'stationname', sortable: true},
+        {text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true},
+        {text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
     ]
 });
 var stationForm = new Ext.form.Panel({
     fieldDefaults: {//统一设置表单字段默认属性
-        labelSeparator: '：',//分隔符
-        labelWidth: 80,//标签宽度
+        labelSeparator: '：', //分隔符
+        labelWidth: 80, //标签宽度
         msgTarget: 'side',
         width: 300
     },
     bodyPadding: 5,
     //	frame:true,
     items: [{
-        xtype: 'hidden',
-        allowBlank: false,
-        name: 'stationid'
-    }, {
-        xtype: 'textfield',
-        allowBlank: false,
-        name: 'stationname',
-        fieldLabel: '车站名'
-    }, {
-        xtype: 'textfield',
-        allowBlank: false,
-        name: 'locationx',
-        fieldLabel: '坐标x'
-    }, {
-        xtype: 'textfield',
-        name: 'locationy',
-        fieldLabel: '坐标y'
-    },/* ,{
-		xtype:'hidden',
-		name : 'id'
-	} */],
+            xtype: 'hidden',
+            allowBlank: false,
+            name: 'stationid'
+        }, {
+            xtype: 'textfield',
+            allowBlank: false,
+            name: 'stationname',
+            fieldLabel: '车站名'
+        }, {
+            xtype: 'textfield',
+            allowBlank: false,
+            name: 'locationx',
+            fieldLabel: '坐标x'
+        }, {
+            xtype: 'textfield',
+            name: 'locationy',
+            fieldLabel: '坐标y'
+        }, /* ,{
+         xtype:'hidden',
+         name : 'id'
+         } */],
     buttons: [{
-        text: '提交',
-        handler: submitForm_st
-    }, {
-        text: '关闭',
-        handler: function () {
-            win_st.hide();
-        }
-    }, '->']
+            text: '提交',
+            handler: submitForm_st
+        }, {
+            text: '关闭',
+            handler: function() {
+                win_st.hide();
+            }
+        }, '->']
 });
 
 var win_st = new Ext.window.Window({
@@ -128,7 +128,7 @@ function showAddStation() {
 }
 //显示修改车站窗口
 function showModifyStation() {
-    var stationList = getSelectionList(stationGrid,true);
+    var stationList = getSelectionList(stationGrid, true);
     var num = stationList.length;
     if (num > 1) {
         Ext.MessageBox.alert("提示", "每次只能修改一条车站信息。");
@@ -145,12 +145,12 @@ function showModifyStation() {
 }
 //显示删除车站对话框
 function showDeleteStation() {
-    var stationList = getSelectionList(stationGrid,false);
+    var stationList = getSelectionList(stationGrid, false);
     var num = stationList.length;
     if (num == 0) {
         return;
     }
-    Ext.MessageBox.confirm("提示", "您确定要删除所选车站吗？", function (btnId) {
+    Ext.MessageBox.confirm("提示", "您确定要删除所选车站吗？", function(btnId) {
         if (btnId == 'yes') {
             deleteStation(stationList);
         }
@@ -166,9 +166,9 @@ function deleteStation(stationList) {
     });
     Ext.Ajax.request({
         url: 'station_delete',
-        params: { "deleteStationBeans": stationIds },
+        params: {"deleteStationBeans": stationIds},
         method: 'POST',
-        success: function (response, options) {
+        success: function(response, options) {
             msgTip.hide();
             var result = Ext.JSON.decode(response.responseText);
             if (result.success) {
@@ -180,7 +180,7 @@ function deleteStation(stationList) {
                 stationStore.reload();
             }
         },
-        failure: function (response, options) {
+        failure: function(response, options) {
             msgTip.hide();
             Ext.Msg.alert('提示', '删除车站信息请求失败！');
             stationStore.reload();
@@ -194,12 +194,12 @@ function loadForm_st(stationId) {
     //	list.push(stationId)
     //	var message=Ext.JSON.encode(list);
     stationForm.form.load({
-        waitMsg: '正在加载数据请稍后',//提示信息
-        waitTitle: '提示',//标题
-        url: 'station_getById',//请求的url地址
-        params: { "message": stationId },
-        method: 'GET',//请求方式
-        failure: function (form, action) {//加载失败的处理函数
+        waitMsg: '正在加载数据请稍后', //提示信息
+        waitTitle: '提示', //标题
+        url: 'station_getById', //请求的url地址
+        params: {"message": stationId},
+        method: 'GET', //请求方式
+        failure: function(form, action) {//加载失败的处理函数
             Ext.Msg.alert('提示', '数据加载失败');
         }
     });
@@ -222,11 +222,11 @@ function submitForm_st() {
 
         stationForm.form.submit({
             clientValidation: true,
-            url: 'station_add',// 文件路径
-            method: 'post',// 提交方法post或get
-            params: { "createStationBeans": formparams },
+            url: 'station_add', // 文件路径
+            method: 'post', // 提交方法post或get
+            params: {"createStationBeans": formparams},
             // 提交成功的回调函数
-            success: function (form, submit) {
+            success: function(form, submit) {
                 msgTip.hide();
                 var result = Ext.JSON.decode(submit.response.responseText);
                 if (result.success) {
@@ -238,38 +238,39 @@ function submitForm_st() {
                 }
             },
             // 提交失败的回调函数
-            failure: function () {
+            failure: function() {
                 stationStore.reload();
                 Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_st.close();
+                        '服务器出现错误请稍后再试！');
+                win_st.close();
             }
         });
         win_st.close();
         /* userForm.form.submit({
-			clientValidation:true,//进行客户端验证
-			waitMsg : '正在提交数据请稍后',//提示信息
-			waitTitle : '提示',//标题
-			url : ctxpath + '/user_add',//请求的url地址
-			method:'POST',//请求方式
-			success:function(form,action){//加载成功的处理函数
-				win.hide();
-				updateBusGrid(action.result.bookId);
-				Ext.Msg.alert('提示','新增车站成功');
-			},
-			failure:function(form,action){//加载失败的处理函数
-				Ext.Msg.alert('提示','新增车站失败');
-			}
-		}); */
+         clientValidation:true,//进行客户端验证
+         waitMsg : '正在提交数据请稍后',//提示信息
+         waitTitle : '提示',//标题
+         url : ctxpath + '/user_add',//请求的url地址
+         method:'POST',//请求方式
+         success:function(form,action){//加载成功的处理函数
+         win.hide();
+         updateBusGrid(action.result.bookId);
+         Ext.Msg.alert('提示','新增车站成功');
+         },
+         failure:function(form,action){//加载失败的处理函数
+         Ext.Msg.alert('提示','新增车站失败');
+         }
+         }); */
     } else {
         //修改车站信息
         stationForm.form.submit({
-            clientValidation: true,//进行客户端验证
-            waitMsg: '正在提交数据请稍后',//提示信息
-            waitTitle: '提示',//标题
-            url: 'station_update',//请求的url地址
-            method: 'POST',//请求方式
-            params: { "updateStationBeans": formparams },
-            success: function (form, submit) {
+            clientValidation: true, //进行客户端验证
+            waitMsg: '正在提交数据请稍后', //提示信息
+            waitTitle: '提示', //标题
+            url: 'station_update', //请求的url地址
+            method: 'POST', //请求方式
+            params: {"updateStationBeans": formparams},
+            success: function(form, submit) {
                 msgTip.hide();
                 var result = Ext.JSON.decode(submit.response.responseText);
                 if (result.success) {
@@ -281,10 +282,11 @@ function submitForm_st() {
                 }
             },
             // 提交失败的回调函数
-            failure: function () {
+            failure: function() {
                 stationStore.reload();
                 Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_st.close();
+                        '服务器出现错误请稍后再试！');
+                win_st.close();
             }
         });
     }
@@ -298,20 +300,20 @@ function submitForm_st() {
  * grid:需要操作的表单
  * type：操作方式，true：修改，false，删除
  * **/
-function getSelectionList(grid,type) {
-	//debugger
+function getSelectionList(grid, type) {
+    //debugger
     var recs = grid.getSelectionModel().getSelection();
     var list = [];
     var obj = {};
-    if (recs == null  || recs.length == 0) {
+    if (recs == null || recs.length == 0) {
         Ext.MessageBox.alert('提示', '请选择要进行操作的项目！');
-    } else if(recs.length==1 && type){
+    } else if (recs.length == 1 && type) {
         list.push(recs[0].get(recs[0].idProperty));
-    }else{
-    	for (var i = 0 ; i < recs.length ; i++) {
-          	 list.push(recs[i].data);
+    } else {
+        for (var i = 0; i < recs.length; i++) {
+            list.push(recs[i].data);
         }
-    	
+
     }
     return list;
 }
