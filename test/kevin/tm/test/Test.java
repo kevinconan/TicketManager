@@ -31,6 +31,7 @@ public class Test {
 		Bus bus2=gson.fromJson(busjson, Bus.class);
 
 		System.out.println(bus2.getBusroute().getRoutename());
+		
 	}
 
 }
