@@ -59,57 +59,13 @@ var stationGrid = new Ext.grid.Panel({
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
-        { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
-        { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
-        { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true },
-        { text: "操作", 
-        	width: 80,
-        	menuDisabled: true,  
-        	sortable: false,  
-        	align:'center',  
-        	xtype: 'actioncolumn',
-        	items:[{
-        		icon   :'images/choose.png', 
-        		id:'choose',
-        		tooltip:'选择发车站',
-        		handler:function(grid, rowIndex, colIndex){
-        			rec=grid.getStore().getAt(rowIndex);
-        			if(grid.start){
-        				Ext.getCmp('routeForm').getForm().findField('startstationid').setValue(rec.get('stationid'));
-        				var test=Ext.getCmp('choose');
-        			}else{
-        				Ext.getCmp('routeForm').getForm().findField('endstationid').setValue(rec.get('stationid'));
-        				
-        			}
-        		}
-        		
-        		
-        	}]
-        	 }
-=======
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
         {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
         {text: "站名", width: 80, dataIndex: 'stationname', sortable: true},
         {text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true},
         {text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
     ]
 });
 var stationForm = new Ext.form.Panel({
-	id:'stationForm',
     fieldDefaults: {//统一设置表单字段默认属性
         labelSeparator: '：', //分隔符
         labelWidth: 80, //标签宽度

@@ -52,7 +52,6 @@ var routeGrid = new Ext.grid.Panel({
 
 //创建调度表单
 var routeForm = new Ext.form.Panel({
-	id:'routeForm',
     autoHeight: true,
     layout: "form",
     fieldDefaults: {//统一设置表单字段默认属性
@@ -65,47 +64,6 @@ var routeForm = new Ext.form.Panel({
     bodyPadding: 5,
     //	frame:true,
     items: [{//第一行
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        layout: 'column',
-        items: [{
-            xtype: 'hidden',
-          //  allowBlank: false,
-            name: 'routeid'
-        }, {
-            xtype: 'textfield',
-            allowBlank: false,
-            blankText: '发车站不能为空',
-            emptyText: '请选择发车站点',
-            name: 'startstationid',
-            fieldLabel: '发车站点'
-        }, {
-            xtype: 'button',
-            text: '选择发车站',
-            style: "margin-left:20px;",
-            handler: function () {
-            	stationGrid.start=true;
-
-            	if(stationGrid.isHidden()){
-            		stationGrid.show();
-            		
-            	}else{		
-                var recs = stationGrid.getSelectionModel().getSelection();
-                if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择发车站！');
-                } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车站');
-
-                } else {
-                    routeForm.getForm().findField('startstationid').setValue(recs[0].get('stationid'));
-
-                }
-=======
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
             layout: 'column',
             items: [{
                     xtype: 'hidden',
@@ -171,55 +129,6 @@ var routeForm = new Ext.form.Panel({
                         }
                     }
                 }]
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-
-        }, {
-<<<<<<< HEAD
-            xtype: 'button',
-            text: '选择终点站',
-            style: "margin-left:20px;",
-            handler: function () {
-            	stationGrid.start=false;
-
-            	if(stationGrid.isHidden()){
-            		stationGrid.show();
-            	}else{	
-                var recs = stationGrid.getSelectionModel().getSelection();
-                if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择终点站！');
-                } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车站');
-=======
-=======
-
-        }, {
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-            layout: 'column',
-            items: [{
-                    xtype: 'textfield',
-                    allowBlank: false,
-                    blankText: '线路名称不能为空',
-                    name: 'routename',
-                    fieldLabel: '线路名称'
-                }, {
-                    xtype: 'button',
-                    text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
-                    style: "margin-left:20px;",
-                    handler: function() {
-                        Ext.MessageBox.confirm("提示", "您确定要提交吗？", function(btnId) {
-                            //	alert(btnId);
-                            if (btnId == 'yes') {
-                                submitForm_rt();
-                            }
-                        });
-<<<<<<< HEAD
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-=======
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
-
-=======
 
         }, {
             layout: 'column',
@@ -241,7 +150,6 @@ var routeForm = new Ext.form.Panel({
                             }
                         });
 
->>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
 
                     }
 
