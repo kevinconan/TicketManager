@@ -60,6 +60,7 @@ var stationGrid = new Ext.grid.Panel({
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
 <<<<<<< HEAD
+<<<<<<< HEAD
         { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
         { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
         { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
@@ -89,10 +90,15 @@ var stationGrid = new Ext.grid.Panel({
         	}]
         	 }
 =======
+=======
+>>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
         {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
         {text: "站名", width: 80, dataIndex: 'stationname', sortable: true},
         {text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true},
         {text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
+<<<<<<< HEAD
+>>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
+=======
 >>>>>>> 9aa48d91940d4c6def404cbb09a05c233cc6bee4
     ]
 });
