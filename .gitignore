@@ -219,7 +219,6 @@ pip-log.txt
 ## NetBeans
 #############
 
-/nbproject/
+nbproject/
 build.xml
 manifest.mf
-/nbbuild/

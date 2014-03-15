@@ -12,7 +12,7 @@ function calcStationDistance(cx1, cy1, cx2, cy2) {
     dy = Math.abs(y1 - y2);
 
     return 6378137
-            * 2
-            * Math.asin(Math.sqrt(Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1)
-                    * Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2)));
+			* 2
+			* Math.asin(Math.sqrt(Math.pow(Math.sin(dx / 2), 2) + Math.cos(x1)
+					* Math.cos(x2) * Math.pow(Math.sin(dy / 2), 2)));
 }

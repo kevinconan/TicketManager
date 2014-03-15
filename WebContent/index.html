@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>距离计算测试</title>
-        <script type="text/javascript" src="scripts/functions.js"></script>
-        <script type="text/javascript">
-            function calc() {
-                var x1 = parseFloat(cx1.value);
-                var y1 = parseFloat(cy1.value);
-                var x2 = parseFloat(cx2.value);
-                var y2 = parseFloat(cy2.value);
-
-                var d = calcStationDistance(x1, y1, x2, y2);
-
-                ans.value = d;
-            }
-        </script>
-    </head>
-    <body>
-        x1:<input type="text" id="cx1"/><br/>
-        y1:<input type="text" id="cy1"/><br/>
-        x2:<input type="text" id="cx2"/><br/>
-        y2:<input type="text" id="cy2"/><br/>
-        <input type="button" value="计算" id="btn" onClick="calc()"/>&nbsp;结果：<input type="text" id="ans"/>
-    </body>
+<head>
+<meta charset="UTF-8">
+<title>距离计算测试</title>
+<script type="text/javascript" src="scripts/functions.js"></script>
+<script type="text/javascript">
+function calc(){
+	var x1=parseFloat(cx1.value);
+	var y1=parseFloat(cy1.value);
+	var x2=parseFloat(cx2.value);
+	var y2=parseFloat(cy2.value);
+	
+	var d=calcStationDistance(x1,y1,x2,y2);
+	
+	ans.value=d;
+}
+</script>
+</head>
+<body>
+x1:<input type="text" id="cx1"/><br/>
+y1:<input type="text" id="cy1"/><br/>
+x2:<input type="text" id="cx2"/><br/>
+y2:<input type="text" id="cy2"/><br/>
+<input type="button" value="计算" id="btn" onClick="calc()"/>&nbsp;结果：<input type="text" id="ans"/>
+</body>
 </html>
