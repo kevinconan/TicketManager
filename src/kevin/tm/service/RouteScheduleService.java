@@ -1,25 +1,25 @@
 /**
- * 
+ *
  */
 package kevin.tm.service;
 
 import java.util.List;
-
+import kevin.tm.dao.model.RouteBean;
 import kevin.tm.dao.model.RouteScheduleBean;
-
 import org.springframework.stereotype.Service;
 
 /**
  * 线路日程Service接口
- * 
+ *
  * @author Diluka
- * 
+ *
  */
 @Service
 public interface RouteScheduleService {
+
     /**
      * 保存
-     * 
+     *
      * @param routeScheduleBean
      * @return
      */
@@ -27,7 +27,7 @@ public interface RouteScheduleService {
 
     /**
      * ID删除
-     * 
+     *
      * @param scheduleId
      * @return
      */
@@ -35,7 +35,7 @@ public interface RouteScheduleService {
 
     /**
      * 删除
-     * 
+     *
      * @param routeScheduleBean
      * @return
      */
@@ -43,7 +43,7 @@ public interface RouteScheduleService {
 
     /**
      * 修改
-     * 
+     *
      * @param routeScheduleBean
      * @return
      */
@@ -51,7 +51,7 @@ public interface RouteScheduleService {
 
     /**
      * ID查找
-     * 
+     *
      * @param scheduleId
      * @return
      */
@@ -59,7 +59,7 @@ public interface RouteScheduleService {
 
     /**
      * 查找全部
-     * 
+     *
      * @return
      */
     public List<RouteScheduleBean> findAll();
@@ -69,4 +69,11 @@ public interface RouteScheduleService {
     public List<RouteScheduleBean> findByPage(int start, int limit);
 
     public int seatCount(Integer scheduleId);
+
+    public List<RouteScheduleBean> findByRouteid(Integer routeid);
+
+    public List<RouteScheduleBean> findByRouteids(List<Integer> routeids);
+
+    public List<RouteScheduleBean> findByRouteBeans(List<RouteBean> routeBeans);
+
 }
