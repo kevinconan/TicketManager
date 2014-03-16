@@ -61,6 +61,10 @@ Ext.onReady(function () {
                 text: '票务管理',
                 leaf: true,
                 url: ctxpath + '/ticket.jsp'
+            },{
+                text: '售票记录',
+                leaf: true,
+                url: ctxpath + '/ticketRec.jsp'
             }]
         },
         root: {
