@@ -6,6 +6,7 @@ package kevin.tm.service;
 import java.util.Date;
 import java.util.List;
 import kevin.tm.dao.model.Ticketinfo;
+import kevin.tm.dao.model.TicketinfoExample;
 import org.springframework.stereotype.Service;
 
 /**
@@ -71,5 +72,9 @@ public interface TicketInfoService {
     public int countByRouteid(Integer routeid, Date begin, Date untill);
 
     public int countByRouteid(Integer routeid);
+
+    public List<Ticketinfo> findByExample(TicketinfoExample example, int start, int limit);
+
+    public int countByExample(TicketinfoExample example);
 
 }

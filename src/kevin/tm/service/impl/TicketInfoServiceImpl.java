@@ -331,4 +331,14 @@ public class TicketInfoServiceImpl implements TicketInfoService {
         }
     }
 
+    @Override
+    public List<Ticketinfo> findByExample(TicketinfoExample example, int start, int limit) {
+        return mapper.selectByExample(example, new RowBounds(start, limit));
+    }
+
+    @Override
+    public int countByExample(TicketinfoExample example) {
+        return mapper.countByExample(example);
+    }
+
 }
