@@ -57,6 +57,10 @@ Ext.onReady(function () {
                 text: '调度管理',
                 leaf: true,
                 url: ctxpath + '/RouteSchedule.jsp'
+            }, {
+                text: '票务管理',
+                leaf: true,
+                url: ctxpath + '/ticket.jsp'
             }]
         },
         root: {

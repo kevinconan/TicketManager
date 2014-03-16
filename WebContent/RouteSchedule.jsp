@@ -80,13 +80,13 @@ request.setAttribute("username", userName); */
 		      			columns: [//配置表格列
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
 		      				{text: "调度名称", width: 80, dataIndex: 'schedulename', sortable: true},
-		      				{text: "调度调度", width: 80, dataIndex: 'routename', sortable: true,},
+		      				{text: "调度线路", width: 80, dataIndex: 'routename', sortable: true,},
 		      				{text: "出发站点", width: 80, dataIndex: 'startstationname', sortable: true},
 		      				{text: "到达站点", width: 80, dataIndex: 'endstationname', sortable: true},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				
-		      				{text: "调度车辆", width: 80, dataIndex: 'schedulebusid', sortable: true}
+		      				{text: "调度车辆", width: 80, dataIndex: 'vehicleno', sortable: true}
 		      			],
 		      			beforeshow:function(value,op){
 		      				consloe.log("beforeshow");
@@ -486,7 +486,9 @@ request.setAttribute("username", userName); */
  * 连接双控件的时间
  ***/
 	function convTimeField(date,time){
-	var dat = new Date(date.setHours(time.getHours(),time.getMinutes(),time.getSeconds(),0));
+	var dat = null;
+	if(date!=null && time!=null)
+		dat = new Date(date.setHours(time.getHours(),time.getMinutes(),time.getSeconds(),0));
 	return dat;
 	
 }
