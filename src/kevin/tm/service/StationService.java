@@ -1,25 +1,24 @@
 /**
- * 
+ *
  */
 package kevin.tm.service;
 
 import java.util.List;
-
 import kevin.tm.dao.model.StationBean;
-
 import org.springframework.stereotype.Service;
 
 /**
  * 车站Service接口
- * 
+ *
  * @author Diluka
- * 
+ *
  */
 @Service
 public interface StationService {
+
     /**
      * 保存
-     * 
+     *
      * @param stationBean
      * @return
      */
@@ -27,7 +26,7 @@ public interface StationService {
 
     /**
      * Id删除
-     * 
+     *
      * @param stationId
      * @return
      */
@@ -35,7 +34,7 @@ public interface StationService {
 
     /**
      * 删除
-     * 
+     *
      * @param stationBean
      * @return
      */
@@ -43,7 +42,7 @@ public interface StationService {
 
     /**
      * 修改
-     * 
+     *
      * @param stationBean
      * @return
      */
@@ -51,7 +50,7 @@ public interface StationService {
 
     /**
      * Id查找
-     * 
+     *
      * @param stationId
      * @return
      */
@@ -59,14 +58,14 @@ public interface StationService {
 
     /**
      * 查找全部
-     * 
+     *
      * @return
      */
     public List<StationBean> findAll();
 
     /**
      * 名称查找
-     * 
+     *
      * @param stationName
      * @return
      */
@@ -75,4 +74,5 @@ public interface StationService {
     public int totalCount();
 
     public List<StationBean> findByPage(int start, int limit);
+
 }

@@ -1,25 +1,24 @@
 /**
- * 
+ *
  */
 package kevin.tm.service;
 
 import java.util.List;
-
 import kevin.tm.dao.model.RouteBean;
-
 import org.springframework.stereotype.Service;
 
 /**
  * 路线Service接口
- * 
+ *
  * @author Diluka
- * 
+ *
  */
 @Service("routeService")
 public interface RouteService {
+
     /**
      * 保存
-     * 
+     *
      * @param routeBean
      * @return
      */
@@ -27,7 +26,7 @@ public interface RouteService {
 
     /**
      * ID删除
-     * 
+     *
      * @param routeId
      * @return
      */
@@ -35,7 +34,7 @@ public interface RouteService {
 
     /**
      * 删除
-     * 
+     *
      * @param routeBean
      * @return
      */
@@ -43,7 +42,7 @@ public interface RouteService {
 
     /**
      * ID列表删除
-     * 
+     *
      * @param routeId
      * @return
      */
@@ -51,7 +50,7 @@ public interface RouteService {
 
     /**
      * 修改
-     * 
+     *
      * @param routeBean
      * @return
      */
@@ -59,7 +58,7 @@ public interface RouteService {
 
     /**
      * ID查找
-     * 
+     *
      * @param routeId
      * @return
      */
@@ -67,14 +66,14 @@ public interface RouteService {
 
     /**
      * 查找全部
-     * 
+     *
      * @return
      */
     public List<RouteBean> findAll();
 
     /**
      * 名称查找
-     * 
+     *
      * @param routeName
      * @return
      */
@@ -83,4 +82,10 @@ public interface RouteService {
     public int totalCount();
 
     public List<RouteBean> findByPage(int start, int limit);
+
+    public List<RouteBean> findByStartStationid(Integer stationid);
+
+    public List<RouteBean> findByEndStationid(Integer stationid);
+
+    public List<RouteBean> findByStartEndStationid(Integer startid, Integer endid);
 }
