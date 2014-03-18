@@ -11,7 +11,7 @@ request.setAttribute("username", userName); */
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>调度管理</title>
+<title>售票记录</title>
 <link rel="stylesheet" type="text/css" href="./ext-4.2.1-Lite/resources/ext-theme-neptune/ext-theme-neptune-all.css" />
 <script type="text/javascript" src="./ext-4.2.1-Lite/ext-all-debug.js"></script>
 <script type="text/javascript" src="./ext-4.2.1-Lite/ext-theme-neptune.js"></script>
@@ -21,6 +21,7 @@ request.setAttribute("username", userName); */
 <script type="text/javascript" src="./scripts/Station.js"></script>
 <script type="text/javascript" src="./scripts/Route.js"></script>
 <script type="text/javascript" src="./scripts/Bus.js"></script>
+<script type="text/javascript" src="./scripts/util.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
@@ -33,41 +34,43 @@ request.setAttribute("username", userName); */
 	
 	
 	Ext.onReady(function(){
-		
+		//搜索表单
 		var searchForm = new Ext.form.Panel({
 		   //  height: 20,
 		   	fieldDefaults: {//统一设置表单字段默认属性
        		labelSeparator: '：',//分隔符
        		labelWidth: 55,//标签宽度
         	style: "margin-left:20px;",
-        	width: 200
+        	width: 150
     		},
 
 		     baseCls: "x-plain",
 		     items: [{
 		    	 layout: 'column',
 		    	 items:[{
-				      fieldLabel: "终点站",
-				      name: "namestation",
-				      allowBlank: false,//禁止为空
+				      fieldLabel: "起点站",
+				      name: "startstationname",
+				    //  allowBlank: false,//禁止为空
 				      xtype : 'textfield',
 				     // blankText: ""
 				     },{
-				      fieldLabel: "起点站",
-				      name: "startstation",
-				      allowBlank: false,//禁止为空
-				      xtype : 'datefield',
+				      fieldLabel: "终点站",
+				      name: "endstationname",
+				     // allowBlank: false,//禁止为空
+				      xtype : 'textfield',
 				     }]
 		     },
 		             
 		             ]
 		    });
+		
+		
 
 		var toolbar_tr = [
 		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
 		         			{text : '修改调度',iconCls:'option',handler:showModifyRoute},
 		         			searchForm,
-		         			{text : '搜索',iconCls:'remove'}
+		         			{text : '搜索',iconCls:'remove',handler:searchRec}
 		         		];
 		
 		
@@ -515,6 +518,32 @@ request.setAttribute("username", userName); */
 		}
 	
 	}
+	
+	//搜索提交处理
+	function searchRec(){
+		//insWildcards(searchForm);
+		//list = [];
+	   // list.push(searchForm.form.getValues());
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+
+		ticketGrid.store.setProxy({
+	        type: 'ajax',
+	        actionMethods: 'post',
+	        url: 'ticketinfo_listByExample',
+	        extraParams:{
+	        	message:formparams
+               
+            },
+	        reader: {
+	            type: 'json',
+	            root: 'data',
+	            totalProperty: 'totalCount'
+	        }
+	    });
+		ticketGrid.store.load();
+	}
+	
+	
 
 /**
  * 连接双控件的时间

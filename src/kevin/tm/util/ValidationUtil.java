@@ -3,6 +3,8 @@ package kevin.tm.util;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
+
 /**
  * 各种数据类型验证工具类
  * 
@@ -38,6 +40,7 @@ public class ValidationUtil {
 	public static boolean isNullOrEmpty1(String value) {
 		return value == null || value.isEmpty()||value.equals("")||value.equals(" ");
 	}
+	
 	/**
 	 * 字符串对象的非空校验
 	 * 
@@ -46,6 +49,16 @@ public class ValidationUtil {
 	 */
 	public static boolean isNullOrEmptyStr(String value) {
 		return value == null || value.isEmpty()||value.equals("")||value.equals("[]");
+	}
+	
+	/**
+	 * JsonElement对象的非空校验
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static boolean isNullOrEmptyJson(JsonElement value) {
+		return value == null || value.getAsString().isEmpty()||value.getAsString().equals("")||value.getAsString().equals(" ");
 	}
 
 	/**

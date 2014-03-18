@@ -11,6 +11,8 @@ import java.util.Map;
 import kevin.tm.dao.model.Ticketinfo;
 import kevin.tm.dao.model.TicketinfoExample;
 import kevin.tm.service.TicketInfoService;
+import kevin.tm.util.ValidationUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -140,31 +142,31 @@ public class TicketinfoAction extends BaseAction<Ticketinfo> {
         example.clear();
         TicketinfoExample.Criteria criteria = example.createCriteria();
 
-        if (jsonElementMap.get("schedulename") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("schedulename"))) {
             criteria.andSchedulenameLike(jsonElementMap.get("schedulename").getAsString());
         }
-        if (jsonElementMap.get("routename") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("routename"))) {
             criteria.andRoutenameLike(jsonElementMap.get("routename").getAsString());
         }
-        if (jsonElementMap.get("startstationname") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("startstationname"))) {
             criteria.andStartstationnameLike(jsonElementMap.get("startstationname").getAsString());
         }
-        if (jsonElementMap.get("endstationname") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("endstationname"))) {
             criteria.andEndstationnameLike(jsonElementMap.get("endstationname").getAsString());
         }
-        if (jsonElementMap.get("starttime") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("starttime"))) {
             criteria.andStarttimeGreaterThanOrEqualTo(new Date(jsonElementMap.get("starttime").getAsLong()));
         }
-        if (jsonElementMap.get("endtime") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("endtime"))) {
             criteria.andEndtimeLessThanOrEqualTo(new Date(jsonElementMap.get("endtime").getAsLong()));
         }
-        if (jsonElementMap.get("checked") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("checked"))) {
             criteria.andCheckedEqualTo(jsonElementMap.get("checked").getAsBoolean());
         }
-        if (jsonElementMap.get("customername") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("customername"))) {
             criteria.andCustomernameEqualTo(jsonElementMap.get("customername").getAsString());
         }
-        if (jsonElementMap.get("ticketno") != null) {
+        if (!ValidationUtil.isNullOrEmptyJson(jsonElementMap.get("ticketno"))) {
             criteria.andTicketnoLike(jsonElementMap.get("ticketno").getAsString());
         }
 
