@@ -5,11 +5,27 @@
  
  Ext.apply(Ext.form.field.VTypes, {
     vehiclenoVT: function(val, field) {
-    	
-    	
-        return timeTest.test(val);
+    	var ff=field;
+    	var flag = false;
+    	Ext.Ajax.request({
+        url: 'bus_isVehicleNoExist',
+        params: { "message": val },
+        method: 'POST',
+        async: false,
+        success: function (response, options) {
+            var result = Ext.JSON.decode(response.responseText);
+            flag=!result.MESSAGE; 
+        }
+      
+    });
+  //  if(field.originalValue==val)
+    
+    //	flag=true;
+    
+    	return flag;
+        
     },
-    timeText: 'Not a valid time.  Must be in the format "12:34 PM".',
+    vehiclenoVTText: '车牌号重复！'
 
 
 });

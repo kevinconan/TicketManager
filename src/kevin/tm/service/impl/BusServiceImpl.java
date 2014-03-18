@@ -107,4 +107,15 @@ public class BusServiceImpl implements BusService {
 	return this.busBeanMapper.deleteByPrimaryKey(busBean.getBusid());
     }
 
+	@Override
+	public boolean isVehicleNoExist(String vehicleno) {
+		BusBeanExample example = new BusBeanExample();
+		example.clear();
+		example.createCriteria().andVehiclenoLike(vehicleno);
+		if(busBeanMapper.countByExample(example)>0)
+			return true;
+		else
+		    return false; 
+	}
+
 }

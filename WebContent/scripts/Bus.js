@@ -94,6 +94,7 @@ Ext.getCmp('stationGrid_bs_cb').on("select", function (comboBox) {
 
 //创建调度表单
 var busForm = new Ext.form.Panel({
+	trackResetOnLoad:true,
     autoHeight: true,
     layout: "form",
     fieldDefaults: {//统一设置表单字段默认属性
@@ -185,7 +186,8 @@ var busForm = new Ext.form.Panel({
             allowBlank: false,
             blankText: '车牌号称不能为空',
             name: 'vehicleno',
-            fieldLabel: '车牌号'
+            fieldLabel: '车牌号',
+            vtype:'vehiclenoVT'
         }, {
 
         	xtype:'combo',
@@ -272,7 +274,7 @@ var win_bs = new Ext.window.Window({
 function showNewBus() {
 
 	busForm.isAdd = true;
-    busForm.form.reset();
+    busForm.getEl().dom.reset();
     win_bs.setTitle("新增客车");
     win_bs.show();
 

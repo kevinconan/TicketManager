@@ -21,6 +21,7 @@ request.setAttribute("username", userName); */
 <script type="text/javascript" src="./scripts/Station.js"></script>
 <script type="text/javascript" src="./scripts/Route.js"></script>
 <script type="text/javascript" src="./scripts/Bus.js"></script>
+<script type="text/javascript" src="./scripts/VTypes.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
