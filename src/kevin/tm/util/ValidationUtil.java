@@ -59,7 +59,7 @@ public class ValidationUtil {
      * @return
      */
     public static boolean isNullOrEmptyJson(JsonElement value) {
-        return value == null || value.getAsString().isEmpty() || value.getAsString().matches("\"\\s*\"");//像这样判断是不是空格好不好？
+        return value == null || value.getAsString().isEmpty() || value.getAsString().matches("^\"\\s*\"$");//像这样判断是不是空格好不好？
     }
 
     /**
