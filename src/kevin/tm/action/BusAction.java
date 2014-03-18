@@ -125,6 +125,10 @@ public class BusAction extends BaseAction<BusBean> {
 	this.map.put(DATA, bean);
 	return MAP;
     }
+    
+    public boolean isVehicleNoExist(){
+    	return busService.isVehicleNoExist(message);
+    }
 
     public String getCreateBusBeans() {
 	return this.createBusBeans;
