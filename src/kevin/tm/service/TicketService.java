@@ -87,4 +87,6 @@ public interface TicketService {
     public int delete(TicketBean bean);
 
     int countByScheduleid(Integer scheduleid);
+    
+    int countRemainSeatBySchid(Integer scheduleid);
 }

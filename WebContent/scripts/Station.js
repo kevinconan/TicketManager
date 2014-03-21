@@ -92,7 +92,7 @@ var stationForm = new Ext.form.Panel({
         xtype: 'textfield',
         name: 'locationy',
         fieldLabel: '坐标y'
-    },/* ,{
+    }/* ,{
 		xtype:'hidden',
 		name : 'id'
 	} */],

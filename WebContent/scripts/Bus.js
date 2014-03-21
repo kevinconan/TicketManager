@@ -179,7 +179,7 @@ var busForm = new Ext.form.Panel({
 		layout : 'column',
 		items : [{
 			xtype: 'hidden',
-			name: 'busid',
+			name: 'busid'
 		},{
 
             xtype: 'textfield',
@@ -274,7 +274,6 @@ var win_bs = new Ext.window.Window({
 function showNewBus() {
 
 	busForm.isAdd = true;
-    busForm.getEl().dom.reset();
     win_bs.setTitle("新增客车");
     win_bs.show();
 

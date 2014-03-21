@@ -103,4 +103,8 @@ public interface TicketBeanMapper {
 
     @Select("select * from ticket")
     List<TicketBean> selectByPage(RowBounds rowBounds);
+    @Select("select (sum1.seatcount-sum2.sellcount) as remaincount from" +
+    		"(select seatcount from bus where busid in (select schedulebusid from routeschedule where scheduleid = #{scheduleid}) ) sum1,"+
+    		"(select count(*) as sellcount from ticket where ticketscheduleid = #{scheduleid}) sum2")
+    int countRemainSeatBySchid(@Param("scheduleid")int scheduleid);
 }
