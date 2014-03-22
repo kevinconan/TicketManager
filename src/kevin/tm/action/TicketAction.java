@@ -117,20 +117,14 @@ public class TicketAction extends BaseAction<TicketBean> {
     }
 
     public String getById() {
-	/*Object object = GSON.fromJson(this.message, Object.class);
+	Object object = GSON.fromJson(this.message, Object.class);
 	TicketBean bean = this.service.findById((int) Double.parseDouble(object
 		.toString()));
 
 	this.map = new HashMap<>();
 	this.map.put(SUCCESS, true);
 	this.map.put(DATA, bean);
-	return MAP;*/
-    	System.out.println(message);
-    	int remainSeat = this.service.countRemainSeatBySchid(Integer.parseInt(message));
-    	this.map = new HashMap<>();
-    	this.map.put(SUCCESS, true);
-    	this.map.put(DATA, remainSeat);
-    	return MAP;
+	return MAP;
     }
 
     public String remainSeat(){

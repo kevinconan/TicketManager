@@ -37,7 +37,7 @@ request.setAttribute("username", userName); */
 
 		var toolbar_rs = [
 		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
-		         			{text : '修改调度',iconCls:'option',handler:showModifyRoute},
+		         			{text : '修改调度',iconCls:'option',handler: showModifyRoute},
 		         			{text : '删除调度',iconCls:'remove',handler:showDeleteSchedule}
 		         		];
 
@@ -70,6 +70,7 @@ request.setAttribute("username", userName); */
 		      	 });
 		      //定义表格组件
 		      
+		      
 		     
 		      var routesScheduleGrid = new Ext.grid.Panel({
 
@@ -82,8 +83,8 @@ request.setAttribute("username", userName); */
 		      				{text: "调度编号", width: 80, dataIndex: 'scheduleid', sortable: true},
 		      				{text: "行程名称", width: 80, dataIndex: 'schedulename', sortable: true},
 		      				{text: "线路", width: 80, dataIndex: 'routename', sortable: true,},
-		      				{text: "出发站点", width: 80, dataIndex: 'startstationname', sortable: true},
-		      				{text: "到达站点", width: 80, dataIndex: 'endstationname', sortable: true},
+		      				{text: "起点站", width: 80, dataIndex: 'startstationname', sortable: true},
+		      				{text: "终点站", width: 80, dataIndex: 'endstationname', sortable: true},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				
@@ -91,21 +92,34 @@ request.setAttribute("username", userName); */
 		      				{text: "余票", width: 80, sortable: true,renderer:function(value, cellmeta, record, rowIndex, columnIndex, store){
 		      					var scheduleid = record.data['scheduleid'];
 		      					
-		      					 Ext.Ajax.request({
-		      				        url: 'ticket_remainSeat',
-		      				        params: { "message": scheduleid },
-		      				        method: 'get',
-		      				     	async :  false,
-		      				        success: function (response, options) {
-		      				            var result = Ext.JSON.decode(response.responseText);
-		      				            value = result.data;
-		      				        }
-		      				        
-		      				    });
-		      					 
-		      					return value;
 		      					
-		      				}}
+		      					 
+		      					return getRemainSeat(scheduleid);
+		      					
+		      				}},{
+		      					text: "操作",
+		      					menuDisabled: true,  
+		      				    sortable: false,  
+		      				    align:'center',  
+		      				    xtype: 'actioncolumn',
+		      				    height:'40',
+		      				  	width: 80,
+		      				  items: [{  
+		      				       icon :'./images/sell.png',  
+		      				       iconCls:'height:24px;width:24px;',
+		      				  //     id: 'sell',  
+		      				       tooltip: '售票',  
+		      				       handler: function(grid,rowIndex,colIndex){
+		      				    	   win_sell.show();
+		      				    	   var scheduleid=routesScheduleGrid.getStore().getAt(rowIndex).data['scheduleid'];
+		      				    	   loadForm_sell(scheduleid);
+		      				    	   
+		      				       }
+		      				  }]
+		      					
+		      					
+		      					
+		      				}
 		      			],
 		      			beforeshow:function(value,op){
 		      				consloe.log("beforeshow");
@@ -128,8 +142,111 @@ request.setAttribute("username", userName); */
 		      	    			});
 		      	        }
 		      		});
+		      //根据调度编号获得余票
+		      function getRemainSeat(scheduleid){
+		    	  var value
+		    	  Ext.Ajax.request({
+				        url: 'ticket_remainSeat',
+				        params: { "message": scheduleid },
+				        method: 'get',
+				     	async :  false,
+				        success: function (response, options) {
+				            var result = Ext.JSON.decode(response.responseText);
+				            value = result.data;
+				        }
+				        
+				    });
+		    	  return value;
+		      }
 		
+		//创建售票信息确认窗口
+		var win_sell= new Ext.window.Window({
+			layout:'fit',
+			title:'售票',
+		    width:480,
+		    closeAction:'hide',
+		    height:320,
+			resizable : false,
+			shadow : true,
+			modal :true,
+		    closable:true,
+			items: [Ext.create('Ext.form.Panel',{
+				id:'sellForm',
+				autoHeight : true,
+				layout : "form",
+				fieldDefaults:{//统一设置表单字段默认属性
+					labelSeparator :'：',//分隔符
+					labelWidth : 70,//标签宽度
+					style:"margin-left:20px;",
+					width : 180
+				},
+				bodyPadding: 5,
 
+				items :[{
+					xtype:'fieldset',
+					title:'车票概况',
+					style:'padding:5 5 5 5',
+					items:[{layout:'column',items:[{xtype:'textfield',readOnly:true,name : 'schedulename',fieldLabel:'行程名称'},
+					                             {xtype:'textfield',readOnly:true,name : 'routename',fieldLabel:'线路'},
+					                             ]},
+					   		{layout:'column',items:[{xtype:'textfield',readOnly:true,name : 'startstationname',fieldLabel:'起点站'},
+					    					     {xtype:'textfield',readOnly:true,name : 'endstationname',fieldLabel:'终点站'},
+					    					      ]},
+							{layout:'column',items:[{xtype:'textfield',readOnly:true,name : 'starttime',fieldLabel:'出发时间'},
+					    					     {xtype:'textfield',readOnly:true,name : 'endtime',fieldLabel:'到达时间'}
+					    						 ]},
+					    	{layout:'column',items:[{xtype:'textfield',readOnly:true,name : 'vehicleno',fieldLabel:'车牌号'},
+					    	                        {xtype:'textfield',readOnly:true,name : 'remainseat',fieldLabel:'余票'}
+					    					       ]}]
+					
+				},{
+					xtype:'fieldset',
+					title:'售票信息',
+					items:[{layout:'column',items:[{
+														xtype:'textfield',
+														name : 'customername',
+														fieldLabel:'旅客姓名',
+														allowBlank:false,
+														blankText:'请输入旅客姓名',
+														emptyText:'请输入旅客姓名',
+													},{	xtype:'numberfield',
+														name : 'ticketamount',
+														fieldLabel:'购买张数',
+														minValue:1,
+														minText:'购票数量有误',
+														allowBlank:false,
+														blankText:'请输入购票数量',
+														emptyText:'请输入购票数量',
+														}
+
+						                             ]},]
+				},//{xtype:'hidden',name:'checked'},
+				//{xtype:'hidden',name:'deadline'},
+				//{xtype:'hidden',name:'entytime'},
+				//{xtype:'hidden',name:'checked'},
+				//{xtype:'hidden',name:'seatno'},
+				//{xtype:'hidden',name:'checked'},
+				//{xtype:'hidden',name:'ticketno'},
+				{xtype:'hidden',name:'ticketscheduleid'},
+			//	{xtype:'hidden',name:'tickettitle'},
+				
+				
+				],
+				
+				buttons: [{
+			        text: '提交',
+			        handler: submitSellForm
+			    }, {
+			        text: '关闭',
+			        handler: function () {
+			            win_sell.hide();
+			        }
+			    }, '->']
+				
+				
+				
+			})]
+		});
 		      
 		      
 		      
@@ -386,21 +503,19 @@ request.setAttribute("username", userName); */
 		
 		
 		//加载表单数据
-		function loadForm_rs(scheduleId) {
+		function loadForm_sell(scheduleId) {
 			
-		    routesScheduleForm.form.load({
+		    Ext.getCmp('sellForm').getForm().load({
 		        waitMsg: '正在加载数据请稍后',//提示信息
 		        waitTitle: '提示',//标题
-		        url: 'routeschedule_getById',//请求的url地址
+		        url: 'scheduleinfo_getById',//请求的url地址
 		        params: { "message": scheduleId },
 		        method: 'GET',//请求方式
-		        success: function(form, action){
-		        	var startdate = form.findField('starttime').getValue();
-			        var enddate = form.findField('endtime').getValue();
-			        form.findField('s_time').setValue(new Date(startdate));
-			        form.findField('e_time').setValue(new Date(enddate));
-		        	
-		        },
+				success: function(form,action){
+					form.findField('remainseat').setValue(getRemainSeat(scheduleId));
+					form.findField('ticketscheduleid').setValue(scheduleId);
+				},
+
 		        failure: function (form, action) {//加载失败的处理函数
 		            Ext.Msg.alert('提示', '数据加载失败');
 		        }
@@ -430,34 +545,31 @@ request.setAttribute("username", userName); */
 		
 		
 //提交调度信息表单
-	function submitScheduleForm(){
+	function submitSellForm(){
 		 var msgTip = Ext.MessageBox.show({
 		        title: '提示',
 		        width: 250,
-		        msg: '正在添加调度信息请稍后......'
-		    });
-	//连接控件时间
-	
+		        msg: '正在操作请稍后......'
+		    });	
 		 	list = [];
-		    list.push(routesScheduleForm.form.getValues());
+		    list.push(Ext.getCmp('sellForm').getForm().getValues());
 		    var formparams = Ext.JSON.encode(list);
 		    console.log(list);	
-		if(routesScheduleForm.isAdd){//新增提交
-			routesScheduleForm.form.submit({
+		    Ext.getCmp('sellForm').getForm().submit({
 	        //    clientValidation: true,
-	            url: 'routeschedule_add',// 文件路径
+	            url: 'ticket_add',// 文件路径
 	            method: 'post',// 提交方法post或get
-	            params: { "createRouteScheduleBeans": formparams },
+	            params: { "createTicketBeans": formparams },
 	            // 提交成功的回调函数
 	            success: function (form, submit) {
 	                msgTip.hide();
 	                var result = Ext.JSON.decode(submit.response.responseText);
 	                if (result.success) {
-	                	routeScheduleStore.reload();
-	                    Ext.Msg.alert('提示', '添加调度信息成功。');
+	                	//routeScheduleStore.reload();
+	                    Ext.Msg.alert('提示', '操作成功。');
 	                } else {
-	                	routeScheduleStore.reload();
-	                    Ext.Msg.alert('提示', '添加调度信息失败！');
+
+	                    Ext.Msg.alert('提示', '操作失败！');
 	                }
 	            },
 	            // 提交失败的回调函数
@@ -467,40 +579,7 @@ request.setAttribute("username", userName); */
 	                '服务器出现错误请稍后再试！'); win.close();
 	            }
 	        });
-		win.close();		
-		}else{
-			routesScheduleForm.form.submit({
-		            clientValidation: true,//进行客户端验证
-		            waitMsg: '正在提交数据请稍后',//提示信息
-		            waitTitle: '提示',//标题
-		            url: 'routeschedule_update',//请求的url地址
-		            method: 'POST',//请求方式
-		            params: { "updateRouteScheduleBeans": formparams },
-		            success: function (form, submit) {
-		                msgTip.hide();
-		                var result = Ext.JSON.decode(submit.response.responseText);
-		                if (result.success) {
-		                	routeScheduleStore.reload();
-		                    Ext.Msg.alert('提示', '修改调度信息成功。');
-		                    win.close();
-		                } else {
-		                	routeScheduleStore.reload();
-		                    Ext.Msg.alert('提示', '修改调度信息失败！');
-		                    win.close();
-		                }
-		            },
-		            // 提交失败的回调函数
-		            failure: function () {
-		            	routeScheduleStore.reload();
-		                Ext.Msg.alert('错误',
-		                '服务器出现错误请稍后再试！'); win.close();
-		            }
-		        });
-		        win.close();
-			
-			
-			
-		}
+		win.close();				
 	
 	}
 

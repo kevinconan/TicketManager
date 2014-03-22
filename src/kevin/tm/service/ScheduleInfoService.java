@@ -17,4 +17,5 @@ public interface ScheduleInfoService {
     public int totalCount();
 
     public List<Scheduleinfo> findByPage(int start, int limit);
+    public Scheduleinfo findById(int scheduleid);
 }

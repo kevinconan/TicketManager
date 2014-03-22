@@ -5,6 +5,7 @@ package kevin.tm.action;
 
 import java.util.HashMap;
 
+import kevin.tm.dao.model.RouteScheduleBean;
 import kevin.tm.dao.model.Scheduleinfo;
 import kevin.tm.service.ScheduleInfoService;
 
@@ -36,4 +37,16 @@ public class ScheduleinfoAction extends BaseAction<Scheduleinfo> {
 	this.map.put(DATA, this.list);
 	return MAP;
     }
+    
+    public String getById() {
+    	Object object = GSON.fromJson(this.message, Object.class);
+    	Scheduleinfo bean = this.service
+    		.findById((int) Double.parseDouble(object.toString()));
+
+    	this.map = new HashMap<>();
+    	this.map.put(SUCCESS, true);
+    	this.map.put(DATA, bean);
+    	return MAP;
+        }
+    
 }

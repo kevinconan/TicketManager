@@ -5,6 +5,7 @@ import java.util.List;
 import kevin.tm.dao.model.Scheduleinfo;
 import kevin.tm.dao.model.ScheduleinfoExample;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
@@ -27,4 +28,7 @@ public interface ScheduleinfoMapper {
 
     @Select("select * from scheduleinfo")
     List<Scheduleinfo> selectByPage(RowBounds rowBounds);
+    
+    @Select("select * from scheduleinfo where scheduleid = #{scheduleid}")
+    Scheduleinfo selectByScheduleId(@Param("scheduleid")Integer scheduleid);
 }

@@ -26,7 +26,7 @@ public class ShowSqlInterceptor implements Interceptor {
 	StatementHandler target = (StatementHandler) inv.getTarget();
 	BoundSql boundSql = target.getBoundSql();
 	String sql = boundSql.getSql();
-	System.out.println(sql);
+	//System.out.println(sql);
 	return inv.proceed();
     }
 

@@ -31,4 +31,9 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
 	return this.mapper.selectByPage(new RowBounds(start, limit));
     }
 
+	@Override
+	public Scheduleinfo findById(int scheduleid) {
+		return this.mapper.selectByScheduleId(scheduleid);
+	}
+
 }
