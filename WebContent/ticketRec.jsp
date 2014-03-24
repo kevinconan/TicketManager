@@ -122,7 +122,7 @@ request.setAttribute("username", userName); */
 		      				{text: "到达时间", width: 80, dataIndex: 'endtime', sortable: true},
 		      				{text: "行程名", width: 80, dataIndex: 'schedulename', sortable: true},
 		      				{text: "线路名", width: 80, dataIndex: 'routename', sortable: true},
-		      				{text: "座位数", width: 80, dataIndex: 'seatno', sortable: true},
+		      				{text: "座位号码", width: 80, dataIndex: 'seatno', sortable: true},
 		      				{text: "开始检票时间", width: 80, dataIndex: 'entrytime', sortable: true},
 		      				{text: "检票截止时间", width: 80, dataIndex: 'deadline', sortable: true},
 		      				{text: "是否检票", width: 80, dataIndex: 'checked', sortable: true},

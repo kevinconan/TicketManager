@@ -22,6 +22,7 @@ request.setAttribute("username", userName); */
 <script type="text/javascript" src="./scripts/Route.js"></script>
 <script type="text/javascript" src="./scripts/Bus.js"></script>
 <script type="text/javascript" src="./scripts/VTypes.js"></script>
+<script type="text/javascript" src="./scripts/util.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
@@ -36,9 +37,9 @@ request.setAttribute("username", userName); */
 	Ext.onReady(function(){
 
 		var toolbar_rs = [
-		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
-		         			{text : '修改调度',iconCls:'option',handler: showModifyRoute},
-		         			{text : '删除调度',iconCls:'remove',handler:showDeleteSchedule}
+		         			{text : '新增调度',iconCls:'add'},
+		         			{text : '修改调度',iconCls:'option'},
+		         			{text : '删除调度',iconCls:'remove'}
 		         		];
 
 		      //分页工具下拉框
@@ -111,6 +112,7 @@ request.setAttribute("username", userName); */
 		      				       tooltip: '售票',  
 		      				       handler: function(grid,rowIndex,colIndex){
 		      				    	   win_sell.show();
+		      				    	   Ext.getCmp('sellForm').getForm().reset();
 		      				    	   var scheduleid=routesScheduleGrid.getStore().getAt(rowIndex).data['scheduleid'];
 		      				    	   loadForm_sell(scheduleid);
 		      				    	   
@@ -220,15 +222,13 @@ request.setAttribute("username", userName); */
 														}
 
 						                             ]},]
-				},//{xtype:'hidden',name:'checked'},
-				//{xtype:'hidden',name:'deadline'},
-				//{xtype:'hidden',name:'entytime'},
-				//{xtype:'hidden',name:'checked'},
+				},{xtype:'hidden',name:'checked'},
+				{xtype:'hidden',name:'deadline'},
+				{xtype:'hidden',name:'entrytime'},
 				//{xtype:'hidden',name:'seatno'},
-				//{xtype:'hidden',name:'checked'},
 				//{xtype:'hidden',name:'ticketno'},
 				{xtype:'hidden',name:'ticketscheduleid'},
-			//	{xtype:'hidden',name:'tickettitle'},
+				{xtype:'hidden',name:'tickettitle'},
 				
 				
 				],
@@ -258,248 +258,15 @@ request.setAttribute("username", userName); */
 				layout:'border',//表格布局
 				items : routesScheduleGrid
 			});
-		//创建调度表单
-		var routesScheduleForm = new Ext.form.Panel({
-			autoHeight : true,
-			layout : "form",
-			fieldDefaults:{//统一设置表单字段默认属性
-				labelSeparator :'：',//分隔符
-				labelWidth : 80,//标签宽度
-				style:"margin-left:20px;",
-				
-			//	msgTarget : 'side',
-				width : 200
-			},
-			bodyPadding: 5,
-		//	frame:true,
-			items : [{//第一行
-				layout : 'column',
-				items : [{
-					xtype:'hidden',
-					name:'scheduleid',
-				},{
-					xtype:'textfield',
-					allowBlank : false,
-					blankText : '调度调度不能为空',
-					emptyText : '请选择调度',
-					readOnly : true,
-					name : 'schedulerouteid',
-					fieldLabel:'调度调度'
-				},{
-		            xtype: 'button',
-		            text : '选择调度',
-		            style:"margin-left:20px;",
-		            handler:function(){
-		            
-		            	if(routeGrid.isHidden()){
-		            		routeGrid.show();
-		            	}else{
-		            		var recs = routeGrid.getSelectionModel().getSelection();
-		            		if(recs.length == 0){
-		        				Ext.MessageBox.alert('提示','请选择调度！');
-		        			}else if(recs.length >1){
-		        				Ext.MessageBox.alert('提示','你只能选择一条调度');
-		        				
-		        			}else{
-		        				routesScheduleForm.getForm().findField('schedulerouteid').setValue(recs[0].get('routeid'));
-		        				
-		        			}
-		            		
-		            	}
-		            	
-		       		 	busGrid.hide();
-		            	
-		            }
-		        },{
-					xtype:'textfield',
-					allowBlank : false,
-					blankText : '调度车辆不能为空',
-					emptyText : '请选择车辆',
-					readOnly : true,
-					name : 'schedulebusid',
-					fieldLabel:'调度车辆'
-				},{
-		            xtype: 'button',
-		            text : '选择车辆',
-		            style:"margin-left:20px;",
-		            handler:function(){
-		            	if(busGrid.isHidden()){
-		            		busGrid.show();
-		            	}else{
-		            		var recs = busGrid.getSelectionModel().getSelection();
-		            		if(recs.length == 0){
-		        				Ext.MessageBox.alert('提示','请选择车辆！');
-		        			}else if(recs.length >1){
-		        				Ext.MessageBox.alert('提示','你只能选择一辆车');
-		        				
-		        			}else{
-		        				routesScheduleForm.getForm().findField('schedulebusid').setValue(recs[0].get('busid'));
-		        				
-		        			}
-		            		
-		            	}
-		            	routeGrid.hide();
-		       		 
-		            	
-		            }
-		        }]
-				
-			},{
-				layout : 'column',
-				items : [{
-			        xtype: 'datefield',
-			        name: 'starttime',
-			        fieldLabel: '出发时间',
-			        emptyText : '请选择日期',
-			        anchor: '100%',
-			        editable : false,
-			        altFormats:'Y-m-d H:i:s',
-			        format : 'Y-m-d H:i:s',
-			        submitFormat :'Y-m-d H:i:s '
-			    },{
-			        xtype: 'timefield',
-			        id : 's_t',
-			        name: 's_time',
-			        emptyText : '时间',
-			        anchor: '50%',
-			        style:"margin-left:0px;",
-			        width : 86,
-			        altFormats:'H:i:s',
-			        format : 'H:i:s'
-			    }, {
-			        xtype: 'datefield',
-			        name: 'endtime',
-			        emptyText : '请选择日期',
-			        fieldLabel: '到达时间',
-			        anchor: '100%',
-			        editable : false,
-			        altFormats:'Y-m-d H:i:s',
-			        format : 'Y-m-d H:i:s',
-			        submitFormat :'Y-m-d H:i:s '
-			   },{
-			        xtype: 'timefield',
-			        id :'e_t',
-			        name: 'e_time',
-			        emptyText : '时间',
-			        anchor: '50%',
-			        style:"margin-left:0px;",
-			        width : 86,
-			        altFormats:'H:i:s',
-			        format : 'H:i:s'
-			    }]
-			} ,{
-				layout:'column',
+	
+		
+	
 
-				items: [{
-		        	
-					xtype:'textfield',
-					allowBlank : false,
-					blankText : '调度名称不能为空',
-					name : 'schedulename',
-					fieldLabel:'调度名称'
-				},{
-		        	xtype: 'button',
-		            text : '&nbsp;&nbsp;提交&nbsp;&nbsp;',
-		            style:"margin-left:20px;",
-		            handler: submitScheduleForm
-		        	
-		        }]
-			} 
-			]
-		});
 		
-		var panel = new Ext.panel.Panel({
-		//	width:'99%',
-		//	 height:'99%',
-			layout : 'fit',
-			//bodyPadding : 0,
-			items : [{
-				layout:'auto',
-		//		bodyPadding : 0,
-				maxWidth : 750,
-				maxHeight :500,
-				items: [{
-				//	title :'test1',
-					items: routesScheduleForm
-				},{
-				//	title :'test1',
-					items: [routeGrid,busGrid]
-				}]
-			},{
-			//	layout:'accordion',
-				items: [] }]
-		});
 
-		//创建弹出窗口
-		var win = new Ext.window.Window({
-			layout:'fit',
-		    width:700,
-		    closeAction:'hide',
-		    height:500,
-			resizable : false,
-			shadow : true,
-			modal :true,
-		    closable:true,
-			items: [panel]
-		});
 		
 		
-		function showNewSchedule(){
-			routesScheduleForm.isAdd = true;//新增表单标识
-			routesScheduleForm.form.reset();
-			win.setTitle("新增调度");
-			win.show();
-			
-		}
-
-		function showDeleteSchedule() {
-		    //var busList = getStationIdList();
-		    var scheduleList = getSelectionList(routesScheduleGrid,false);
-		    var num = scheduleList.length;
-		    if (num == 0) {
-		        return;
-		    }
-		    Ext.MessageBox.confirm("提示", "您确定要删除所选调度吗？", function (btnId) {
-		        if (btnId == 'yes') {
-		            deleteSchedule(scheduleList);
-		        }
-		    });
-		}
-		
-		
-		function deleteSchedule(scheduleList) {
-			
-		    var scheduleIds = Ext.JSON.encode(scheduleList);
-		    var msgTip = Ext.MessageBox.show({
-		        title: '提示',
-		        width: 250,
-		        msg: '正在删除调度信息请稍后......'
-		    });
-		    Ext.Ajax.request({
-		        url: 'routeschedule_delete',
-		        params: { "deleteRouteScheduleBeans": scheduleIds },
-		        method: 'POST',
-		        success: function (response, options) {
-		            msgTip.hide();
-		            var result = Ext.JSON.decode(response.responseText);
-		            if (result.success) {
-
-		                Ext.Msg.alert('提示', '删除调度信息成功。');
-		                routeScheduleStore.reload();
-		            } else {
-		                Ext.Msg.alert('提示', '删除调度信息失败！');
-		                routeScheduleStore.reload();
-		            }
-		        },
-		        failure: function (response, options) {
-		            msgTip.hide();
-		            Ext.Msg.alert('提示', '删除调度信息请求失败！');
-		            routeScheduleStore.reload();
-		        }
-		    });
-		    win.hide();
-		    routeScheduleStore.reload();
-		}
+	
 		
 		
 		//加载表单数据
@@ -514,6 +281,16 @@ request.setAttribute("username", userName); */
 				success: function(form,action){
 					form.findField('remainseat').setValue(getRemainSeat(scheduleId));
 					form.findField('ticketscheduleid').setValue(scheduleId);
+					form.findField('checked').setValue(false);
+					var tickettitle = form.findField('startstationname').getValue()+"-"+form.findField('endstationname').getValue();
+					form.findField('tickettitle').setValue(tickettitle);
+					var entrytime =new Date(form.findField('starttime').getValue());
+					entrytime=entrytime.setTime(entrytime.getTime()-20*60000);
+					form.findField('entrytime').setValue(new Date(entrytime).Format("yyyy-MM-dd hh:mm:ss"));
+					deadline = new Date(entrytime);
+					deadline = deadline.setTime(deadline.getTime()-5*60000);
+					form.findField('deadline').setValue(new Date(deadline).Format("yyyy-MM-dd hh:mm:ss"));
+					
 				},
 
 		        failure: function (form, action) {//加载失败的处理函数
@@ -524,24 +301,7 @@ request.setAttribute("username", userName); */
 		}
 
 
-		//显示修改调度窗口
-		function showModifyRoute() {
-		    var scheduleList = getSelectionList(routesScheduleGrid,true);
-		    var num = scheduleList.length;
-		    if (num > 1) {
-		        Ext.MessageBox.alert("提示", "每次只能修改一条调度信息。");
-		    } else if (num == 1) {
-		        routesScheduleForm.form.reset();
-		        routesScheduleForm.isAdd = false;
-		        win.setTitle("修改调度信息");
-		        win.show();
-		        var scheduleId = scheduleList[0];
-		        //	Ext.getCmp('stationid').getEl().dom.setDisabled(true);
-		        loadForm_rs(scheduleId);
-		        
-		    }
-		}		
-		
+	
 		
 		
 //提交调度信息表单
@@ -567,8 +327,9 @@ request.setAttribute("username", userName); */
 	                if (result.success) {
 	                	//routeScheduleStore.reload();
 	                    Ext.Msg.alert('提示', '操作成功。');
+	                    routeScheduleStore.reload();
 	                } else {
-
+	                	routeScheduleStore.reload();
 	                    Ext.Msg.alert('提示', '操作失败！');
 	                }
 	            },
@@ -576,10 +337,10 @@ request.setAttribute("username", userName); */
 	            failure: function () {
 	            	routeScheduleStore.reload();
 	                Ext.Msg.alert('错误',
-	                '服务器出现错误请稍后再试！'); win.close();
+	                '服务器出现错误请稍后再试！'); win_sell.close();
 	            }
 	        });
-		win.close();				
+		win_sell.close();				
 	
 	}
 
@@ -598,7 +359,7 @@ request.setAttribute("username", userName); */
 	 * 
 	 *时间下拉绑定select时间
 	 */
-	Ext.getCmp('s_t').on('change',function(){
+	/* Ext.getCmp('s_t').on('change',function(){
 		var startdate = routesScheduleForm.getForm().findField('starttime').getValue();
 		var starttime = routesScheduleForm.getForm().findField('s_time').getValue();
 		routesScheduleForm.getForm().findField('starttime').setValue(convTimeField(startdate,starttime));		
@@ -610,7 +371,7 @@ request.setAttribute("username", userName); */
 		routesScheduleForm.getForm().findField('endtime').setValue(convTimeField(startdate,starttime));		
 	});
 	
-	
+	 */
 	
 	
 		

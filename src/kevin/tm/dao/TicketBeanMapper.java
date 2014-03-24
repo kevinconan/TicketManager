@@ -103,8 +103,15 @@ public interface TicketBeanMapper {
 
     @Select("select * from ticket")
     List<TicketBean> selectByPage(RowBounds rowBounds);
+    
     @Select("select (sum1.seatcount-sum2.sellcount) as remaincount from" +
     		"(select seatcount from bus where busid in (select schedulebusid from routeschedule where scheduleid = #{scheduleid}) ) sum1,"+
     		"(select count(*) as sellcount from ticket where ticketscheduleid = #{scheduleid}) sum2")
     int countRemainSeatBySchid(@Param("scheduleid")int scheduleid);
+    //查询该班次售出座位列表
+    @Select("select seatno from ticketinfo where ticketscheduleid = #{scheduleid}")
+    List<String> getSeatList(@Param("scheduleid")int scheduleid);
+    //查询该班次座位总数
+    @Select("select seatcount from bus where busid in (select schedulebusid from routeschedule where scheduleid = #{scheduleid})")
+    int getTotalSeats(@Param("scheduleid")int scheduleid);
 }

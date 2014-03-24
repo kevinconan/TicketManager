@@ -3,6 +3,9 @@
  */
 package kevin.tm.service.impl;
 
+import java.util.Date;
+import java.util.Map;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import kevin.tm.dao.TicketBeanMapper;
@@ -33,7 +36,23 @@ public class TicketServiceImpl implements TicketService {
      */
     @Override
     public int save(TicketBean ticketBean) {
-	return this.ticketBeanMapper.insertSelective(ticketBean);
+    	int scheduleId = ticketBean.getTicketscheduleid();
+    	if(ticketBeanMapper.countRemainSeatBySchid(scheduleId)>0){
+	    	ticketBean.setTicketno(new SimpleDateFormat(scheduleId+"yyyyMMddHHmmssSSS").format(new Date()));
+	    	List<String> selledSeats = ticketBeanMapper.getSeatList(scheduleId);
+	    	int totalSeats = ticketBeanMapper.getTotalSeats(scheduleId);
+	    	for(Integer i=1;i<totalSeats;i++){
+	    		if(!selledSeats.contains(i.toString())){
+	    			ticketBean.setSeatno(i.toString());
+	    			break;
+	    		}
+	    	}
+	    	return this.ticketBeanMapper.insertSelective(ticketBean);
+    	
+    	}
+    	
+    	
+	return 0;
     }
 
     /*
@@ -152,5 +171,6 @@ public class TicketServiceImpl implements TicketService {
 		return this.ticketBeanMapper.countRemainSeatBySchid(scheduleid);
 	}
     
+	
 
 }
