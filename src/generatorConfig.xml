@@ -5,7 +5,7 @@
 
 <classPathEntry location="C:\\Users\\Administrator\\Documents\\GitHub\\TicketManager\\WebContent\\WEB-INF\\lib\\mysql-connector-java-5.1.18-bin.jar" />
   <context id="context1" >
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://25.71.5.217:3306/ticketmanager" userId="root" password="root" />
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.227.167.225:3306/ticketmanager" userId="kevin" password="4sfyea6z" />
     <javaModelGenerator targetPackage="kevin.tm.dao.model" targetProject="TicketManager/src" >
     	<property name="enableSubPackages" value="false" /> 
 			<!--  当为true时，产生的代码文件将按照schema产生子文件夹 -->
