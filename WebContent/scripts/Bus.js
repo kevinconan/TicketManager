@@ -1,7 +1,7 @@
 var toolbar_bs = [
-   			{ text: '注册客车', iconCls: 'add', handler: showNewBus },
-   			{ text: '修改客车', iconCls: 'option', handler :showModifyBus},
-   			{ text: '注销客车', iconCls: 'remove' ,handler:showDeleteBus}
+    {text: '注册客车', iconCls: 'add', handler: showNewBus},
+    {text: '修改客车', iconCls: 'option', handler: showModifyBus},
+    {text: '注销客车', iconCls: 'remove', handler: showDeleteBus}
 ];
 
 //分页工具下拉框
@@ -17,15 +17,15 @@ var pagesize_combo_bs = new Ext.form.ComboBox({
     displayField: 'text'
 });
 //绑定分页下拉框更改事件
-pagesize_combo_bs.on("select", function (comboBox) {
+pagesize_combo_bs.on("select", function(comboBox) {
     pageToolbar_bs.pageSize = parseInt(comboBox.getValue());
     routeStore.pageSize = parseInt(comboBox.getValue());
-    routeStore.reload({ params: { start: 0, limit: pageToolbar_bs.pageSize } });
+    routeStore.reload({params: {start: 0, limit: pageToolbar_bs.pageSize}});
 });
 //分页工具栏
 var pageToolbar_bs = new Ext.PagingToolbar({
     store: busStore,
-    pageSize: 10,//小点，和上面一致
+    pageSize: 10, //小点，和上面一致
     displayInfo: true,
     displayMsg: "当前显示从{0}条到{1}条，共{2}条",
     emptyMsg: "<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
@@ -41,11 +41,11 @@ var busGrid = new Ext.grid.Panel({
     store: busStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-		{ text: "车牌号", width: '19%', dataIndex: 'vehicleno', sortable: true },
-		{ text: "汽车状态", width: '19%', dataIndex: 'busstate', sortable: true },
-		{ text: "所属车站", width: '19%', dataIndex: 'stationname', sortable: true },
-		{ text: "司机名", width: '19%', dataIndex: 'drivername', sortable: true },
-		{ text: "座位数", width: '19%', dataIndex: 'seatcount', sortable: true }
+        {text: "车牌号", width: '19%', dataIndex: 'vehicleno', sortable: true},
+        {text: "汽车状态", width: '19%', dataIndex: 'busstate', sortable: true},
+        {text: "所属车站", width: '19%', dataIndex: 'stationname', sortable: true},
+        {text: "司机名", width: '19%', dataIndex: 'drivername', sortable: true},
+        {text: "座位数", width: '19%', dataIndex: 'seatcount', sortable: true}
 
 
     ]
@@ -54,206 +54,204 @@ var busGrid = new Ext.grid.Panel({
 var stationGrid_bs = new Ext.grid.Panel({
     maxWidth: 700,
     maxHeight: 380,
- //   tbar: toolbar_st,
+    //   tbar: toolbar_st,
     bbar: new Ext.PagingToolbar({
-    id: 'stationGrid_bs_bb',
-    store: stationStore,
-    pageSize: 10,//小点，和上面一致
-    displayInfo: true,
-    displayMsg: "当前显示从{0}条到{1}条，共{2}条",
-    emptyMsg: "<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
-    items: ['&nbsp;&nbsp;每页显示：', new Ext.form.ComboBox({
-        store: [[5, '5条'], [10, '10条'], [20, '20条'], [40, '40条'], [60, '60条'], [100, '100条']],
-        width: 70,
-        emptyText: '10条',
-        mode: 'remote',
-        id: 'stationGrid_bs_cb',
-        editable: false,
-        triggerAction: 'all',
-        valueField: 'value',
-        displayField: 'text'
-    })]
-}),
+        id: 'stationGrid_bs_bb',
+        store: stationStore,
+        pageSize: 10, //小点，和上面一致
+        displayInfo: true,
+        displayMsg: "当前显示从{0}条到{1}条，共{2}条",
+        emptyMsg: "<span style='color:red;font-style:italic;'>对不起没有找到数据</span>",
+        items: ['&nbsp;&nbsp;每页显示：', new Ext.form.ComboBox({
+                store: [[5, '5条'], [10, '10条'], [20, '20条'], [40, '40条'], [60, '60条'], [100, '100条']],
+                width: 70,
+                emptyText: '10条',
+                mode: 'remote',
+                id: 'stationGrid_bs_cb',
+                editable: false,
+                triggerAction: 'all',
+                valueField: 'value',
+                displayField: 'text'
+            })]
+    }),
     region: 'center',
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
-        { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
-        { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
-        { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
+        {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
+        {text: "站名", width: 80, dataIndex: 'stationname', sortable: true},
+        {text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true},
+        {text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
     ]
 });
 
-Ext.getCmp('stationGrid_bs_cb').on("select", function (comboBox) {
-	var pageToolbar_st = Ext.getCmp('stationGrid_bs_bb');
+Ext.getCmp('stationGrid_bs_cb').on("select", function(comboBox) {
+    var pageToolbar_st = Ext.getCmp('stationGrid_bs_bb');
     pageToolbar_st.pageSize = parseInt(comboBox.getValue());
     stationStore.pageSize = parseInt(comboBox.getValue());
-    stationStore.reload({ params: { start: 0, limit: pageToolbar_st.pageSize } });
+    stationStore.reload({params: {start: 0, limit: pageToolbar_st.pageSize}});
 });
 
 //创建调度表单
 var busForm = new Ext.form.Panel({
-	trackResetOnLoad:true,
+    trackResetOnLoad: true,
     autoHeight: true,
     layout: "form",
     fieldDefaults: {//统一设置表单字段默认属性
-        labelSeparator: '：',//分隔符
-        labelWidth: 80,//标签宽度
+        labelSeparator: '：', //分隔符
+        labelWidth: 80, //标签宽度
         style: "margin-left:20px;",
-
         //	msgTarget : 'side',
         width: 200
     },
     bodyPadding: 5,
     //	frame:true,
     items: [{//第一行
-        layout: 'column',
-        items: [{
-            xtype: 'textfield',
-            allowBlank: false,
-            blankText: '所属不能为空',
-            emptyText: '请选择所属站点',
-            name: 'busstationid',
-            fieldLabel: '所属站点'
-        }, {
-            xtype: 'button',
-            text: '所属站点',
-            style: "margin-left:20px;",
-            handler: function () {
+            layout: 'column',
+            items: [{
+                    xtype: 'textfield',
+                    allowBlank: false,
+                    blankText: '所属不能为空',
+                    emptyText: '请选择所属站点',
+                    name: 'busstationid',
+                    fieldLabel: '所属站点'
+                }, {
+                    xtype: 'button',
+                    text: '所属站点',
+                    style: "margin-left:20px;",
+                    handler: function() {
 
-            	if(stationGrid_bs.isHidden()){
-            		stationGrid_bs.show();
-            	}else{	
-                var recs = stationGrid_bs.getSelectionModel().getSelection();
-                if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择发车辆！');
-                } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车辆');
+                        if (stationGrid_bs.isHidden()) {
+                            stationGrid_bs.show();
+                        } else {
+                            var recs = stationGrid_bs.getSelectionModel().getSelection();
+                            if (recs.length == 0) {
+                                Ext.MessageBox.alert('提示', '请选择发车辆！');
+                            } else if (recs.length > 1) {
+                                Ext.MessageBox.alert('提示', '你只能选择一个车辆');
 
-                } else {
-                    busForm.getForm().findField('busstationid').setValue(recs[0].get('stationid'));
+                            } else {
+                                busForm.getForm().findField('busstationid').setValue(recs[0].get('stationid'));
 
-                }
+                            }
 
-            }
-            	
-            }
-        }/*, {
-            xtype: 'textfield',
-            allowBlank: false,
-            blankText: '运营线路不能为空',
-            emptyText: '请选择运营线路',
-            name: 'busrouteid',
-            fieldLabel: '运营线路'
-        }, {
-            xtype: 'button',
-            text : '选择运营线路',
-            style:"margin-left:20px;",
-            handler:function(){
-            
-            	if(routeGrid_bs.isHidden()){
-            	//	win.show();
-            		stationGrid_bs.hide();
-            		routeGrid_bs.show();
-            	}else{
-            		var recs = routeGrid_bs.getSelectionModel().getSelection();
-            		if(recs.length == 0){
-        				Ext.MessageBox.alert('提示','请选择线路！');
-        			}else if(recs.length >1){
-        				Ext.MessageBox.alert('提示','你只能选择一条线路');
-        				
-        			}else{
-        				busForm.getForm().findField('busrouteid').setValue(recs[0].get('routeid'));
-        				
-        			}
-            		
-            	}
-            	
-       		 	busGrid.hide();
-            	
-            }
-        }*/]
-
-    }, {
-		layout : 'column',
-		items : [{
-			xtype: 'hidden',
-			name: 'busid'
-		},{
-
-            xtype: 'textfield',
-            id:'vehiclenoField',
-            allowBlank: false,
-            blankText: '车牌号称不能为空',
-            name: 'vehicleno',
-            fieldLabel: '车牌号',
-            vtype:'vehiclenoVT',
-            enableKeyEvents : true,
-            listeners: {
-            	keyup : function(){
-            		if(Ext.getCmp('vehiclenoField').isValid()){
-	            		Ext.Ajax.request({
-	            			url: 'bus_isVehicleNoExist',
-	            	        params: { "message": Ext.getCmp('vehiclenoField').getValue() },
-	            	        method: 'POST',
-	            	        success: function (response, options) {
-	            	        	var result = Ext.JSON.decode(response.responseText);
-	            	        	if(result){
-	            	        		Ext.getCmp('vehiclenoField').markInvalid("车牌号重复！");
-	            	        	}else{
-	            	        		Ext.getCmp('vehiclenoField').clearInvalid();
-	            	        	}
-	            	        }
-	            		});
-            		}
-            	}
-            }
-            	
-        }, {
-
-        	xtype:'combo',
-			autoShow : true,
-			allowBlank : false,
-			blankText : '必须选择车辆状态',
-			store : [[1,'正常'],[2,'维修'],[3,'报废']],
-			emptyText :'请选择车辆状态',
-			name : 'busstate',
-			fieldLabel:'车辆状态'
-        }]
-	},{
-        layout: 'column',
-
-        items: [{
-
-        	xtype:'textfield',
-			allowBlank : false,
-			blankText : '司机名能为空',
-			name : 'drivername',
-			fieldLabel:'司机'
-        }, {
-
-        	xtype:'numberfield',
-			//inputType:'password',
-			name : 'seatcount',
-			fieldLabel:'座位数'
-        },{
-            xtype: 'button',
-            text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
-            style: "margin-left:20px;",
-            handler: function(){
-            	Ext.MessageBox.confirm("提示", "您确定要提交吗？", function (btnId) {
-                	//	alert(btnId);
-                        if (btnId == 'yes') {
-                        	submitForm_bs();
                         }
-                    });
-                	
-                	
-                }
 
-        }]
-    }
+                    }
+                }/*, {
+                 xtype: 'textfield',
+                 allowBlank: false,
+                 blankText: '运营线路不能为空',
+                 emptyText: '请选择运营线路',
+                 name: 'busrouteid',
+                 fieldLabel: '运营线路'
+                 }, {
+                 xtype: 'button',
+                 text : '选择运营线路',
+                 style:"margin-left:20px;",
+                 handler:function(){
+
+                 if(routeGrid_bs.isHidden()){
+                 //	win.show();
+                 stationGrid_bs.hide();
+                 routeGrid_bs.show();
+                 }else{
+                 var recs = routeGrid_bs.getSelectionModel().getSelection();
+                 if(recs.length == 0){
+                 Ext.MessageBox.alert('提示','请选择线路！');
+                 }else if(recs.length >1){
+                 Ext.MessageBox.alert('提示','你只能选择一条线路');
+
+                 }else{
+                 busForm.getForm().findField('busrouteid').setValue(recs[0].get('routeid'));
+
+                 }
+
+                 }
+
+                 busGrid.hide();
+
+                 }
+                 }*/]
+
+        }, {
+            layout: 'column',
+            items: [{
+                    xtype: 'hidden',
+                    name: 'busid'
+                }, {
+                    xtype: 'textfield',
+                    id: 'vehiclenoField',
+                    allowBlank: false,
+                    blankText: '车牌号称不能为空',
+                    name: 'vehicleno',
+                    fieldLabel: '车牌号',
+                    vtype: 'vehiclenoVT',
+                    enableKeyEvents: true,
+                    listeners: (function() {
+                        var fn = function() {
+                            if (Ext.getCmp('vehiclenoField').isValid()) {
+                                Ext.Ajax.request({
+                                    url: 'bus_isVehicleNoExist',
+                                    params: {"message": Ext.getCmp('vehiclenoField').getValue()},
+                                    method: 'POST',
+                                    success: function(response, options) {
+                                        var result = Ext.JSON.decode(response.responseText);
+                                        if (result) {
+                                            Ext.getCmp('vehiclenoField').markInvalid("车牌号重复！");
+                                        } else {
+                                            Ext.getCmp('vehiclenoField').clearInvalid();
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                        return {
+                            keyup: fn,
+                            blur: fn
+                        }
+                    })()
+
+                }, {
+                    xtype: 'combo',
+                    autoShow: true,
+                    allowBlank: false,
+                    blankText: '必须选择车辆状态',
+                    store: [[1, '正常'], [2, '维修'], [3, '报废']],
+                    emptyText: '请选择车辆状态',
+                    name: 'busstate',
+                    fieldLabel: '车辆状态'
+                }]
+        }, {
+            layout: 'column',
+            items: [{
+                    xtype: 'textfield',
+                    allowBlank: false,
+                    blankText: '司机名能为空',
+                    name: 'drivername',
+                    fieldLabel: '司机'
+                }, {
+                    xtype: 'numberfield',
+                    //inputType:'password',
+                    name: 'seatcount',
+                    fieldLabel: '座位数'
+                }, {
+                    xtype: 'button',
+                    text: '&nbsp;&nbsp;提交&nbsp;&nbsp;',
+                    style: "margin-left:20px;",
+                    handler: function() {
+                        Ext.MessageBox.confirm("提示", "您确定要提交吗？", function(btnId) {
+                            //	alert(btnId);
+                            if (btnId == 'yes') {
+                                submitForm_bs();
+                            }
+                        });
+
+
+                    }
+
+                }]
+        }
     ]
 });
 
@@ -263,21 +261,19 @@ var panel_bs = new Ext.panel.Panel({
     layout: 'fit',
     //bodyPadding : 0,
     items: [{
-        layout: 'auto',
-        //		bodyPadding : 0,
-        maxWidth: 750,
-        maxHeight: 500,
-        items: [{
-
-            items: busForm
+            layout: 'auto',
+            //		bodyPadding : 0,
+            maxWidth: 750,
+            maxHeight: 500,
+            items: [{
+                    items: busForm
+                }, {
+                    items: [stationGrid_bs]
+                }]
         }, {
-
-            items: [stationGrid_bs]
+            //	layout:'accordion',
+            items: []
         }]
-    }, {
-        //	layout:'accordion',
-        items: []
-    }]
 });
 
 //创建弹出窗口
@@ -295,7 +291,7 @@ var win_bs = new Ext.window.Window({
 
 function showNewBus() {
 
-	busForm.isAdd = true;
+    busForm.isAdd = true;
     win_bs.setTitle("新增客车");
     win_bs.show();
 
@@ -303,12 +299,12 @@ function showNewBus() {
 //删除汽车处理
 function showDeleteBus() {
     //var busList = getStationIdList();
-    var busList = getSelectionList(busGrid,false);
+    var busList = getSelectionList(busGrid, false);
     var num = busList.length;
     if (num == 0) {
         return;
     }
-    Ext.MessageBox.confirm("提示", "您确定要删除所选车辆吗？", function (btnId) {
+    Ext.MessageBox.confirm("提示", "您确定要删除所选车辆吗？", function(btnId) {
         if (btnId == 'yes') {
             deleteBus(busList);
         }
@@ -324,9 +320,9 @@ function deleteBus(busList) {
     });
     Ext.Ajax.request({
         url: 'bus_delete',
-        params: { "deleteBusBeans": busIds },
+        params: {"deleteBusBeans": busIds},
         method: 'POST',
-        success: function (response, options) {
+        success: function(response, options) {
             msgTip.hide();
             var result = Ext.JSON.decode(response.responseText);
             if (result.success) {
@@ -338,7 +334,7 @@ function deleteBus(busList) {
                 busStore.reload();
             }
         },
-        failure: function (response, options) {
+        failure: function(response, options) {
             msgTip.hide();
             Ext.Msg.alert('提示', '删除车辆信息请求失败！');
             busStore.reload();
@@ -354,7 +350,7 @@ function getBusList() {
     if (recs.length == 0) {
         Ext.MessageBox.alert('提示', '请选择要进行操作的车辆！');
     } else {
-        for (var i = 0 ; i < recs.length ; i++) {
+        for (var i = 0; i < recs.length; i++) {
             var rec = recs[i];
             var obj = new Object();
             obj.vehicleno = rec.get('vehicleno');
@@ -370,12 +366,12 @@ function loadForm_bs(busId) {
     //	list.push(busId)
     //	var message=Ext.JSON.encode(list);
     busForm.form.load({
-        waitMsg: '正在加载数据请稍后',//提示信息
-        waitTitle: '提示',//标题
-        url: 'bus_getById',//请求的url地址
-        params: { "message": busId },
-        method: 'GET',//请求方式
-        failure: function (form, action) {//加载失败的处理函数
+        waitMsg: '正在加载数据请稍后', //提示信息
+        waitTitle: '提示', //标题
+        url: 'bus_getById', //请求的url地址
+        params: {"message": busId},
+        method: 'GET', //请求方式
+        failure: function(form, action) {//加载失败的处理函数
             Ext.Msg.alert('提示', '数据加载失败');
         }
     });
@@ -384,7 +380,7 @@ function loadForm_bs(busId) {
 
 //显示修改车辆窗口
 function showModifyBus() {
-    var busList = getSelectionList(busGrid,true);
+    var busList = getSelectionList(busGrid, true);
     var num = busList.length;
     if (num > 1) {
         Ext.MessageBox.alert("提示", "每次只能修改一条车辆信息。");
@@ -419,11 +415,11 @@ function submitForm_bs() {
 
         busForm.form.submit({
             clientValidation: true,
-            url: 'bus_add',// 文件路径
-            method: 'post',// 提交方法post或get
-            params: { "createBusBeans": formparams },
+            url: 'bus_add', // 文件路径
+            method: 'post', // 提交方法post或get
+            params: {"createBusBeans": formparams},
             // 提交成功的回调函数
-            success: function (form, submit) {
+            success: function(form, submit) {
                 msgTip.hide();
                 var result = Ext.JSON.decode(submit.response.responseText);
                 if (result.success) {
@@ -435,43 +431,44 @@ function submitForm_bs() {
                 }
             },
             // 提交失败的回调函数
-            failure: function () {
-            	if(!busForm.form.isValid()){
-                	Ext.Msg.alert('错误',
-                    '您的填写有误，请修改后提交!');
-                }else{
-                busStore.reload();
-                Ext.Msg.alert('错误',
-                '服务器出现错误请稍后再试！'); win_bs.close();
+            failure: function() {
+                if (!busForm.form.isValid()) {
+                    Ext.Msg.alert('错误',
+                            '您的填写有误，请修改后提交!');
+                } else {
+                    busStore.reload();
+                    Ext.Msg.alert('错误',
+                            '服务器出现错误请稍后再试！');
+                    win_bs.close();
                 }
             }
         });
-        
+
         /* userForm.form.submit({
-			clientValidation:true,//进行客户端验证
-			waitMsg : '正在提交数据请稍后',//提示信息
-			waitTitle : '提示',//标题
-			url : ctxpath + '/user_add',//请求的url地址
-			method:'POST',//请求方式
-			success:function(form,action){//加载成功的处理函数
-				win.hide();
-				updateBusGrid(action.result.bookId);
-				Ext.Msg.alert('提示','新增车辆成功');
-			},
-			failure:function(form,action){//加载失败的处理函数
-				Ext.Msg.alert('提示','新增车辆失败');
-			}
-		}); */
+         clientValidation:true,//进行客户端验证
+         waitMsg : '正在提交数据请稍后',//提示信息
+         waitTitle : '提示',//标题
+         url : ctxpath + '/user_add',//请求的url地址
+         method:'POST',//请求方式
+         success:function(form,action){//加载成功的处理函数
+         win.hide();
+         updateBusGrid(action.result.bookId);
+         Ext.Msg.alert('提示','新增车辆成功');
+         },
+         failure:function(form,action){//加载失败的处理函数
+         Ext.Msg.alert('提示','新增车辆失败');
+         }
+         }); */
     } else {
         //修改车辆信息
         busForm.form.submit({
-            clientValidation: true,//进行客户端验证
-            waitMsg: '正在提交数据请稍后',//提示信息
-            waitTitle: '提示',//标题
-            url: 'bus_update',//请求的url地址
-            method: 'POST',//请求方式
-            params: { "updateBusBeans": formparams },
-            success: function (form, submit) {
+            clientValidation: true, //进行客户端验证
+            waitMsg: '正在提交数据请稍后', //提示信息
+            waitTitle: '提示', //标题
+            url: 'bus_update', //请求的url地址
+            method: 'POST', //请求方式
+            params: {"updateBusBeans": formparams},
+            success: function(form, submit) {
                 msgTip.hide();
                 var result = Ext.JSON.decode(submit.response.responseText);
                 if (result.success) {
@@ -483,14 +480,14 @@ function submitForm_bs() {
                 }
             },
             // 提交失败的回调函数
-            failure: function () {
+            failure: function() {
                 busStore.reload();
-                if(!busForm.form.isValid()){
-                	Ext.Msg.alert('错误',
-                    '您的填写有误，请修改后提交!');
-                }else{
-                Ext.Msg.alert('错误','服务器出现错误请稍后再试！'); 
-                win_bs.close();
+                if (!busForm.form.isValid()) {
+                    Ext.Msg.alert('错误',
+                            '您的填写有误，请修改后提交!');
+                } else {
+                    Ext.Msg.alert('错误', '服务器出现错误请稍后再试！');
+                    win_bs.close();
                 }
             }
         });
