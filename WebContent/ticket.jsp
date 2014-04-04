@@ -92,9 +92,7 @@ request.setAttribute("username", userName); */
 		      				{text: "车牌号", width: 80, dataIndex: 'vehicleno', sortable: true},
 		      				{text: "余票", width: 80, sortable: true,renderer:function(value, cellmeta, record, rowIndex, columnIndex, store){
 		      					var scheduleid = record.data['scheduleid'];
-		      					
-		      					
-		      					 
+
 		      					return getRemainSeat(scheduleid);
 		      					
 		      				}},{
