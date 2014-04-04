@@ -183,11 +183,33 @@ var busForm = new Ext.form.Panel({
 		},{
 
             xtype: 'textfield',
+            id:'vehiclenoField',
             allowBlank: false,
             blankText: '车牌号称不能为空',
             name: 'vehicleno',
             fieldLabel: '车牌号',
-            vtype:'vehiclenoVT'
+            vtype:'vehiclenoVT',
+            enableKeyEvents : true,
+            listeners: {
+            	keyup : function(){
+            		if(Ext.getCmp('vehiclenoField').isValid()){
+	            		Ext.Ajax.request({
+	            			url: 'bus_isVehicleNoExist',
+	            	        params: { "message": Ext.getCmp('vehiclenoField').getValue() },
+	            	        method: 'POST',
+	            	        success: function (response, options) {
+	            	        	var result = Ext.JSON.decode(response.responseText);
+	            	        	if(result){
+	            	        		Ext.getCmp('vehiclenoField').markInvalid("车牌号重复！");
+	            	        	}else{
+	            	        		Ext.getCmp('vehiclenoField').clearInvalid();
+	            	        	}
+	            	        }
+	            		});
+            		}
+            	}
+            }
+            	
         }, {
 
         	xtype:'combo',

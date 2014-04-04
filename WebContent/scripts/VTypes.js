@@ -6,8 +6,8 @@
  Ext.apply(Ext.form.field.VTypes, {
     vehiclenoVT: function(val, field) {
     	var ff=field;
-    	var flag = false;
-    	Ext.Ajax.request({
+    	var flag = true;
+    	/*Ext.Ajax.request({
         url: 'bus_isVehicleNoExist',
         params: { "message": val },
         method: 'POST',
@@ -17,15 +17,16 @@
             flag=!result.MESSAGE; 
         }
       
-    });
+    });*/
   //  if(field.originalValue==val)
     
     //	flag=true;
-    
+    	///^[\u4E00-\u9FA5][A-Z]\s*[0-9A-Z]{5}$/i.test(val)
     	return flag;
+;
         
     },
-    vehiclenoVTText: '车牌号重复！'
+    vehiclenoVTText: '车牌号格式错误！'
 
 
 });
