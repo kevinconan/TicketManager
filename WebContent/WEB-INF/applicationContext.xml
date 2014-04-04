@@ -22,7 +22,7 @@
 <!-- 定义数据源连接 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.227.167.225:3306/ticketmanager" />
+		<property name="url" value="jdbc:mysql://25.71.5.217:3306/ticketmanager" />
 		<property name="username" value="kevin" />
 		<property name="password" value="4sfyea6z" />
 		<property name="maxActive" value="100"/>

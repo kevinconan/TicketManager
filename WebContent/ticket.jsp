@@ -313,10 +313,9 @@ request.setAttribute("username", userName); */
 		    });	
 		 	list = [];
 		    list.push(Ext.getCmp('sellForm').getForm().getValues());
-		    var formparams = Ext.JSON.encode(list);
-		    console.log(list);	
+		    var formparams = Ext.JSON.encode(list);	
 		    Ext.getCmp('sellForm').getForm().submit({
-	        //    clientValidation: true,
+	            clientValidation: true,
 	            url: 'ticket_add',// 文件路径
 	            method: 'post',// 提交方法post或get
 	            params: { "createTicketBeans": formparams },
