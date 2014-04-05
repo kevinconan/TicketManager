@@ -3,7 +3,7 @@ var toolbar_rt = [
    			{ text: '修改线路', iconCls: 'option',handler:showModifyRoute},
    			{ text: '注销线路', iconCls: 'remove' ,handler:showDeleteRoute}
 ];
-
+var stationChooseFlg = true;
 //分页工具下拉框
 var pagesize_combo_rt = new Ext.form.ComboBox({
     store: [[5, '5条'], [10, '10条'], [20, '20条'], [40, '40条'], [60, '60条'], [100, '100条']],
@@ -41,10 +41,20 @@ var routeGrid = new Ext.grid.Panel({
     store: routeStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-            { text: "线路号", width: '24%', dataIndex: 'routeid', sortable: true },
-            { text: "线路名", width: '24%', dataIndex: 'routename', sortable: true },
-            { text: "出发站", width: '24%', dataIndex: 'startstationname', sortable: true },
-            { text: "终点站", width: '24%', dataIndex: 'endstationname', sortable: true }
+            { text: "线路号", width: '20%', dataIndex: 'routeid', sortable: true },
+            { text: "线路名", width: '20%', dataIndex: 'routename', sortable: true ,
+            	renderer:function(value){
+					value = "<a href='javascript:void(0);' onclick='chooseRoute()'>"+value+"</a>";
+  					return value;
+  				}},
+            { text: "出发站", width: '20%', dataIndex: 'startstationname', sortable: true },
+            { text: "终点站", width: '20%', dataIndex: 'endstationname', sortable: true },
+            {text: "操作", width: '20%', dataIndex: 'vehicleno', sortable: true,
+					renderer:function(value){
+						value = "<a href='javascript:void(0);' onclick='showModifyRoute()'>修改</a>";
+						value+= "&nbsp;<a href='javascript:void(0);' onclick='showDeleteRoute()'>删除</a>";
+					return value;
+				}}
     ]
 });
 
@@ -73,6 +83,7 @@ var routeForm = new Ext.form.Panel({
         }, {
             xtype: 'textfield',
             allowBlank: false,
+            readOnly : true,
             blankText: '发车站不能为空',
             emptyText: '请选择发车站点',
             name: 'startstationid',
@@ -82,26 +93,16 @@ var routeForm = new Ext.form.Panel({
             text: '选择发车站',
             style: "margin-left:20px;",
             handler: function () {
+            	stationChooseFlg = true;
 
             	if(stationGrid.isHidden()){
             		stationGrid.show();
-            	}else{		
-                var recs = stationGrid.getSelectionModel().getSelection();
-                if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择发车站！');
-                } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车站');
-
-                } else {
-                    routeForm.getForm().findField('startstationid').setValue(recs[0].get('stationid'));
-
-                }
-
             	}
             }
         }, {
             xtype: 'textfield',
             allowBlank: false,
+            readOnly : true,
             blankText: '终点站不能为空',
             emptyText: '请选择终点站',
             name: 'endstationid',
@@ -111,22 +112,10 @@ var routeForm = new Ext.form.Panel({
             text: '选择终点站',
             style: "margin-left:20px;",
             handler: function () {
+            	stationChooseFlg = false;
 
             	if(stationGrid.isHidden()){
             		stationGrid.show();
-            	}else{	
-                var recs = stationGrid.getSelectionModel().getSelection();
-                if (recs.length == 0) {
-                    Ext.MessageBox.alert('提示', '请选择终点站！');
-                } else if (recs.length > 1) {
-                    Ext.MessageBox.alert('提示', '你只能选择一个车站');
-
-                } else {
-                    routeForm.getForm().findField('endstationid').setValue(recs[0].get('stationid'));
-
-                }
-
-
             	}
             }
         }]
@@ -377,3 +366,8 @@ function submitForm_rt() {
         win_rt.close();
     }
 }
+function chooseRoute(){
+	selectGrid(routeGrid,routesScheduleForm,'schedulerouteid','routeid');
+}
+
+

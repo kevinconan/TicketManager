@@ -21,8 +21,8 @@
   //  if(field.originalValue==val)
     
     //	flag=true;
-    	///^[\u4E00-\u9FA5][A-Z]\s*[0-9A-Z]{5}$/i.test(val)
-    	return flag;
+    	//
+    	return /^[\u4E00-\u9FA5][A-Z]\s*[0-9A-Z]{5}$/i.test(val);
 ;
         
     },

@@ -60,9 +60,19 @@ var stationGrid = new Ext.grid.Panel({
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
         { text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true },
-        { text: "站名", width: 80, dataIndex: 'stationname', sortable: true },
+        { text: "站名", width: 80, dataIndex: 'stationname', sortable: true,
+        	renderer:function(value){
+				value = "<a href='javascript:void(0);' onclick='chooseStation_rt()'>"+value+"</a>";
+					return value;
+				}},
         { text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true },
-        { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true }
+        { text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true },
+        {text: "操作", width: 80, dataIndex: 'vehicleno', sortable: true,
+			renderer:function(value){
+				value = "<a href='javascript:void(0);' onclick='showModifyStation()'>修改</a>";
+				value+= "&nbsp;<a href='javascript:void(0);' onclick='showDeleteStation()'>删除</a>";
+			return value;
+		}}
     ]
 });
 var stationForm = new Ext.form.Panel({
@@ -314,4 +324,13 @@ function getSelectionList(grid,type) {
     	
     }
     return list;
+}
+
+function chooseStation_rt(){
+	if(stationChooseFlg){
+		selectGrid(stationGrid,routeForm,'startstationid','stationid');
+	}else{
+		selectGrid(stationGrid,routeForm,'endstationid','stationid');
+	}
+	
 }

@@ -41,11 +41,21 @@ var busGrid = new Ext.grid.Panel({
     store: busStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        {text: "车牌号", width: '19%', dataIndex: 'vehicleno', sortable: true},
-        {text: "汽车状态", width: '19%', dataIndex: 'busstate', sortable: true},
-        {text: "所属车站", width: '19%', dataIndex: 'stationname', sortable: true},
-        {text: "司机名", width: '19%', dataIndex: 'drivername', sortable: true},
-        {text: "座位数", width: '19%', dataIndex: 'seatcount', sortable: true}
+        {text: "车牌号", width: '16%', dataIndex: 'vehicleno', sortable: true,
+        	renderer:function(value){
+				value = "<a href='javascript:void(0);' onclick='chooseBus()'>"+value+"</a>";
+					return value;
+				}},
+        {text: "汽车状态", width: '16%', dataIndex: 'busstate', sortable: true},
+        {text: "所属车站", width: '16%', dataIndex: 'stationname', sortable: true},
+        {text: "司机名", width: '16%', dataIndex: 'drivername', sortable: true},
+        {text: "座位数", width: '16%', dataIndex: 'seatcount', sortable: true},
+        {text: "操作", width: '16%', dataIndex: 'vehicleno', sortable: true,
+			renderer:function(value){
+				value = "<a href='javascript:void(0);' onclick='showModifyBus()'>修改</a>";
+				value+= "&nbsp;<a href='javascript:void(0);' onclick='showDeleteBus()'>删除</a>";
+			return value;
+		}}
 
 
     ]
@@ -78,8 +88,12 @@ var stationGrid_bs = new Ext.grid.Panel({
     store: stationStore,
     selModel: new Ext.selection.CheckboxModel(),
     columns: [//配置表格列
-        {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
-        {text: "站名", width: 80, dataIndex: 'stationname', sortable: true},
+    //    {text: "车站编号", width: 80, dataIndex: 'stationid', sortable: true},
+        {text: "站名", width: 80, dataIndex: 'stationname', sortable: true,
+        	renderer:function(value){
+				value = "<a href='javascript:void(0);' onclick='chooseStation()'>"+value+"</a>";
+					return value;
+				}},
         {text: "坐标x", width: 80, dataIndex: 'locationx', sortable: true},
         {text: "坐标y", width: 80, dataIndex: 'locationy', sortable: true}
     ]
@@ -94,7 +108,6 @@ Ext.getCmp('stationGrid_bs_cb').on("select", function(comboBox) {
 
 //创建调度表单
 var busForm = new Ext.form.Panel({
-    trackResetOnLoad: true,
     autoHeight: true,
     layout: "form",
     fieldDefaults: {//统一设置表单字段默认属性
@@ -111,6 +124,7 @@ var busForm = new Ext.form.Panel({
             items: [{
                     xtype: 'textfield',
                     allowBlank: false,
+                    readOnly : true,
                     blankText: '所属不能为空',
                     emptyText: '请选择所属站点',
                     name: 'busstationid',
@@ -124,7 +138,8 @@ var busForm = new Ext.form.Panel({
                         if (stationGrid_bs.isHidden()) {
                             stationGrid_bs.show();
                         } else {
-                            var recs = stationGrid_bs.getSelectionModel().getSelection();
+                        	selectGrid(stationGrid_bs,busForm,'busstationid','stationid');
+                          /*  var recs = stationGrid_bs.getSelectionModel().getSelection();
                             if (recs.length == 0) {
                                 Ext.MessageBox.alert('提示', '请选择发车辆！');
                             } else if (recs.length > 1) {
@@ -133,7 +148,7 @@ var busForm = new Ext.form.Panel({
                             } else {
                                 busForm.getForm().findField('busstationid').setValue(recs[0].get('stationid'));
 
-                            }
+                            }*/
 
                         }
 
@@ -191,13 +206,14 @@ var busForm = new Ext.form.Panel({
                     listeners: (function() {
                         var fn = function() {
                             if (Ext.getCmp('vehiclenoField').isValid()) {
+                            	var formparams = Ext.JSON.encode(busForm.form.getValues())
                                 Ext.Ajax.request({
                                     url: 'bus_isVehicleNoExist',
-                                    params: {"message": Ext.getCmp('vehiclenoField').getValue()},
+                                    params: {"message": formparams},
                                     method: 'POST',
                                     success: function(response, options) {
                                         var result = Ext.JSON.decode(response.responseText);
-                                        if (result) {
+                                        if (result.MESSAGE) {
                                             Ext.getCmp('vehiclenoField').markInvalid("车牌号重复！");
                                         } else {
                                             Ext.getCmp('vehiclenoField').clearInvalid();
@@ -292,6 +308,7 @@ var win_bs = new Ext.window.Window({
 function showNewBus() {
 
     busForm.isAdd = true;
+    busForm.form.reset();
     win_bs.setTitle("新增客车");
     win_bs.show();
 
@@ -492,4 +509,11 @@ function submitForm_bs() {
             }
         });
     }
+}
+
+function chooseBus(){
+	selectGrid(busGrid,routesScheduleForm,'schedulebusid','busid');
+}
+function chooseStation(){
+	selectGrid(stationGrid_bs,busForm,'busstationid','stationid');
 }

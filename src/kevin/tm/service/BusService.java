@@ -27,6 +27,6 @@ public interface BusService {
 
     public List<BusBean> findByPage(int start, int limit);
     
-    public boolean isVehicleNoExist(String vehicleno);
+    public boolean isVehicleNoExist(BusBean busBean);
     
 }

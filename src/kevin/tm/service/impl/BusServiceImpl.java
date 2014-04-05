@@ -108,10 +108,13 @@ public class BusServiceImpl implements BusService {
     }
 
 	@Override
-	public boolean isVehicleNoExist(String vehicleno) {
+	public boolean isVehicleNoExist(BusBean busBean) {
 		BusBeanExample example = new BusBeanExample();
 		example.clear();
-		example.createCriteria().andVehiclenoLike(vehicleno);
+		//System.out.println(busBean.getVehicleno());
+		if(busBean.getBusid() == null)
+			busBean.setBusid(-1);
+		example.createCriteria().andVehiclenoLike(busBean.getVehicleno()).andBusidNotEqualTo(busBean.getBusid());
 		if(busBeanMapper.countByExample(example)>0)
 			return true;
 		else
