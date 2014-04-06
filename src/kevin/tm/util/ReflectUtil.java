@@ -12,10 +12,6 @@ public class ReflectUtil {
 			members[i] = fields[i].getName();
 		}
 		
-		for(String member : members){
-			System.out.println(member);
-		}
-		
 		
 		
 		return members;

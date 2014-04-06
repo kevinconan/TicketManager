@@ -4,18 +4,23 @@
  * 
  **********************************/
  
- function getWildcardValues(form){
+ function getWildcardValues(form,en){
  	 list= new Ext.util.HashMap();
 	 var fields = form.form.getFields();
 	 for(var i = 0; i <fields.length;i++){
-	 	var string='';
-	 	var field = fields.getAt(i);
-	 	if(field.xtype == 'textfield'){
-	 		string = '%'+field.getValue()+'%';	 		 	
+		 	var string='';
+		 	var field = fields.getAt(i);
+		 	if(en){
+	 		
+		 	if(field.xtype == 'textfield'){
+		 		string = '%'+field.getValue()+'%';	 		 	
+		 	}else{
+		 		string = field.getValue();
+		 	}
+	 		list.add(field.getName(),string);
 	 	}else{
-	 		string = field.getValue();
+	 		list.add(field.getName(),field.getValue());
 	 	}
-	 	list.add(field.getName(),string)
 	 }
 	 return list.map;
  }

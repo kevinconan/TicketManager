@@ -35,29 +35,50 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
     public List<Scheduleinfo> findByPage(int start, int limit,JsonObject params) {
     	boolean includeInvalid;
     	StringBuilder searchClause = new StringBuilder();
+    	StringBuilder allClause = new StringBuilder();
     //	System.out.println(params);
     	if(params.toString().equals("{}")){
     		includeInvalid = false;
     		searchClause.append("1=1");
+    		allClause.append("1=1");
     	}else{
 	    		includeInvalid = params.get("includeInvalid").getAsBoolean();
-	    		String shearchKey = params.get("shearchKey").getAsString();
+	    		System.out.println(includeInvalid);
+	    		String searchKey = params.get("searchKey").getAsString();
 	    		String[] keys = ReflectUtil.getMembers(new Scheduleinfo());
-	    		searchClause.append(" ("+keys[0]+" like '"+shearchKey+"'");
-	    		for(int i = 1;i < keys.length;i++){
-	    			if(keys[i].endsWith("time")&&(shearchKey.getBytes().length!=shearchKey.length()))
-	    				shearchKey="";//字段为时间时过滤汉字
-	    			searchClause.append(" or "+keys[i]+" like '"+shearchKey+"'");
+	    		searchKey = searchKey.trim().replaceAll("[\\s]{2,}", " ");
+	    		String[] searchKeys = searchKey.split(" ");
+	    		for(int i = 0;i < searchKeys.length;i++){
+	    			
+	    			searchClause = new StringBuilder();
+	    			searchClause.append(" ("+keys[0]+" like '%"+searchKeys[i]+"%'");
+		    		for(int j = 1;j < keys.length;j++){
+		    			if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
+		    				searchClause.append(" or "+keys[j]+" like ''");//字段为时间时过滤汉字
+		    			}else{
+		    			searchClause.append(" or "+keys[j]+" like '%"+searchKeys[i]+"%'");
+		    			}
+		    		}
+		    		searchClause.append(")");
+		    		if(i == 0  ){
+		    			allClause.append("("+searchClause.toString());
+		    		}else{
+		    			allClause.append(" and "+searchClause.toString()+" ");
+		    			
+		    		}
 	    		}
-	    		searchClause.append(")");
+	    		allClause.append(")");
+	    		
+	    		
+	    		
     		}
     	
     	if(includeInvalid){
     		return this.mapper.selectByPage(new RowBounds(start,
-                    limit),searchClause.toString());
+                    limit),allClause.toString());
     	}else{
     		return this.mapper.selectByPageBeforeNow(new RowBounds(start,
-                    limit),searchClause.toString());
+                    limit),allClause.toString());
     		
     	}
     }

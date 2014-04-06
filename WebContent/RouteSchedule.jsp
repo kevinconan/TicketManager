@@ -50,12 +50,12 @@ request.setAttribute("username", userName); */
 			    	 layout: 'column',
 			    	 items:[{
 					      fieldLabel: "查询关键字",
-					      name: "shearchKey",
+					      name: "searchKey",
 					     // allowBlank: false,//禁止为空
-					      emptyText : '请输入查询关键字',
+					      emptyText : '请输入关键字,多个条件请用空格隔开',
 					      xtype : 'textfield',
 					      labelWidth: 80,
-					      width : 220
+					      width : 320
 					     },{
 					    	 fieldLabel: "含过期调度", 
 					    	 labelWidth: 85,
@@ -191,7 +191,7 @@ request.setAttribute("username", userName); */
 		//insWildcards(searchForm);
 		//list = [];
 	   // list.push(searchForm.form.getValues());
-	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm,false));
 
 	    routesScheduleGrid.store.setProxy({
 	        type: 'ajax',
