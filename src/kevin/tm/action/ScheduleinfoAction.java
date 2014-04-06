@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 /**
  * @author Diluka
  * 
@@ -30,7 +33,15 @@ public class ScheduleinfoAction extends BaseAction<Scheduleinfo> {
     private ScheduleInfoService service;
 
     public String list() {
-	this.list = this.service.findByPage(this.start, this.limit);
+    	if(message == null)
+    		message = "{}";
+    	JsonElement jsonElement = GSON.fromJson(message, JsonElement.class);
+
+        if (jsonElement.isJsonArray()) {
+            jsonElement = jsonElement.getAsJsonArray().get(0);
+        }
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+	this.list = this.service.findByPage(this.start, this.limit,jsonObject);
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(TOTAL_COUNT, this.service.totalCount());

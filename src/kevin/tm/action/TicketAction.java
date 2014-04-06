@@ -14,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 /**
  * @author Diluka
  * 
@@ -36,15 +39,30 @@ public class TicketAction extends BaseAction<TicketBean> {
 
     public String add() {
 	List<Integer> list = new ArrayList<>();
-	TicketBean[] beans = GSON.fromJson(
+	JsonElement jsonElement = GSON.fromJson(this.createTicketBeans.replaceAll("\"\"", "null"), JsonElement.class);
+	if(jsonElement.isJsonArray()){
+		jsonElement = jsonElement.getAsJsonArray().get(0);
+	}
+	int ticketAmount = jsonElement.getAsJsonObject().get("ticketamount").getAsInt();
+	TicketBean ticketBean = GSON.fromJson(jsonElement, TicketBean.class);
+	int remainSeat = this.service.countRemainSeatBySchid(ticketBean.getTicketscheduleid());
+	if(remainSeat>=ticketAmount){
+		for(int i=0;i<ticketAmount;i++){
+			if (this.service.save(ticketBean) == 0) {
+				list.add(ticketBean.getTicketid());
+			}
+		}
+	}
+	/*TicketBean[] beans = GSON.fromJson(
 		this.createTicketBeans.replaceAll("\"\"", "null"),
 		TicketBean[].class);
-
+	
+	
 	for (TicketBean bean : beans) {
 	    if (this.service.save(bean) == 0) {
 		list.add(bean.getTicketid());
 	    }
-	}
+	}*/
 
 	this.map = new HashMap<String, Object>();
 	this.map.put(SUCCESS, list.isEmpty());

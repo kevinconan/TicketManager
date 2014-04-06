@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonObject;
+
 @Scope("prototype")
 @Service("scheduleInfoServiceImpl")
 public class ScheduleInfoServiceImpl implements ScheduleInfoService {
@@ -27,8 +29,23 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
     }
 
     @Override
-    public List<Scheduleinfo> findByPage(int start, int limit) {
-	return this.mapper.selectByPage(new RowBounds(start, limit));
+    public List<Scheduleinfo> findByPage(int start, int limit,JsonObject params) {
+    	boolean includeInvalid;
+    //	System.out.println(params);
+    	if(params.toString().equals("{}")){
+    		includeInvalid = false;
+    	}else{
+    		includeInvalid = params.get("includeInvalid").getAsBoolean();
+    	}
+    	
+    	if(includeInvalid){
+    		return this.mapper.selectByPage(new RowBounds(start,
+                    limit));
+    	}else{
+    		return this.mapper.selectByPageBeforeNow(new RowBounds(start,
+                    limit));
+    		
+    	}
     }
 
 	@Override

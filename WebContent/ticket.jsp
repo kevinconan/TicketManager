@@ -33,13 +33,84 @@ request.setAttribute("username", userName); */
 		Ext.util.CSS.swapStyleSheet('theme', './ext-4.2.1-Lite/resources/css/ext-all.css');
 	}
 	
-	
+	function loadForm_sell(scheduleId) {
+		
+	    Ext.getCmp('sellForm').getForm().load({
+	        waitMsg: '正在加载数据请稍后',//提示信息
+	        waitTitle: '提示',//标题
+	        url: 'scheduleinfo_getById',//请求的url地址
+	        params: { "message": scheduleId },
+	        method: 'GET',//请求方式
+			success: function(form,action){
+				form.findField('remainseat').setValue(getRemainSeat(scheduleId));
+				form.findField('ticketscheduleid').setValue(scheduleId);
+				form.findField('checked').setValue(false);
+				var tickettitle = form.findField('startstationname').getValue()+"-"+form.findField('endstationname').getValue();
+				form.findField('tickettitle').setValue(tickettitle);
+				var entrytime =new Date(form.findField('starttime').getValue());
+				entrytime=entrytime.setTime(entrytime.getTime()-20*60000);
+				form.findField('entrytime').setValue(new Date(entrytime).Format("yyyy-MM-dd hh:mm:ss"));
+				deadline = new Date(entrytime);
+				deadline = deadline.setTime(deadline.getTime()-5*60000);
+				form.findField('deadline').setValue(new Date(deadline).Format("yyyy-MM-dd hh:mm:ss"));
+				
+			},
+
+	        failure: function (form, action) {//加载失败的处理函数
+	            Ext.Msg.alert('提示', '数据加载失败');
+	        }
+	    });
+
+	}
+	function sellTicket(){
+		Ext.getCmp('win_sell').show();
+   	   Ext.getCmp('sellForm').getForm().reset();
+   	   var scheduleid=Ext.getCmp('routesScheduleGrid').getSelectionModel().getSelection()[0].get('scheduleid');
+   	   loadForm_sell(scheduleid);
+	}
 	Ext.onReady(function(){
+		
+		var searchForm = new Ext.form.Panel({
+			   //  height: 20,
+			   	fieldDefaults: {//统一设置表单字段默认属性
+	       		labelSeparator: '：',//分隔符
+	       		labelWidth: 55,//标签宽度
+	        	style: "margin-left:20px;",
+	        	width: 160
+	    		},
+
+			     baseCls: "x-plain",
+			     items: [{
+			    	 layout: 'column',
+			    	 items:[{
+					      fieldLabel: "起点站",
+					      name: "startstationname",
+					    //  allowBlank: false,//禁止为空
+					      xtype : 'textfield',
+					     // blankText: ""
+					     },{
+					      fieldLabel: "终点站",
+					      name: "endstationname",
+					     // allowBlank: false,//禁止为空
+					      xtype : 'textfield',
+					     },{
+					    	 fieldLabel: "含过期调度", 
+					    	 labelWidth: 85,
+					    	 width: 110,
+					    	 name : "includeInvalid",
+					    	 xtype : 'checkbox'
+					     }]
+			     },
+			             
+			             ]
+			    });
 
 		var toolbar_rs = [
 		         			{text : '新增调度',iconCls:'add'},
 		         			{text : '修改调度',iconCls:'option'},
-		         			{text : '删除调度',iconCls:'remove'}
+		         			{text : '删除调度',iconCls:'remove'},
+		         			searchForm,
+		         			{text : '搜索',iconCls:'remove',handler:searchRec}
 		         		];
 
 		      //分页工具下拉框
@@ -74,7 +145,7 @@ request.setAttribute("username", userName); */
 		      
 		     
 		      var routesScheduleGrid = new Ext.grid.Panel({
-
+						id : 'routesScheduleGrid',
 		      			tbar : toolbar_rs,
 		      			bbar : pageToolbar_rs,
 		      			region: 'center',
@@ -97,7 +168,16 @@ request.setAttribute("username", userName); */
 		      					
 		      				}},{
 		      					text: "操作",
-		      					menuDisabled: true,  
+			      				 width: 80,
+			      				 renderer:function(value){
+			      					var includeInvalid = searchForm.form.findField('includeInvalid').getValue();
+			      					if(includeInvalid){
+			      						return "";
+			      					}else{
+			      						return "<a href='javascript:void(0);' onclick='sellTicket()'>售票</a>"
+			      					}
+			      				 }
+		      					/* menuDisabled: true,  
 		      				    sortable: false,  
 		      				    align:'center',  
 		      				    xtype: 'actioncolumn',
@@ -116,7 +196,8 @@ request.setAttribute("username", userName); */
 		      				    	   
 		      				       }
 		      				  }]
-		      					
+		      					 */
+		      					 
 		      					
 		      					
 		      				}
@@ -142,25 +223,11 @@ request.setAttribute("username", userName); */
 		      	    			});
 		      	        }
 		      		});
-		      //根据调度编号获得余票
-		      function getRemainSeat(scheduleid){
-		    	  var value
-		    	  Ext.Ajax.request({
-				        url: 'ticket_remainSeat',
-				        params: { "message": scheduleid },
-				        method: 'get',
-				     	async :  false,
-				        success: function (response, options) {
-				            var result = Ext.JSON.decode(response.responseText);
-				            value = result.data;
-				        }
-				        
-				    });
-		    	  return value;
-		      }
+		      
 		
 		//创建售票信息确认窗口
 		var win_sell= new Ext.window.Window({
+			id : 'win_sell',
 			layout:'fit',
 			title:'售票',
 		    width:480,
@@ -268,35 +335,7 @@ request.setAttribute("username", userName); */
 		
 		
 		//加载表单数据
-		function loadForm_sell(scheduleId) {
-			
-		    Ext.getCmp('sellForm').getForm().load({
-		        waitMsg: '正在加载数据请稍后',//提示信息
-		        waitTitle: '提示',//标题
-		        url: 'scheduleinfo_getById',//请求的url地址
-		        params: { "message": scheduleId },
-		        method: 'GET',//请求方式
-				success: function(form,action){
-					form.findField('remainseat').setValue(getRemainSeat(scheduleId));
-					form.findField('ticketscheduleid').setValue(scheduleId);
-					form.findField('checked').setValue(false);
-					var tickettitle = form.findField('startstationname').getValue()+"-"+form.findField('endstationname').getValue();
-					form.findField('tickettitle').setValue(tickettitle);
-					var entrytime =new Date(form.findField('starttime').getValue());
-					entrytime=entrytime.setTime(entrytime.getTime()-20*60000);
-					form.findField('entrytime').setValue(new Date(entrytime).Format("yyyy-MM-dd hh:mm:ss"));
-					deadline = new Date(entrytime);
-					deadline = deadline.setTime(deadline.getTime()-5*60000);
-					form.findField('deadline').setValue(new Date(deadline).Format("yyyy-MM-dd hh:mm:ss"));
-					
-				},
-
-		        failure: function (form, action) {//加载失败的处理函数
-		            Ext.Msg.alert('提示', '数据加载失败');
-		        }
-		    });
-    
-		}
+		
 
 
 	
@@ -351,6 +390,31 @@ request.setAttribute("username", userName); */
 	return dat;
 	
 }
+	//弹出售票窗口
+	
+	//搜索提交处理
+	function searchRec(){
+		//insWildcards(searchForm);
+		//list = [];
+	   // list.push(searchForm.form.getValues());
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+
+	    routesScheduleGrid.store.setProxy({
+	        type: 'ajax',
+	        actionMethods: 'post',
+	        url: 'scheduleinfo_list',
+	        extraParams:{
+	        	message:formparams
+               
+            },
+	        reader: {
+	            type: 'json',
+	            root: 'data',
+	            totalProperty: 'totalCount'
+	        }
+	    });
+	    routesScheduleGrid.store.load();
+	}
 
 	/**
 	 * 
@@ -373,6 +437,22 @@ request.setAttribute("username", userName); */
 	
 		
 		Ext.QuickTips.init();});
+	//根据调度编号获得余票
+    function getRemainSeat(scheduleid){
+  	  var value
+  	  Ext.Ajax.request({
+		        url: 'ticket_remainSeat',
+		        params: { "message": scheduleid },
+		        method: 'get',
+		     	async :  false,
+		        success: function (response, options) {
+		            var result = Ext.JSON.decode(response.responseText);
+		            value = result.data;
+		        }
+		        
+		    });
+  	  return value;
+    }
 
 </script>
 </body>

@@ -28,6 +28,8 @@ public interface ScheduleinfoMapper {
 
     @Select("select * from scheduleinfo")
     List<Scheduleinfo> selectByPage(RowBounds rowBounds);
+    @Select("select * from scheduleinfo where DATE_SUB(starttime,INTERVAL '00:20:00' hour_second) > NOW()")
+    List<Scheduleinfo> selectByPageBeforeNow(RowBounds rowBounds);
     
     @Select("select * from scheduleinfo where scheduleid = #{scheduleid}")
     Scheduleinfo selectByScheduleId(@Param("scheduleid")Integer scheduleid);
