@@ -2,10 +2,13 @@ package kevin.tm.service.impl;
 
 import java.util.List;
 
+import javassist.expr.NewArray;
+
 import kevin.tm.dao.ScheduleinfoMapper;
 import kevin.tm.dao.model.Scheduleinfo;
 import kevin.tm.dao.model.ScheduleinfoExample;
 import kevin.tm.service.ScheduleInfoService;
+import kevin.tm.util.ReflectUtil;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +34,30 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
     @Override
     public List<Scheduleinfo> findByPage(int start, int limit,JsonObject params) {
     	boolean includeInvalid;
+    	StringBuilder searchClause = new StringBuilder();
     //	System.out.println(params);
     	if(params.toString().equals("{}")){
     		includeInvalid = false;
+    		searchClause.append("1=1");
     	}else{
-    		includeInvalid = params.get("includeInvalid").getAsBoolean();
-    	}
+	    		includeInvalid = params.get("includeInvalid").getAsBoolean();
+	    		String shearchKey = params.get("shearchKey").getAsString();
+	    		String[] keys = ReflectUtil.getMembers(new Scheduleinfo());
+	    		searchClause.append(" ("+keys[0]+" like '"+shearchKey+"'");
+	    		for(int i = 1;i < keys.length;i++){
+	    			if(keys[i].endsWith("time")&&(shearchKey.getBytes().length!=shearchKey.length()))
+	    				shearchKey="";//字段为时间时过滤汉字
+	    			searchClause.append(" or "+keys[i]+" like '"+shearchKey+"'");
+	    		}
+	    		searchClause.append(")");
+    		}
     	
     	if(includeInvalid){
     		return this.mapper.selectByPage(new RowBounds(start,
-                    limit));
+                    limit),searchClause.toString());
     	}else{
     		return this.mapper.selectByPageBeforeNow(new RowBounds(start,
-                    limit));
+                    limit),searchClause.toString());
     		
     	}
     }

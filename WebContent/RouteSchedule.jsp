@@ -23,6 +23,7 @@ request.setAttribute("username", userName); */
 <script type="text/javascript" src="./scripts/Bus.js"></script>
 <script type="text/javascript" src="./scripts/Schedule.js"></script>
 <script type="text/javascript" src="./scripts/VTypes.js"></script>
+<script type="text/javascript" src="./scripts/util.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 <body>
@@ -35,11 +36,45 @@ request.setAttribute("username", userName); */
 	
 	
 	Ext.onReady(function(){
+		var searchForm = new Ext.form.Panel({
+			   //  height: 20,
+			   	fieldDefaults: {//统一设置表单字段默认属性
+	       		labelSeparator: '：',//分隔符
+	       		labelWidth: 60,//标签宽度
+	        	style: "margin-left:20px;",
+	        	width: 160
+	    		},
+
+			     baseCls: "x-plain",
+			     items: [{
+			    	 layout: 'column',
+			    	 items:[{
+					      fieldLabel: "查询关键字",
+					      name: "shearchKey",
+					     // allowBlank: false,//禁止为空
+					      emptyText : '请输入查询关键字',
+					      xtype : 'textfield',
+					      labelWidth: 80,
+					      width : 220
+					     },{
+					    	 fieldLabel: "含过期调度", 
+					    	 labelWidth: 85,
+					    	 width: 110,
+					    	 name : "includeInvalid",
+					    	 xtype : 'checkbox',
+					    	 checked : true
+					     }]
+			     },
+			             
+			             ]
+			    });
 
 		var toolbar_rs = [
 		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
 		         			{text : '修改调度',iconCls:'option',handler:showModifySchedule},
-		         			{text : '删除调度',iconCls:'remove',handler:showDeleteSchedule}
+		         			{text : '删除调度',iconCls:'remove',handler:showDeleteSchedule},
+		         			searchForm,
+		         			{text : '搜索',iconCls:'remove',handler: searchRec}
 		         		];
 
 		      //分页工具下拉框
@@ -127,7 +162,7 @@ request.setAttribute("username", userName); */
 		
 		routeGrid.hide();
 		 busGrid.hide();
-		 
+		 searchRec();
 		//显示
 			new Ext.container.Viewport({
 				layout:'border',//表格布局
@@ -152,7 +187,28 @@ request.setAttribute("username", userName); */
 		routesScheduleForm.getForm().findField('endtime').setValue(convTimeField(startdate,starttime));		
 	});
 	
-	
+	function searchRec(){
+		//insWildcards(searchForm);
+		//list = [];
+	   // list.push(searchForm.form.getValues());
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+
+	    routesScheduleGrid.store.setProxy({
+	        type: 'ajax',
+	        actionMethods: 'post',
+	        url: 'scheduleinfo_list',
+	        extraParams:{
+	        	message:formparams
+               
+            },
+	        reader: {
+	            type: 'json',
+	            root: 'data',
+	            totalProperty: 'totalCount'
+	        }
+	    });
+	    routesScheduleGrid.store.load();
+	}
 	
 	
 		

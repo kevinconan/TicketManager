@@ -2,6 +2,8 @@ package kevin.tm.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import kevin.tm.dao.model.Scheduleinfo;
 import kevin.tm.dao.model.ScheduleinfoExample;
 
@@ -26,10 +28,13 @@ public interface ScheduleinfoMapper {
      */
     List<Scheduleinfo> selectByExample(ScheduleinfoExample example);
 
-    @Select("select * from scheduleinfo")
-    List<Scheduleinfo> selectByPage(RowBounds rowBounds);
-    @Select("select * from scheduleinfo where DATE_SUB(starttime,INTERVAL '00:20:00' hour_second) > NOW()")
-    List<Scheduleinfo> selectByPageBeforeNow(RowBounds rowBounds);
+    @Select("select * from scheduleinfo where ${searchClause}")
+    List<Scheduleinfo> selectByPage(RowBounds rowBounds,@Param("searchClause")String searchClause);
+    @Select("SELECT * FROM scheduleinfo WHERE ${searchClause} and DATE_SUB( starttime, INTERVAL '00:20:00' HOUR_SECOND ) > now() " +
+    		"AND scheduleid NOT IN " +
+    		"( SELECT ticketscheduleid FROM ticket GROUP BY ticketscheduleid " +
+    		"HAVING count(*) >= ( SELECT seatcount FROM bus WHERE busid = schedulebusid ))")
+    List<Scheduleinfo> selectByPageBeforeNow(RowBounds rowBounds,@Param("searchClause")String searchClause);
     
     @Select("select * from scheduleinfo where scheduleid = #{scheduleid}")
     Scheduleinfo selectByScheduleId(@Param("scheduleid")Integer scheduleid);

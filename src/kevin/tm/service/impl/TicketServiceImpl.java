@@ -41,7 +41,7 @@ public class TicketServiceImpl implements TicketService {
 	    	ticketBean.setTicketno(new SimpleDateFormat(scheduleId+"yyyyMMddHHmmssSSS").format(new Date()));
 	    	List<String> selledSeats = ticketBeanMapper.getSeatList(scheduleId);
 	    	int totalSeats = ticketBeanMapper.getTotalSeats(scheduleId);
-	    	for(Integer i=1;i<totalSeats;i++){
+	    	for(Integer i=1;i<=totalSeats;i++){
 	    		if(!selledSeats.contains(i.toString())){
 	    			ticketBean.setSeatno(i.toString());
 	    			break;
