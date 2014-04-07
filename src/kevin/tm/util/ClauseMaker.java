@@ -7,6 +7,8 @@ package kevin.tm.util;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,24 +16,36 @@ import java.util.Arrays;
  */
 public class ClauseMaker {
 
+    private static final String REPLACE_STRING = String.valueOf(Math.random());
+    private static final Map<Class<? extends Object>, String> baseMap = new HashMap<>();
+
+    private static String getBaseString(Class<? extends Object> clazz) {
+        if (baseMap.containsKey(clazz)) {
+            return baseMap.get(clazz);
+        } else {
+            Field[] fields = clazz.getFields();
+            String[] names = new String[fields.length];
+            for (int i = 0; i < names.length; i++) {
+                names[i] = fields[i].getName();
+            }
+
+            String baseClause = new StringBuilder("concat").append(Arrays.toString(names).replace('[', '(').replace(']', ')')).append(" like '%").append(REPLACE_STRING).append("%'").toString();
+            baseMap.put(clazz, baseClause);
+            return baseClause;
+        }
+    }
+
     public static String makeClause(Class<? extends Object> clazz, String clauseString) {
         StringBuilder searchClause = new StringBuilder();
 
-        Field[] fields = clazz.getFields();
-        String[] names = new String[fields.length];
-        for (int i = 0; i < names.length; i++) {
-            names[i] = fields[i].getName();
-        }
-
-        final String baseClause = new StringBuilder("concat").append(Arrays.toString(names).replace('[', '(').replace(']', ')')).append(" like '%REPLACE_HERE%'").toString();
-        final String replaceString = "REPLACE_HERE";
+        String baseClause = getBaseString(clazz);
 
         if (clauseString == null || clauseString.equals("{}")) {
             searchClause.append(" true ");
         } else {
             String[] searchKeys = clauseString.trim().split("\\s+");
             for (String key : searchKeys) {
-                searchClause.append(baseClause.replaceAll(replaceString, key)).append(" and ");
+                searchClause.append(baseClause.replaceAll(REPLACE_STRING, key)).append(" and ");
             }
             searchClause.append("true");
         }
