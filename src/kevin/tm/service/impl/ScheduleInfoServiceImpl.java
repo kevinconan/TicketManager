@@ -51,15 +51,24 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
 	    		for(int i = 0;i < searchKeys.length;i++){
 	    			
 	    			searchClause = new StringBuilder();
-	    			searchClause.append(" ("+keys[0]+" like '%"+searchKeys[i]+"%'");
+	    			/*searchClause.append(" ("+keys[0]+" like '%"+searchKeys[i]+"%'");
 		    		for(int j = 1;j < keys.length;j++){
 		    			if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
 		    				searchClause.append(" or "+keys[j]+" like ''");//字段为时间时过滤汉字
 		    			}else{
 		    			searchClause.append(" or "+keys[j]+" like '%"+searchKeys[i]+"%'");
 		    			}
-		    		}
-		    		searchClause.append(")");
+		    		}*/
+	    			
+	    			searchClause.append("concat("+keys[0]);
+	    			for(int j = 1; j < keys.length; j++){
+	    				if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
+		    				continue;
+		    			}else{
+		    			searchClause.append(" ,"+keys[j]);
+		    			}
+	    			}
+		    		searchClause.append(") like '%"+searchKeys[i]+"%'");
 		    		if(i == 0  ){
 		    			allClause.append("("+searchClause.toString());
 		    		}else{
