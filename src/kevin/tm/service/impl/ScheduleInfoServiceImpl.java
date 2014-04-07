@@ -35,6 +35,7 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
         //StringBuilder allClause = new StringBuilder();
         if (params.toString().equals("{}")) {
             includeInvalid = false;
+            searchClause.append(" true ");
         } else {
             includeInvalid = params.get("includeInvalid").getAsBoolean();
             String[] searchKeys = params.get("searchKey").getAsString().trim().split("\\s+");
@@ -43,51 +44,51 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
             }
             searchClause.append("true");
         }
-    //	System.out.println(params);
-//    	if(params.toString().equals("{}")){
-//    		includeInvalid = false;
-//    		searchClause.append("1=1");
-//    		allClause.append("1=1");
-//    	}else{
-//	    		includeInvalid = params.get("includeInvalid").getAsBoolean();
-//	    		System.out.println(includeInvalid);
-//	    		String searchKey = params.get("searchKey").getAsString();
-//	    		String[] keys = ReflectUtil.getMembers(new Scheduleinfo());
-//	    		searchKey = searchKey.trim().replaceAll("[\\s]{2,}", " ");
-//	    		String[] searchKeys = searchKey.split(" ");
-//	    		for(int i = 0;i < searchKeys.length;i++){
-//
-//	    			searchClause = new StringBuilder();
-//	    			/*searchClause.append(" ("+keys[0]+" like '%"+searchKeys[i]+"%'");
-//		    		for(int j = 1;j < keys.length;j++){
-//		    			if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
-//		    				searchClause.append(" or "+keys[j]+" like ''");//字段为时间时过滤汉字
-//		    			}else{
-//		    			searchClause.append(" or "+keys[j]+" like '%"+searchKeys[i]+"%'");
-//		    			}
-//		    		}*/
-//
-//	    			searchClause.append("concat("+keys[0]);
-//	    			for(int j = 1; j < keys.length; j++){
-//	    				if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
-//		    				continue;
-//		    			}else{
-//		    			searchClause.append(" ,"+keys[j]);
-//		    			}
-//	    			}
-//		    		searchClause.append(") like '%"+searchKeys[i]+"%'");
-//		    		if(i == 0  ){
-//		    			allClause.append("("+searchClause.toString());
-//		    		}else{
-//		    			allClause.append(" and "+searchClause.toString()+" ");
-//
-//		    		}
-//	    		}
-//	    		allClause.append(")");
-//
-//
-//
-//    		}
+        //	System.out.println(params);
+        //    	if(params.toString().equals("{}")){
+        //    		includeInvalid = false;
+        //    		searchClause.append("1=1");
+        //    		allClause.append("1=1");
+        //    	}else{
+        //	    		includeInvalid = params.get("includeInvalid").getAsBoolean();
+        //	    		System.out.println(includeInvalid);
+        //	    		String searchKey = params.get("searchKey").getAsString();
+        //	    		String[] keys = ReflectUtil.getMembers(new Scheduleinfo());
+        //	    		searchKey = searchKey.trim().replaceAll("[\\s]{2,}", " ");
+        //	    		String[] searchKeys = searchKey.split(" ");
+        //	    		for(int i = 0;i < searchKeys.length;i++){
+        //
+        //	    			searchClause = new StringBuilder();
+        //	    			/*searchClause.append(" ("+keys[0]+" like '%"+searchKeys[i]+"%'");
+        //		    		for(int j = 1;j < keys.length;j++){
+        //		    			if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
+        //		    				searchClause.append(" or "+keys[j]+" like ''");//字段为时间时过滤汉字
+        //		    			}else{
+        //		    			searchClause.append(" or "+keys[j]+" like '%"+searchKeys[i]+"%'");
+        //		    			}
+        //		    		}*/
+        //
+        //	    			searchClause.append("concat("+keys[0]);
+        //	    			for(int j = 1; j < keys.length; j++){
+        //	    				if(keys[j].endsWith("time")&&(searchKeys[i].getBytes().length!=searchKeys[i].length())){
+        //		    				continue;
+        //		    			}else{
+        //		    			searchClause.append(" ,"+keys[j]);
+        //		    			}
+        //	    			}
+        //		    		searchClause.append(") like '%"+searchKeys[i]+"%'");
+        //		    		if(i == 0  ){
+        //		    			allClause.append("("+searchClause.toString());
+        //		    		}else{
+        //		    			allClause.append(" and "+searchClause.toString()+" ");
+        //
+        //		    		}
+        //	    		}
+        //	    		allClause.append(")");
+        //
+        //
+        //
+        //    		}
 
         if (includeInvalid) {
             return this.mapper.selectByPage(new RowBounds(start,
