@@ -58,7 +58,11 @@ public class TicketInfoServiceImpl implements TicketInfoService {
             }
             searchClause.append(" checked="+checked);
         }
-    	return this.mapper.selectByPage(new RowBounds(start, limit),searchClause.toString());
+        List<Ticketinfo> resultList = this.mapper.selectByPage(new RowBounds(start, limit),searchClause.toString());
+        if(!resultList.isEmpty()){
+        	resultList.get(0).setTotalCount(this.mapper.countByClause(searchClause.toString()));
+        }
+    	return resultList;
     }
 
     @Override

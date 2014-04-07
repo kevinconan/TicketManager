@@ -45,9 +45,14 @@ public class TicketinfoAction extends BaseAction<Ticketinfo> {
     	
     	
         this.list = this.service.findByPage(this.start, this.limit,jsonObject);
-
+        int totalCount;
+        if(!list.isEmpty()){
+        	totalCount = this.list.get(0).getTotalCount();
+        }else{
+        	totalCount = 0;
+        }
         this.map = new HashMap<>();
-        this.map.put(TOTAL_COUNT, this.service.totalCount());
+        this.map.put(TOTAL_COUNT, totalCount);
         this.map.put(DATA, this.list);
         return MAP;
     }

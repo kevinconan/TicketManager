@@ -31,4 +31,6 @@ public interface TicketinfoMapper {
 
     @Select("select * from ticketinfo where ${searchClause}")
     List<Ticketinfo> selectByPage(RowBounds rowBounds,@Param("searchClause")String searchClause);
+    @Select("select count(*) as totalCount from ticketinfo where ${searchClause}")
+    int countByClause(@Param("searchClause")String searchClause);
 }
