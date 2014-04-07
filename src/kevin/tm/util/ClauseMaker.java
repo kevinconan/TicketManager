@@ -23,7 +23,7 @@ public class ClauseMaker {
             names[i] = fields[i].getName();
         }
 
-        final String baseClause = new StringBuilder("concat").append(Arrays.toString(names).replace('[', '(').replace(']', ')')).append("like '%REPLACE_HERE%'").toString();
+        final String baseClause = new StringBuilder("concat").append(Arrays.toString(names).replace('[', '(').replace(']', ')')).append(" like '%REPLACE_HERE%'").toString();
         final String replaceString = "REPLACE_HERE";
 
         if (clauseString == null || clauseString.equals("{}")) {
