@@ -37,6 +37,7 @@ request.setAttribute("username", userName); */
 		//搜索表单
 		var searchForm = new Ext.form.Panel({
 			   //  height: 20,
+			   	id :'searchForm',
 			   	fieldDefaults: {//统一设置表单字段默认属性
 	       		labelSeparator: '：',//分隔符
 	       		labelWidth: 60,//标签宽度
@@ -62,6 +63,68 @@ request.setAttribute("username", userName); */
 					    	 name : "checked",
 					    	 xtype : 'checkbox',
 					    	// checked : true
+					     },{
+					    	 fieldLabel: "未开始", 
+					    	 labelWidth: 55,
+					    	 width: 110,
+					    	 name : "precheck",
+					    	 xtype : 'checkbox',
+					    	 listeners : {
+					    		 change : function(){
+					    			 var finished = Ext.getCmp('searchForm').getForm().findField('finished');
+					    			 var checking = Ext.getCmp('searchForm').getForm().findField('checking');
+					    			 if(finished.getValue()&&this.getValue()){
+					    				 finished.setValue(false);
+
+					    			 }
+					    			 if(checking.getValue()&&this.getValue()){
+					    				 checking.setValue(false);
+
+					    			 }
+					    		 }
+					    	 }
+					     },{
+					    	 fieldLabel: "检票中", 
+					    	 labelWidth: 55,
+					    	 width: 110,
+					    	 name : "checking",
+					    	 xtype : 'checkbox',
+					    	 listeners : {
+					    		 change : function(){
+					    			 var finished = Ext.getCmp('searchForm').getForm().findField('finished');
+					    			 var precheck = Ext.getCmp('searchForm').getForm().findField('precheck');
+					    			 if(finished.getValue()&&this.getValue()){
+					    				 finished.setValue(false);
+
+					    			 }
+					    			 if(precheck.getValue()&&this.getValue()){
+					    				 precheck.setValue(false);
+
+					    			 }
+					    		 }
+					    	 }
+					    	// checked : true
+					     },{
+					    	 fieldLabel: "已截止", 
+					    	 labelWidth: 55,
+					    	 width: 110,
+					    	 name : "finished",
+					    	 xtype : 'checkbox',
+					    	// checked : true
+					    	 listeners : {
+					    		 change : function(){
+					    			 var checking = Ext.getCmp('searchForm').getForm().findField('checking');
+					    			 var precheck = Ext.getCmp('searchForm').getForm().findField('precheck');
+					    			 if(checking.getValue()&&this.getValue()){
+					    				 checking.setValue(false);
+
+					    			 }
+					    			 if(precheck.getValue()&&this.getValue()){
+					    				 precheck.setValue(false);
+
+					    			 }
+					    		 }
+					    	 }
 					     }]
 			     },
 			             
@@ -71,8 +134,6 @@ request.setAttribute("username", userName); */
 		
 
 		var toolbar_tr = [
-		         			{text : '新增调度',iconCls:'add',handler:showNewSchedule},
-		         			{text : '修改调度',iconCls:'option',handler:showModifyRoute},
 		         			searchForm,
 		         			{text : '搜索',iconCls:'remove',handler:searchRec}
 		         		];
@@ -131,8 +192,44 @@ request.setAttribute("username", userName); */
 		      				{text: "座位号码", width: 80, dataIndex: 'seatno', sortable: true},
 		      				{text: "开始检票时间", width: 80, dataIndex: 'entrytime', sortable: true},
 		      				{text: "检票截止时间", width: 80, dataIndex: 'deadline', sortable: true},
-		      				{text: "是否检票", width: 80, dataIndex: 'checked', sortable: true},
+		      				{text: "是否检票", width: 80, dataIndex: 'checked', sortable: true,
+		      					renderer:function(value){
+		      						var checking = Ext.getCmp('searchForm').getForm().findField('checking').getValue();
+		      						var precheck = Ext.getCmp('searchForm').getForm().findField('precheck').getValue();
+		      						var finished = Ext.getCmp('searchForm').getForm().findField('finished').getValue();
+		      						var checked = Ext.getCmp('searchForm').getForm().findField('checked').getValue();
+		      						
+		      						if(checked){
+		      							return '已检票';
+		      						}else{
+		      							if(precheck){
+		      								return '未开始';
+		      							}else
+		      							if(checking){
+		      								"<a href='javascript:void(0);' onclick='checkTicket()'>检票</a>";
+		      							}else{
+		      								return '已截止';
+		      							}
+		      							
+		      						}
+		      						
+		      						
+		      						
+		      						/* if(value){
+		      							return '已检票';
+		      						}else if(checking){
+		      							return "<a href='javascript:void(0);' onclick='checkTicket()'>检票</a>";
+		      						}else if(precheck){
+		      							return '未开始';
+		      						} */
+		      					}
+		      				},
 		      				
+		      				{text: "操作", width: 80, sortable: true,
+		      					renderer:function(value){
+		      						return value;
+		      					}		
+		      				},
 		      			],
 		      			/* beforeshow:function(value,op){
 		      				consloe.log("beforeshow");

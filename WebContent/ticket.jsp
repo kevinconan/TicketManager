@@ -50,7 +50,7 @@ request.setAttribute("username", userName); */
 				var entrytime =new Date(form.findField('starttime').getValue());
 				entrytime=entrytime.setTime(entrytime.getTime()-20*60000);
 				form.findField('entrytime').setValue(new Date(entrytime).Format("yyyy-MM-dd hh:mm:ss"));
-				deadline = new Date(entrytime);
+				deadline = new Date(form.findField('starttime').getValue());
 				deadline = deadline.setTime(deadline.getTime()-5*60000);
 				form.findField('deadline').setValue(new Date(deadline).Format("yyyy-MM-dd hh:mm:ss"));
 				
