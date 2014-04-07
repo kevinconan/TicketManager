@@ -9,6 +9,8 @@ import kevin.tm.dao.model.Ticketinfo;
 import kevin.tm.dao.model.TicketinfoExample;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonObject;
+
 /**
  * @author Diluka
  *
@@ -18,7 +20,7 @@ public interface TicketInfoService {
 
     public int totalCount();
 
-    public List<Ticketinfo> findByPage(int start, int limit);
+    public List<Ticketinfo> findByPage(int start, int limit,JsonObject jsonObject);
 
     public List<Ticketinfo> findByScheduleid(Integer scheduleid, int start, int limit);
 

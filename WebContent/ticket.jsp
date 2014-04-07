@@ -74,7 +74,7 @@ request.setAttribute("username", userName); */
 			   //  height: 20,
 			   	fieldDefaults: {//统一设置表单字段默认属性
 	       		labelSeparator: '：',//分隔符
-	       		labelWidth: 55,//标签宽度
+	       		labelWidth: 60,//标签宽度
 	        	style: "margin-left:20px;",
 	        	width: 160
 	    		},
@@ -83,22 +83,20 @@ request.setAttribute("username", userName); */
 			     items: [{
 			    	 layout: 'column',
 			    	 items:[{
-					      fieldLabel: "起点站",
-					      name: "startstationname",
-					    //  allowBlank: false,//禁止为空
-					      xtype : 'textfield',
-					     // blankText: ""
-					     },{
-					      fieldLabel: "终点站",
-					      name: "endstationname",
+					      fieldLabel: "查询关键字",
+					      name: "searchKey",
 					     // allowBlank: false,//禁止为空
+					      emptyText : '请输入关键字,多个条件请用空格隔开',
 					      xtype : 'textfield',
+					      labelWidth: 80,
+					      width : 320
 					     },{
 					    	 fieldLabel: "含过期调度", 
 					    	 labelWidth: 85,
 					    	 width: 110,
 					    	 name : "includeInvalid",
-					    	 xtype : 'checkbox'
+					    	 xtype : 'checkbox',
+					    	// checked : true
 					     }]
 			     },
 			             
@@ -397,7 +395,7 @@ request.setAttribute("username", userName); */
 		//insWildcards(searchForm);
 		//list = [];
 	   // list.push(searchForm.form.getValues());
-	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm,false));
 
 	    routesScheduleGrid.store.setProxy({
 	        type: 'ajax',

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonObject;
+
 @Scope("prototype")
 @Service("ticketInfoServiceImpl")
 public class TicketInfoServiceImpl implements TicketInfoService {
@@ -39,8 +41,24 @@ public class TicketInfoServiceImpl implements TicketInfoService {
     }
 
     @Override
-    public List<Ticketinfo> findByPage(int start, int limit) {
-        return this.mapper.selectByPage(new RowBounds(start, limit));
+    public List<Ticketinfo> findByPage(int start, int limit,JsonObject params) {
+    	final String clauseString = "concat(ticketid,ticketno,tickettitle,ticketscheduleid,seatno,customername,entrytime,deadline,schedulename,routename,startstationname,starttime,endstationname,endtime,vehicleno) LIKE '%REPLACE_HERE%'";
+    	final String relapceString = "REPLACE_HERE";
+    	boolean checked ;
+    	StringBuilder searchClause = new StringBuilder();
+        //StringBuilder allClause = new StringBuilder();
+        if (params.toString().equals("{}")) {
+        	checked = false;
+        	searchClause.append("true");
+        } else {
+        	checked = params.get("checked").getAsBoolean();
+            String[] searchKeys = params.get("searchKey").getAsString().trim().split("\\s+");
+            for (String key : searchKeys) {
+                searchClause.append(clauseString.replaceAll(relapceString, key)).append(" and ");
+            }
+            searchClause.append(" checked="+checked);
+        }
+    	return this.mapper.selectByPage(new RowBounds(start, limit),searchClause.toString());
     }
 
     @Override

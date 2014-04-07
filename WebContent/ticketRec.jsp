@@ -36,33 +36,37 @@ request.setAttribute("username", userName); */
 	Ext.onReady(function(){
 		//搜索表单
 		var searchForm = new Ext.form.Panel({
-		   //  height: 20,
-		   	fieldDefaults: {//统一设置表单字段默认属性
-       		labelSeparator: '：',//分隔符
-       		labelWidth: 55,//标签宽度
-        	style: "margin-left:20px;",
-        	width: 150
-    		},
+			   //  height: 20,
+			   	fieldDefaults: {//统一设置表单字段默认属性
+	       		labelSeparator: '：',//分隔符
+	       		labelWidth: 60,//标签宽度
+	        	style: "margin-left:20px;",
+	        	width: 160
+	    		},
 
-		     baseCls: "x-plain",
-		     items: [{
-		    	 layout: 'column',
-		    	 items:[{
-				      fieldLabel: "起点站",
-				      name: "startstationname",
-				    //  allowBlank: false,//禁止为空
-				      xtype : 'textfield',
-				     // blankText: ""
-				     },{
-				      fieldLabel: "终点站",
-				      name: "endstationname",
-				     // allowBlank: false,//禁止为空
-				      xtype : 'textfield',
-				     }]
-		     },
-		             
-		             ]
-		    });
+			     baseCls: "x-plain",
+			     items: [{
+			    	 layout: 'column',
+			    	 items:[{
+					      fieldLabel: "查询关键字",
+					      name: "searchKey",
+					     // allowBlank: false,//禁止为空
+					      emptyText : '请输入关键字,多个条件请用空格隔开',
+					      xtype : 'textfield',
+					      labelWidth: 80,
+					      width : 320
+					     },{
+					    	 fieldLabel: "已检票", 
+					    	 labelWidth: 55,
+					    	 width: 110,
+					    	 name : "checked",
+					    	 xtype : 'checkbox',
+					    	// checked : true
+					     }]
+			     },
+			             
+			             ]
+			    });
 		
 		
 
@@ -524,12 +528,12 @@ request.setAttribute("username", userName); */
 		//insWildcards(searchForm);
 		//list = [];
 	   // list.push(searchForm.form.getValues());
-	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm));
+	    var formparams = Ext.JSON.encode(getWildcardValues(searchForm,false));
 
 		ticketGrid.store.setProxy({
 	        type: 'ajax',
 	        actionMethods: 'post',
-	        url: 'ticketinfo_listByExample',
+	        url: 'ticketinfo_list',
 	        extraParams:{
 	        	message:formparams
                

@@ -1,8 +1,11 @@
 package kevin.tm.test;
 
+import javassist.expr.NewArray;
+import kevin.tm.dao.model.Ticketinfo;
 import kevin.tm.model.Bus;
 import kevin.tm.model.Route;
 import kevin.tm.model.Station;
+import kevin.tm.util.ReflectUtil;
 
 import com.google.gson.Gson;
 
@@ -12,7 +15,7 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Bus bus = new Bus();
+		/*Bus bus = new Bus();
 		Station station = new Station();
 		station.setStationid(1);
 		station.setStationname("333");
@@ -31,7 +34,13 @@ public class Test {
 		Bus bus2=gson.fromJson(busjson, Bus.class);
 
 		System.out.println(bus2.getBusroute().getRoutename());
-		
+		*/
+		String[] mStrings = ReflectUtil.getMembers(new Ticketinfo());
+		StringBuilder sbBuilder = new StringBuilder();
+		for(String aString : mStrings){
+			sbBuilder.append(","+aString);
+		}
+		System.out.println(sbBuilder.toString());
 	}
 
 }

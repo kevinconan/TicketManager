@@ -5,6 +5,7 @@ import java.util.List;
 import kevin.tm.dao.model.Ticketinfo;
 import kevin.tm.dao.model.TicketinfoExample;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
@@ -28,6 +29,6 @@ public interface TicketinfoMapper {
     List<Ticketinfo> selectByExample(TicketinfoExample example,
 	    RowBounds rowBounds);
 
-    @Select("select * from ticketinfo")
-    List<Ticketinfo> selectByPage(RowBounds rowBounds);
+    @Select("select * from ticketinfo where ${searchClause}")
+    List<Ticketinfo> selectByPage(RowBounds rowBounds,@Param("searchClause")String searchClause);
 }
