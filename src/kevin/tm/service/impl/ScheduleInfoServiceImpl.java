@@ -6,6 +6,7 @@ import kevin.tm.dao.ScheduleinfoMapper;
 import kevin.tm.dao.model.Scheduleinfo;
 import kevin.tm.dao.model.ScheduleinfoExample;
 import kevin.tm.service.ScheduleInfoService;
+import kevin.tm.util.ClauseMaker;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,22 +29,43 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
 
     @Override
     public List<Scheduleinfo> findByPage(int start, int limit, JsonObject params) {
-        final String clauseString = "concat(scheduleid,schedulerouteid,schedulename,schedulebusid,starttime,endtime,routename,startstationname,endstationname,vehicleno,drivername) LIKE '%REPLACE_HERE%'";
-        final String relapceString = "REPLACE_HERE";
-        boolean includeInvalid;
-        StringBuilder searchClause = new StringBuilder();
-        //StringBuilder allClause = new StringBuilder();
-        if (params.toString().equals("{}")) {
-            includeInvalid = false;
-            searchClause.append(" true ");
-        } else {
-            includeInvalid = params.get("includeInvalid").getAsBoolean();
-            String[] searchKeys = params.get("searchKey").getAsString().trim().split("\\s+");
-            for (String key : searchKeys) {
-                searchClause.append(clauseString.replaceAll(relapceString, key)).append(" and ");
-            }
-            searchClause.append("true");
+        boolean bool;
+        String searchKey;
+
+        try {
+            bool = params.get("includeInvalid").getAsBoolean();
+            searchKey = params.get("searchKey").getAsString();
+        } catch (Exception e) {
+            bool = false;
+            searchKey = null;
         }
+
+        return bool
+                ? this.mapper.selectByPage(
+                        new RowBounds(start, limit),
+                        ClauseMaker.makeClause(Scheduleinfo.class, searchKey)
+                )
+                : this.mapper.selectByPageBeforeNow(
+                        new RowBounds(start, limit),
+                        ClauseMaker.makeClause(Scheduleinfo.class, searchKey)
+                );
+
+//
+//        final String clauseString = "concat(scheduleid,schedulerouteid,schedulename,schedulebusid,starttime,endtime,routename,startstationname,endstationname,vehicleno,drivername) LIKE '%REPLACE_HERE%'";
+//        final String relapceString = "REPLACE_HERE";
+//        boolean includeInvalid;
+//        StringBuilder searchClause = new StringBuilder();
+//        if (params.toString().equals("{}")) {
+//            includeInvalid = false;
+//            searchClause.append(" true ");
+//        } else {
+//            includeInvalid = params.get("includeInvalid").getAsBoolean();
+//            String[] searchKeys = params.get("searchKey").getAsString().trim().split("\\s+");
+//            for (String key : searchKeys) {
+//                searchClause.append(clauseString.replaceAll(relapceString, key)).append(" and ");
+//            }
+//            searchClause.append("true");
+//        }
         //	System.out.println(params);
         //    	if(params.toString().equals("{}")){
         //    		includeInvalid = false;
@@ -89,15 +111,14 @@ public class ScheduleInfoServiceImpl implements ScheduleInfoService {
         //
         //
         //    		}
-
-        if (includeInvalid) {
-            return this.mapper.selectByPage(new RowBounds(start,
-                    limit), searchClause.toString());
-        } else {
-            return this.mapper.selectByPageBeforeNow(new RowBounds(start,
-                    limit), searchClause.toString());
-
-        }
+//        if (includeInvalid) {
+//            return this.mapper.selectByPage(new RowBounds(start,
+//                    limit), searchClause.toString());
+//        } else {
+//            return this.mapper.selectByPageBeforeNow(new RowBounds(start,
+//                    limit), searchClause.toString());
+//
+//        }
     }
 
     @Override
