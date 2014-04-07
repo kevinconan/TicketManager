@@ -96,7 +96,7 @@ request.setAttribute("username", userName); */
 		      pagesize_combo_tr.on("select",function(comboBox){          
 		      	pageToolbar_tr.pageSize = parseInt(comboBox.getValue());
 		      	ticketStore.pageSize = parseInt(comboBox.getValue());
-		      	ticketStore.reload({params:{start:0,limit:pageToolbar_tr.pageSize}});   
+		      	ticketStore.reload({params:{start:0,limit:pageToolbar_tr.pageSize,page:1}});   
 		      });
 		      //分页工具栏
 		      var pageToolbar_tr=new Ext.PagingToolbar({
