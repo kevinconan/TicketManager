@@ -120,6 +120,7 @@ request.setAttribute("username", userName); */
 		      			columns: [//配置表格列
 		      				{text: "票号", width: 80, dataIndex: 'ticketno', sortable: true},
 		      				{text: "票名", width: 80, dataIndex: 'tickettitle', sortable: true,},
+		      				{text: "购票人姓名", width: 80, dataIndex: 'customername', sortable: true},
 		      				{text: "出发站点", width: 80, dataIndex: 'startstationname', sortable: true},
 		      				{text: "到达站点", width: 80, dataIndex: 'endstationname', sortable: true},
 		      				{text: "出发时间", width: 80, dataIndex: 'starttime', sortable: true},	
@@ -453,7 +454,7 @@ request.setAttribute("username", userName); */
 		 var msgTip = Ext.MessageBox.show({
 		        title: '提示',
 		        width: 250,
-		        msg: '正在添加调度信息请稍后......'
+		        msg: '正在操作请稍后......'
 		    });
 	//连接控件时间
 	
