@@ -173,7 +173,13 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public int updateCheck(Integer ticketid) {
-		return this.ticketBeanMapper.updateCheck(ticketid);
+            TicketBean tb = new TicketBean();
+            tb.setTicketid(ticketid);
+            tb.setChecked(true);
+            TicketBeanExample example = new TicketBeanExample();
+            example.clear();
+            example.createCriteria().andTicketidEqualTo(ticketid);
+		return this.ticketBeanMapper.updateByExample(tb, example);
 	}
     
 	
