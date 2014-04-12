@@ -107,9 +107,9 @@ request.setAttribute("username", userName); */
 					    		 }
 					    	 }
 					     },{
-					    	 fieldLabel: "未检票", 
-					    	 labelWidth: 55,
-					    	 width: 65,
+					    	 fieldLabel: "|&nbsp;&nbsp;未检票", 
+					    	 labelWidth: 65,
+					    	 width: 75,
 					    	 name : "notcheck",
 					    	 xtype : 'checkbox',
 					    	 listeners : {
@@ -121,9 +121,9 @@ request.setAttribute("username", userName); */
 					    		 }
 					    	 }
 					     },{
-					    	 fieldLabel: "未开始", 
-					    	 labelWidth: 55,
-					    	 width: 65,
+					    	 fieldLabel: "|&nbsp;&nbsp;未开始", 
+					    	 labelWidth: 65,
+					    	 width: 75,
 					    	 name : "precheck",
 					    	 xtype : 'checkbox',
 					    	 listeners : {
@@ -141,9 +141,9 @@ request.setAttribute("username", userName); */
 					    		 }
 					    	 }
 					     },{
-					    	 fieldLabel: "检票中", 
-					    	 labelWidth: 55,
-					    	 width: 65,
+					    	 fieldLabel: "|&nbsp;&nbsp;检票中", 
+					    	 labelWidth: 65,
+					    	 width: 75,
 					    	 name : "checking",
 					    	 xtype : 'checkbox',
 					    	 listeners : {
@@ -162,8 +162,8 @@ request.setAttribute("username", userName); */
 					    	 }
 					    	// checked : true
 					     },{
-					    	 fieldLabel: "已截止", 
-					    	 labelWidth: 55,
+					    	 fieldLabel: "|&nbsp;&nbsp;已截止", 
+					    	 labelWidth: 65,
 					    	 width: 100,
 					    	 name : "finished",
 					    	 xtype : 'checkbox',
