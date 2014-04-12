@@ -170,6 +170,11 @@ public class TicketServiceImpl implements TicketService {
 	public int countRemainSeatBySchid(Integer scheduleid) {
 		return this.ticketBeanMapper.countRemainSeatBySchid(scheduleid);
 	}
+
+	@Override
+	public int updateCheck(Integer ticketid) {
+		return this.ticketBeanMapper.updateCheck(ticketid);
+	}
     
 	
 

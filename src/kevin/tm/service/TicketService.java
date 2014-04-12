@@ -89,4 +89,6 @@ public interface TicketService {
     int countByScheduleid(Integer scheduleid);
     
     int countRemainSeatBySchid(Integer scheduleid);
+    
+    int updateCheck(Integer ticketid);
 }

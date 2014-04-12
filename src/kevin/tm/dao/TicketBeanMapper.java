@@ -114,4 +114,6 @@ public interface TicketBeanMapper {
     //查询该班次座位总数
     @Select("select seatcount from bus where busid in (select schedulebusid from routeschedule where scheduleid = #{scheduleid})")
     int getTotalSeats(@Param("scheduleid")int scheduleid);
+    @Select("update ticket set checked=true where ticketid=${ticketid}")
+    int updateCheck(@Param("ticketid")int ticketid);
 }

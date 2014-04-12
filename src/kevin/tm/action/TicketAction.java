@@ -73,6 +73,20 @@ public class TicketAction extends BaseAction<TicketBean> {
 		return MAP;
 	}
 
+	
+    public String updatecheck(){
+    	int ticketid = Integer.parseInt(request.getParameter("message"));
+    	int row = this.service.updateCheck(ticketid);
+    	this.map = new HashMap<String, Object>();
+    	if(row>0){
+    		this.map.put(SUCCESS, true);
+    	}else{
+    		this.map.put(SUCCESS, false);
+    	}
+    	return MAP;
+    }
+    
+    
 	public String update() {
 		List<Integer> list = new ArrayList<>();
 		TicketBean[] beans = GSON.fromJson(

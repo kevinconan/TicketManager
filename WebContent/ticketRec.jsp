@@ -32,6 +32,40 @@ request.setAttribute("username", userName); */
 		Ext.util.CSS.swapStyleSheet('theme', './ext-4.2.1-Lite/resources/css/ext-all.css');
 	}
 	
+	function checkTicket() {
+	    var rec = Ext.getCmp('ticketGrid').getSelectionModel().getSelection()[0];
+	    Ext.MessageBox.confirm("提示", "请确认检票信息，<br>票号："+rec.get('ticketno')+"<br>票名："+rec.get('tickettitle')+"<br>姓名："+rec.get('customername'), function (btnId) {
+	        if (btnId == 'yes') {
+	        	var msgTip = Ext.MessageBox.show({
+			        title: '提示',
+			        width: 250,
+			        msg: '正在操作请稍后......'
+			    });
+	        	Ext.Ajax.request({
+			        url: 'ticket_updatecheck',
+			        params: { "message": rec.get('ticketid')},
+			        method: 'POST',
+			        success: function (response, options) {
+			            msgTip.hide();
+			            var result = Ext.JSON.decode(response.responseText);
+			            if (result.success) {
+							
+			                Ext.Msg.alert('提示', '操作成功。');
+			                routeScheduleStore.load();
+			            } else {
+			                Ext.Msg.alert('提示', '操作失败！');
+			                routeScheduleStore.load();
+			            }
+			        },
+			        failure: function (response, options) {
+			            msgTip.hide();
+			            Ext.Msg.alert('提示', '删除调度信息请求失败！');
+			            routeScheduleStore.reload();
+			        }
+			    });
+	        }
+	    });
+	}
 	
 	Ext.onReady(function(){
 		//搜索表单
@@ -59,14 +93,37 @@ request.setAttribute("username", userName); */
 					     },{
 					    	 fieldLabel: "已检票", 
 					    	 labelWidth: 55,
-					    	 width: 110,
+					    	 width: 65,
 					    	 name : "checked",
 					    	 xtype : 'checkbox',
-					    	// checked : true
+					    	 listeners : {
+					    		 change : function(){
+					    			 var notcheck = Ext.getCmp('searchForm').getForm().findField('notcheck')
+
+					    			 if(notcheck.getValue()&&this.getValue()){
+					    				 notcheck.setValue(false);
+					    				 }
+					    			 
+					    		 }
+					    	 }
+					     },{
+					    	 fieldLabel: "未检票", 
+					    	 labelWidth: 55,
+					    	 width: 65,
+					    	 name : "notcheck",
+					    	 xtype : 'checkbox',
+					    	 listeners : {
+					    		 change : function(){
+					    			 var checked = Ext.getCmp('searchForm').getForm().findField('checked');
+					    			 if(checked.getValue()&&this.getValue()){
+					    				 checked.setValue(false);
+					    				 }
+					    		 }
+					    	 }
 					     },{
 					    	 fieldLabel: "未开始", 
 					    	 labelWidth: 55,
-					    	 width: 110,
+					    	 width: 65,
 					    	 name : "precheck",
 					    	 xtype : 'checkbox',
 					    	 listeners : {
@@ -86,7 +143,7 @@ request.setAttribute("username", userName); */
 					     },{
 					    	 fieldLabel: "检票中", 
 					    	 labelWidth: 55,
-					    	 width: 110,
+					    	 width: 65,
 					    	 name : "checking",
 					    	 xtype : 'checkbox',
 					    	 listeners : {
@@ -107,7 +164,7 @@ request.setAttribute("username", userName); */
 					     },{
 					    	 fieldLabel: "已截止", 
 					    	 labelWidth: 55,
-					    	 width: 110,
+					    	 width: 100,
 					    	 name : "finished",
 					    	 xtype : 'checkbox',
 					    	// checked : true
@@ -173,7 +230,7 @@ request.setAttribute("username", userName); */
 		      
 		     
 		      var ticketGrid = new Ext.grid.Panel({
-
+						id:'ticketGrid',
 		      			tbar : toolbar_tr,
 		      			bbar : pageToolbar_tr,
 		      			region: 'center',
@@ -194,40 +251,37 @@ request.setAttribute("username", userName); */
 		      				{text: "检票截止时间", width: 80, dataIndex: 'deadline', sortable: true},
 		      				{text: "是否检票", width: 80, dataIndex: 'checked', sortable: true,
 		      					renderer:function(value){
+		      						 if(value){
+		      							return "<span style='color:green'>已检票</span>";
+		      						}else{
+		      							return "<span style='color:red'>未检票</span>";
+		      						}
+		      					}
+		      				},
+		      				
+		      				{text: "操作", width: 80, sortable: true,
+		      					renderer:function(value){
 		      						var checking = Ext.getCmp('searchForm').getForm().findField('checking').getValue();
 		      						var precheck = Ext.getCmp('searchForm').getForm().findField('precheck').getValue();
 		      						var finished = Ext.getCmp('searchForm').getForm().findField('finished').getValue();
 		      						var checked = Ext.getCmp('searchForm').getForm().findField('checked').getValue();
 		      						
 		      						if(checked){
-		      							return '已检票';
+		      							return '';
 		      						}else{
 		      							if(precheck){
 		      								return '未开始';
-		      							}else
-		      							if(checking){
-		      								"<a href='javascript:void(0);' onclick='checkTicket()'>检票</a>";
-		      							}else{
+		      							}
+										 if(checking){
+											 return "<a href='javascript:void(0);' onclick='checkTicket()'>检票</a>";
+		      							}	
+										 if(finished){
 		      								return '已截止';
 		      							}
+		      								return '';
+		      							
 		      							
 		      						}
-		      						
-		      						
-		      						
-		      						/* if(value){
-		      							return '已检票';
-		      						}else if(checking){
-		      							return "<a href='javascript:void(0);' onclick='checkTicket()'>检票</a>";
-		      						}else if(precheck){
-		      							return '未开始';
-		      						} */
-		      					}
-		      				},
-		      				
-		      				{text: "操作", width: 80, sortable: true,
-		      					renderer:function(value){
-		      						return value;
 		      					}		
 		      				},
 		      			],
@@ -453,19 +507,7 @@ request.setAttribute("username", userName); */
 			
 		}
 
-		function showDeleteSchedule() {
-		    //var busList = getStationIdList();
-		    var scheduleList = getSelectionList(ticketGrid,false);
-		    var num = scheduleList.length;
-		    if (num == 0) {
-		        return;
-		    }
-		    Ext.MessageBox.confirm("提示", "您确定要删除所选调度吗？", function (btnId) {
-		        if (btnId == 'yes') {
-		            deleteSchedule(scheduleList);
-		        }
-		    });
-		}
+		
 		
 		
 		function deleteSchedule(scheduleList) {
@@ -635,7 +677,7 @@ request.setAttribute("username", userName); */
 	        url: 'ticketinfo_list',
 	        extraParams:{
 	        	message:formparams
-               
+	        	
             },
 	        reader: {
 	            type: 'json',
@@ -643,7 +685,9 @@ request.setAttribute("username", userName); */
 	            totalProperty: 'totalCount'
 	        }
 	    });
+		ticketGrid.store.currentPage =1;
 		ticketGrid.store.load();
+		
 	}
 	
 	

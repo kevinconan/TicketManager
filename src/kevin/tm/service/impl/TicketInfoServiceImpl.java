@@ -44,7 +44,7 @@ public class TicketInfoServiceImpl implements TicketInfoService {
     public List<Ticketinfo> findByPage(int start, int limit,JsonObject params) {
     	final String clauseString = "concat(ticketid,ticketno,tickettitle,ticketscheduleid,seatno,customername,entrytime,deadline,schedulename,routename,startstationname,starttime,endstationname,endtime,vehicleno) LIKE '%REPLACE_HERE%'";
     	final String relapceString = "REPLACE_HERE";
-    	boolean checked,checking,finished,precheck ;
+    	boolean checked,checking,finished,precheck,notcheck ;
     	
     	StringBuilder searchClause = new StringBuilder();
         //StringBuilder allClause = new StringBuilder();
@@ -52,15 +52,23 @@ public class TicketInfoServiceImpl implements TicketInfoService {
         	checked = false;
         	searchClause.append("true");
         } else {
+        	notcheck = params.get("notcheck").getAsBoolean();
         	checked = params.get("checked").getAsBoolean();
         	checking = params.get("checking").getAsBoolean();
         	finished = params.get("finished").getAsBoolean();
         	precheck = params.get("precheck").getAsBoolean();
+        	
             String[] searchKeys = params.get("searchKey").getAsString().trim().split("\\s+");
             for (String key : searchKeys) {
                 searchClause.append(clauseString.replaceAll(relapceString, key)).append(" and ");
             }
-            searchClause.append(" checked="+checked);
+            if(checked|notcheck){
+            	searchClause.append("checked="+checked);
+            }else{
+            	searchClause.append("true");
+            }
+            
+         //   searchClause.append("true");
             if(checking){
             	searchClause.append(" and (entrytime< now() and deadline>now()) ");
             }else if(finished){
