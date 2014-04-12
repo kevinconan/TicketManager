@@ -7,6 +7,7 @@ import kevin.tm.dao.model.TicketBeanExample;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
 public interface TicketBeanMapper {
@@ -114,6 +115,6 @@ public interface TicketBeanMapper {
     //查询该班次座位总数
     @Select("select seatcount from bus where busid in (select schedulebusid from routeschedule where scheduleid = #{scheduleid})")
     int getTotalSeats(@Param("scheduleid")int scheduleid);
-    /*@Update("update ticket set checked=true where ticketid=${ticketid}")
-    int updateCheck(@Param("ticketid")int ticketid);*/
+    @Update("update ticket set checked=true where ticketid=${ticketid}")
+    int updateCheck(@Param("ticketid")int ticketid);
 }

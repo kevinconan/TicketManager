@@ -179,7 +179,8 @@ public class TicketServiceImpl implements TicketService {
             TicketBeanExample example = new TicketBeanExample();
             example.clear();
             example.createCriteria().andTicketidEqualTo(ticketid);
-		return this.ticketBeanMapper.updateByExample(tb, example);
+	//	return this.ticketBeanMapper.updateByExample(tb, example);
+            return this.ticketBeanMapper.updateCheck(ticketid);
 	}
     
 	
