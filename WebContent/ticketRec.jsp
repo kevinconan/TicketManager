@@ -260,12 +260,14 @@ request.setAttribute("username", userName); */
 		      				},
 		      				
 		      				{text: "操作", width: 80, sortable: true,
-		      					renderer:function(value){
+		      					renderer:function(value, cellmeta, record, rowIndex, columnIndex, store){
 		      						var checking = Ext.getCmp('searchForm').getForm().findField('checking').getValue();
 		      						var precheck = Ext.getCmp('searchForm').getForm().findField('precheck').getValue();
 		      						var finished = Ext.getCmp('searchForm').getForm().findField('finished').getValue();
 		      						var checked = Ext.getCmp('searchForm').getForm().findField('checked').getValue();
-		      						
+		      				//		debugger;
+		      						var t = store.data[rowIndex].get('checked');
+		      						console.log(t);
 		      						if(checked){
 		      							return '';
 		      						}else{
